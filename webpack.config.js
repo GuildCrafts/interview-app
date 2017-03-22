@@ -1,7 +1,9 @@
 const rootDir = __dirname
-const webpack = require('webpack')
+require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const jsonLoader = require('json-loader');
+require('json-loader')
+require('css-loader')
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   template: rootDir + '/src/browser/index.html',
   filename: 'index.html',
@@ -25,8 +27,15 @@ console.log('ROOTDIR::', rootDir);
 module.exports = {
   entry: './src/browser/main.js',
   module: {
-    loaders: [
+    rules: [
       {test:/\.js$/, include: `${rootDir}/src/browser`, loaders: ['babel-loader']},
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader"
+        })
+      },
       {include:  /\.json$/, loaders: ['json-loader']}
     ]
   },
@@ -34,5 +43,5 @@ module.exports = {
     filename: 'bundle.js',
     path: `${rootDir}/public/dist`
   },
-  plugins: [HTMLWebpackPluginConfig]
+  plugins: [HTMLWebpackPluginConfig, new ExtractTextPlugin("styles.css")]
 }

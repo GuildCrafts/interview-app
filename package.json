@@ -19,5 +19,10 @@
     "react-dom": "^15.4.2",
     "webpack": "^2.3.0",
     "webpack-dev-server": "^2.4.2"
+  },
+  "devDependencies": {
+    "css-loader": "^0.27.3",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "style-loader": "^0.16.0"
   }
 }
