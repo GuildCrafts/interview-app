@@ -29,4 +29,17 @@
  {"tags": ["core-javascript"],
   "level": "2",
   "question": "Explain the lifecycle of a web request.",
-  "answer": "Sounds like async to me"}]
+  "answer": "Sounds like async to me"},
+ {"tags": ["core-javascript"],
+  "level": "1",
+  "question": "What is an array?",
+  "answer": " .... "},
+ {"tags": ["core-javascript"],
+  "level": "1",
+  "question": "What is an object?",
+  "answer": " .... "},
+ {"tags": ["sql"],
+  "level": "1",
+  "question": "What is a SQL join?",
+  "answer": " .... "}
+]

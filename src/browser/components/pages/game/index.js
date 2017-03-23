@@ -5,8 +5,7 @@ import questions from '../../../../../data/questions.json'
 export default class Game extends Component {
   constructor() {
     super()
-    this.state = {questions: questions || [],
-                  currentQuestionPosition: 0,
+    this.state = {currentQuestionPosition: 0,
                   answered: [],
                   skipped: [],
                   showAnswer: false}
@@ -62,7 +61,8 @@ export default class Game extends Component {
   }
 
   render() {
-    const {questions, currentQuestionPosition} = this.state
+    const questions = this.props.questions
+    const {currentQuestionPosition} = this.state
     const question = questions[currentQuestionPosition]
 
     let content
@@ -74,13 +74,11 @@ export default class Game extends Component {
     }
 
     return (
-      <div className="uk-container">
-        <div className="uk-card uk-card-default uk-card-body uk-width-1-1 uk-padding">
-          <Scorecard answered={this.state.answered} skipped={this.state.skipped} questions={this.state.questions} />
-          <progress className="uk-progress" value={currentQuestionPosition + 1} max={questions.length}></progress>
-          {content}
-          <hr className="uk-divider-icon" />
-        </div>
+      <div>
+        <Scorecard answered={this.state.answered} skipped={this.state.skipped} questions={this.props.questions} />
+        <progress className="uk-progress" value={currentQuestionPosition + 1} max={questions.length}></progress>
+        {content}
+        <hr className="uk-divider-icon" />
       </div>
     )
   }
