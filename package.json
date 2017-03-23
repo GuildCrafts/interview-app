@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "start": "./node_modules/.bin/babel-node app.js",
     "start:dev": "./node_modules/.bin/webpack-dev-server --content-base public/dist/ --port 3000",
     "prod": "./node_modules/.bin/babel-node app.js",
     "heroku-postbuild": "webpack -p --progress --colors",
