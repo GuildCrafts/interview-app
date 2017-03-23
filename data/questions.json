@@ -26,7 +26,7 @@
   "level": "2",
   "question": "What is a middleware?",
   "answer": "Sounds like async to me"},
- {"tags": ["core-javascript"],
+ {"tags": ["http"],
   "level": "2",
   "question": "Explain the lifecycle of a web request.",
   "answer": "Sounds like async to me"},

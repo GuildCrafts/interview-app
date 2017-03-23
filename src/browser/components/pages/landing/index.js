@@ -9,24 +9,18 @@ require('../../../../../public/stylesheets/uikit.min.css')
 const findTagsAndLevels = () => {
   const tags = uniq(flatMap(questions.map(question => question.tags))).sort()
   const levels = uniq(questions.map(question => question.level)).sort()
-  return {tags, levels}
+  return {tags: ['any'].concat(tags), levels: ['any'].concat(levels)}
 }
 
 const filterQuestions = (questions, tag, level) => {
   let q = shuffle(questions)
-  console.log('questions::', q, tag, level)
-  if(tag === 'all' && level === 'any') {
-    console.log('entered 1')
+  if(tag === 'any' && level === 'any') {
     return take(q, 7)
-  } else if( tag === 'all') {
-    console.log('entered 2')
+  } else if( tag === 'any') {
     return q.filter(question => question.level === level)
   } else if (level === 'any') {
-    console.log('entered 3')
     return q.filter(question => question.tags.includes(tag))
   } else {
-    console.log('questions before filter:', q)
-    console.log('entered 4', level, q[0].level, typeof(level), typeof(q[0].level))
     return q.filter(question => question.level === level &&  question.tags.includes(tag))
   }
 }
