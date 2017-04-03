@@ -2,7 +2,7 @@ import { getEnv } from '../config/config'
 
 const makeKnexConfig = env => {
   const connectionString = process.env.DATABASE_URL ||
-   `postgres://${process.env.USER}@localhost:5432/interview-app-${env}`
+   `postgres://${process.env.USER}@localhost:5432/interviewdb`
 
   return {
     client: 'postgresql',
@@ -21,6 +21,6 @@ const makeKnexConfig = env => {
   }
 }
 
-const knexConfig = makeKnexConfig( 'development' )
+const knexConfig = makeKnexConfig( getEnv() )
 
 module.exports = knexConfig
