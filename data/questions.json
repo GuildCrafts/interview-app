@@ -41,23 +41,23 @@
  {"tags": ["sql"],
   "level": "1",
   "question": "What is a SQL select?",
-  "answer": "A statement used to fetch data from a database table which returns data as result-sets"}
+  "answer": "A statement used to fetch data from a database table which returns data as result-sets"},
  {"tags": ["sql"],
   "level": "1",
   "question": "What is a SQL join?",
-  "answer": "A clause that combines rows from two or more tables, based on a related column between them"}
+  "answer": "A clause that combines rows from two or more tables, based on a related column between them"},
  {"tags": ["sql"],
   "level": "1",
   "question": "What is a SQL left (outer) join?",
-  "answer": "Returns all records from the left table, and the matched records from the right table"}
+  "answer": "Returns all records from the left table, and the matched records from the right table"},
  {"tags": ["sql"],
   "level": "1",
   "question": "What is a SQL inner join?",
-  "answer": "Returns records that have matching values in both tables"}
+  "answer": "Returns records that have matching values in both tables"},
  {"tags": ["sql"],
   "level": "1",
   "question": "What is a SQL right (outer) join?",
-  "answer": "Returns all records from the right table, and the matched records from the left table"}
+  "answer": "Returns all records from the right table, and the matched records from the left table"},
  {"tags": ["sql"],
   "level": "1",
   "question": "What is a SQL group by?",
