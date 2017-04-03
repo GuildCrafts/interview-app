@@ -12,6 +12,9 @@ The Solo Mode will be linked to the	[matrix](http://matrix.apps.learnersguild.or
 ### Context
 Practicing mock interviews helps the Candidate develop skills for answering technical question during the interview process while lowering testing anxiety. It also helps the Interviewer gain perspective on desired qualities in candidates.
 
+## Specifications
+Specifications and requirements will be assigned based on the items in backlog within the Development project (see the projects tab of the interview-app repository).
+
 ### Setup instructions
  Install all dependencies by running this in a terminal window
 ```bash
