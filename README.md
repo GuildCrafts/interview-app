@@ -7,7 +7,7 @@ Build the data model and database that will include multiple game modes. It is r
 
 When complete, you’ll have an API for working with multiple game modes with database persistence.
 
-The Solo Mode will be linked to the matrix, where individuals can self assess if they are competent in each section, before checking it off.
+The Solo Mode will be linked to the	[matrix](http://matrix.apps.learnersguild.org/), where individuals can self assess if they are competent in each section, before checking it off.
 
 ### Context
 Practicing mock interviews helps the Candidate develop skills for answering technical question during the interview process while lowering testing anxiety. It also helps the Interviewer gain perspective on desired qualities in candidates.
