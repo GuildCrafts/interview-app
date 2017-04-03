@@ -1,5 +1,17 @@
 # Interview App
 
+### Description
+Build an app that will tests learner's knowledge of programming by creating an interactive mock interview between two players.
+
+Build the data model and database that will include multiple game modes. It is recommended that you use a relational, open-source data store like PostgreSQL.
+
+When complete, you’ll have an API for working with multiple game modes with database persistence.
+
+The Solo Mode will be linked to the matrix, where individuals can self assess if they are competent in each section, before checking it off.
+
+### Context
+Practicing mock interviews helps the Candidate develop skills for answering technical question during the interview process while lowering testing anxiety. It also helps the Interviewer gain perspective on desired qualities in candidates.
+
 ### Setup instructions
  Install all dependencies by running this in a terminal window
 ```bash
@@ -16,5 +28,3 @@ Run this in a terminal window
 - Fork the repo
 - Add the questions to the file `data/questions.json`. Make sure the questions are tagged with the appropriate `tags`, and `level`.
 - Create a Pull Request from your forked repo against the master branch of this repo.
-
-
