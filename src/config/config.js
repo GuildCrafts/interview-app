@@ -2,7 +2,6 @@ import pg from 'pg'
 import fs from 'fs'
 import path from 'path'
 
-
 const getEnv = () =>
   process.env.NODE_ENV || 'development'
 
@@ -11,9 +10,6 @@ const envPath = '.env.' + getEnv()
 if ( fs.existsSync(envPath) ) {
   require('dotenv').config({path: `${envPath}`})
 }
-
-const connectionString = process.env.DATABASE_URL
-
 
 let config
 
