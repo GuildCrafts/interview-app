@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import { BrowserRouter, Route } from 'react-router-dom'
 import Landing from '../../components/Pages/Landing/index'
 
-export default class Root extends Component {
+export default class Routes extends Component {
   render() {
     return (
       <BrowserRouter>

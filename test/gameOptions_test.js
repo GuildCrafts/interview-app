@@ -9,5 +9,4 @@ describe('<GameOptions />', () => {
     const wrapper = shallow(<GameOptions />)
     expect(wrapper.find('.uk-form-horizontal'))
   })
-
 })
