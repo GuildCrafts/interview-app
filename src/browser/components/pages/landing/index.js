@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
+import {uniq, flatMap, take, shuffle} from 'lodash'
+
 import Game from '../game/index'
 import GameOptions from '../../molecules/game-options/index'
 import questions from '../../../../../data/questions.json'
-import {uniq, flatMap, take, shuffle} from 'lodash'
+import Header from '../../molecules/header/index'
 
 require('../../../../../public/stylesheets/uikit.min.css')
 
@@ -46,6 +48,7 @@ export default class Landing extends Component {
 
     return (
       <div className="uk-container">
+        <Header />
         <div className="uk-card uk-card-default uk-card-body uk-width-1-1 uk-padding">
           {content}
         </div>

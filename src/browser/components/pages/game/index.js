@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+
 import Scorecard from '../../molecules/scorecard/index'
 import questions from '../../../../../data/questions.json'
 

@@ -37,11 +37,17 @@ module.exports = {
         })
       },
       {include:  /\.json$/, loaders: ['json-loader']}
-    ]
+    ],
   },
   output: {
     filename: 'bundle.js',
     path: `${rootDir}/public/dist`
+  },
+  externals: {
+    'cheerio': 'window',
+    'react/addons': true,
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true
   },
   plugins: [HTMLWebpackPluginConfig, new ExtractTextPlugin("styles.css")]
 }
