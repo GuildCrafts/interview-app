@@ -9,8 +9,8 @@ Setting up Knex & creating tables
 - [ ] [Issue #20:](https://github.com/GuildCrafts/interview-app/issues/20) Create Database Schema
 - [ ] [Issue #1:](https://github.com/GuildCrafts/interview-app/issues/1) Create candidate table
 - [ ] [Issue #21:](https://github.com/GuildCrafts/interview-app/issues/21) Create questions table
-- [ ] [Issue #21:](https://github.com/GuildCrafts/interview-app/issues/21) Create questions table
-- [ ] [Issue #21:](https://github.com/GuildCrafts/interview-app/issues/21) Create questions table
+- [ ] [Issue #28:](https://github.com/GuildCrafts/interview-app/issues/28) Create go file
+- [ ] [Issue #29:](https://github.com/GuildCrafts/interview-app/issues/29) Setup Istanbul NYC
 
 ## Quality
 * Making sure all tests pass.
