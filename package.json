@@ -7,7 +7,7 @@
     "start:dev": "./node_modules/.bin/webpack-dev-server --content-base public/dist/ --port 3000",
     "prod": "./node_modules/.bin/babel-node app.js",
     "heroku-postbuild": "webpack -p --progress --colors",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --compilers js:babel-core/register --recursive test"
   },
   "author": "",
   "license": "MIT",
@@ -30,5 +30,11 @@
     "style-loader": "^0.16.0",
     "webpack": "^2.3.0",
     "webpack-dev-server": "^2.4.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "enzyme": "^2.8.0",
+    "mocha": "^3.2.0",
+    "react-addons-test-utils": "^15.4.2"
   }
 }
