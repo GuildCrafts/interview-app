@@ -1,40 +1,40 @@
 import knex from '../db.js'
 
-const Things = {
-  createThing: (table, attributes) => {
-    knex
+const utilities = {
+  create: (table, attributes) => {
+    return knex
       .table(table)
       .insert(attributes)
       .returning('*')
   },
 
   findAllWhere: (table, column, data) => {
-    knex
+    return knex
       .table(table)
       .where(column, data)
       .returning('*')
   },
 
   findAll: () => {
-    knex
+    return knex
       .table(table)
       .returning('*')
   },
 
-  updateThing: (table, column, data, attributes) => {
-    knex
+  update: (table, column, data, attributes) => {
+    return knex
       .table(table)
       .where(column, data)
       .update(attributes)
-      .returning(1)
+      .returning('*')
   },
 
-  deleteThing: (table, column, data) => {
-    knex
+  delete: (table, column, data) => {
+    return knex
       .table(table)
       .where(column, data)
       .del()
   }
 }
 
-module.exports = Things
+module.exports = utilities
