@@ -1,6 +1,5 @@
 import knex from '../db.js'
 import utilities from './utilities'
-// console.log(utilities);
 
 const create = attributes =>
   utilities.create('users', attributes)

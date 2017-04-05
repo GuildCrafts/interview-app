@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai'
 import * as user from '../src/database/queries/users'
 
-describe('user', () => {
+describe('User Tests', () => {
   const newUser = [
     {
       name: "Dongle McDongleface",
