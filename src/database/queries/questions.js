@@ -13,8 +13,8 @@ const findbyTopic = ( data ) =>
   utilities.findAllWhere('questions', 'topic', data)
   .then(question => question)
 
-const findbyDifficulty = ( data ) =>
-  utilities.findAllWhere('questions', 'difficulty', data)
+const findbyLevel = ( data ) =>
+  utilities.findAllWhere('questions', 'level', data)
   .then(question => question)
 
 const updatebyTag = ( data, attributes ) =>
@@ -25,8 +25,8 @@ const updatebyTopic = ( data, attributes ) =>
   utilities.update( 'questions', 'topic', data, attributes)
   .then(question => question)
 
-  const updatebyDifficulty = ( data, attributes ) =>
-    utilities.update( 'questions', 'difficulty', data, attributes)
+  const updatebyLevel = ( data, attributes ) =>
+    utilities.update( 'questions', 'level', data, attributes)
     .then(question => question)
 
     const deleteByQuestion = ( data, attributes ) =>
@@ -37,8 +37,8 @@ const updatebyTopic = ( data, attributes ) =>
       utilities.delete( 'questions', 'topic', data, attributes)
       .then(question => question)
 
-      const deleteByDifficulty = ( data, attributes ) =>
-        utilities.delete( 'questions', 'difficulty', data, attributes)
+      const deleteByLevel = ( data, attributes ) =>
+        utilities.delete( 'questions', 'level', data, attributes)
         .then(question => question)
 
 
@@ -47,11 +47,11 @@ export {
   create,
   findbyTag,
   findbyTopic,
-  findbyDifficulty,
+  findbyLevel,
   updatebyTag,
   updatebyTopic,
-  updatebyDifficulty,
+  updatebyLevel,
   deleteByQuestion,
   deleteByTopic,
-  deleteByDifficulty
+  deleteByLevel
 }

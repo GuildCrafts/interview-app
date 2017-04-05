@@ -13,7 +13,7 @@ Create an app that has two player roles; the candidate and the interviewer. Even
 - [ ] Start page where user can select:
  - Game mode
  - Player role
- - Difficulty
+ - Level
  - Topic
 
 
@@ -43,7 +43,7 @@ Create an app that has two player roles; the candidate and the interviewer. Even
 - average time to answer question
 
 2) Questions:
-- difficulty/level
+- level
 - topic
 - point value
 - time limit

@@ -1,27 +1,28 @@
 import chai, { expect } from 'chai'
-import * as question from '../src/database/queries/questions'
+import * as question from '../../../src/database/queries/questions'
+
+//fixing the ability to add multiple things to db
+//test database
+
 
 describe('Question Tests', () => {
   const newQuestion = [
     {
       tags: "existentialism",
       question: "What is the number that represents the meaning of life",
-      level: "yes",
-      topic: "true facts",
+      level: "10",
       answer: "42"
     },
     {
       tags: "woodchuckin'",
       question: "How much wood could a woodchuck chuck if a woodchuck could chuck wood",
-      level: "NOPE",
-      topic: "free response",
+      level: "9",
       answer: "a lot"
     },
     {
       tags: "Don't let Shereef see this",
       question: "What is the most inefficient algorithm",
-      level: "ehhh",
-      topic: "Painful truths",
+      level: "0",
       answer: "THE ALGORITHM"
     }
   ]
@@ -45,31 +46,20 @@ describe('Question Tests', () => {
         .then( () => {
           return question.findbyTag( "woodchuckin'" )
           .then( question => {
-            expect(question[0].topic).to.equal('free response')
+            expect(question[0].level).to.equal('9')
           })
         })
     })
   })
 
-  describe('find by Topic', () => {
-    it('should find a question by the topic', () => {
-      return question.create( newQuestion[2] )
-        .then( () => {
-          return question.findbyTopic( "Painful truths" )
-          .then( question => {
-            expect(question[0].tags).to.equal("nothing to see here")
-          })
-        })
-    })
-  })
 
   describe('find by Level', () => {
     it('should find a question by the level', () => {
       return question.create( newQuestion[1] )
         .then( () => {
-          return question.findbyLevel( "NOPE" )
+          return question.findbyLevel( "9" )
           .then( question => {
-            expect(question[0].topic).to.equal("free response")
+            expect(question[0].tags).to.equal("woodchuckin'")
           })
         })
     })
@@ -87,25 +77,26 @@ describe('Question Tests', () => {
     })
   })
 
-  describe('update by Topic', () => {
-    it('should update a question by the topic', () => {
-      return question.create( newQuestion[0] )
-        .then( () => {
-          return question.updatebyTopic( "true facts", {tags: "life"} )
-          .then( question => {
-            expect(question[0].tags).to.equal("life")
-          })
-        })
-    })
-  })
+  // describe('Multiple Tags', () => {
+  //   it('should store tags into an array when more than one exist', () => {
+  //     return question.create( newQuestion[1] )
+  //       .then( () => {
+  //         return question.updatebyTag("woodchuckin'", {tags: 'things', tags: 'stuff'})
+  //         .then( question => {
+  //           console.log('tags--->', question[0].tags)
+  //           expect(question[0].tags).to.equal("things")
+  //         })
+  //       })
+  //   })
+  // })
 
   describe('update by Level', () => {
     it('should update a question by the level', () => {
       return question.create( newQuestion[2] )
         .then( () => {
-          return question.updatebyLevel( "ehhh", {tags: "nothing to see here"} )
+          return question.updatebyLevel( '0', {level: '1000'} )
           .then( question => {
-            expect(question[0].tags).to.equal("nothing to see here")
+            expect(question[0].level).to.equal('1000')
           })
         })
     })
@@ -123,17 +114,6 @@ describe('Question Tests', () => {
     })
   })
 
-  describe('delete by Topic', () => {
-    it('should delete by topic', () => {
-      return question.create( newQuestion[0] )
-        .then( () => {
-          return question.deleteByTopic( "existentialism" )
-          .then( question => {
-            expect(question[0]).to.equal( undefined )
-          })
-        })
-    })
-  })
 
   describe('delete by Level', () => {
     it('should delete by level', () => {
