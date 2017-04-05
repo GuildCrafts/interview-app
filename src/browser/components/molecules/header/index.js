@@ -11,7 +11,6 @@ export default class Header extends Component {
   }
 
   render() {
-    console.log(this.props.stats)
     return (
       <div>
         <nav className="uk-navbar">
