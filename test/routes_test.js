@@ -14,16 +14,16 @@ import Scorecard from '../src/browser/components/molecules/scorecard/index'
 import SelectTag from '../src/browser/components/atoms/select-tag/index'
 import GameOptions from '../src/browser/components/molecules/game-options/index'
 
-import Foo from '../src/browser/components/foo'
-
 describe('<Routes />', () => {
   it('should render correct routes', () => {
     const wrapper = shallow( < Routes / > )
     const pathMap = wrapper.find(Route).reduce((pathMap, route) => {
       const routeProps = route.props()
       pathMap[routeProps.path] = routeProps.component
+      // console.log('path map::', pathMap)
       return pathMap;
     }, {})
     expect(pathMap['/'].toString()).to.equal(Landing.toString())
+    console.log('the function for the landing component', pathMap['/'].toString())
   })
 })
