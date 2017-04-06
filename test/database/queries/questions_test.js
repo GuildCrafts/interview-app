@@ -1,27 +1,23 @@
 import chai, { expect } from 'chai'
 import * as question from '../../../src/database/queries/questions'
 
-//fixing the ability to add multiple things to db
-//test database
-
-
 describe('Question Tests', () => {
   const newQuestion = [
     {
-      tags: ["existentialism", "midlife-crisis"],
       question: "What is the number that represents the meaning of life",
+      tags: ["existentialism", "midlife-crisis"],
       level: "10",
       answer: "42"
     },
     {
-      tags: ["woodchuckin", "pepperoni"],
       question: "How much wood could a woodchuck chuck if a woodchuck could chuck wood",
+      tags: ["woodchuckin", "pepperoni"],
       level: "9",
       answer: "a lot"
     },
     {
-      tags: ["Don't let Shereef see this"],
       question: "What is the most inefficient algorithm",
+      tags: ["Don't let Shereef see this", "BubbleSort"],
       level: "0",
       answer: "THE ALGORITHM"
     }
@@ -48,7 +44,7 @@ describe('Question Tests', () => {
           return question.findbyTag(["woodchuckin", "existentialism"])
           .then( question => {
             expect(question[0].level).to.equal('10')
-            expect(question[0].tags[1]).to.equal('pepperoni')
+            expect(question[1].tags[1]).to.equal('pepperoni')
             expect(question.length).to.equal(2)
           })
         })
@@ -68,11 +64,11 @@ describe('Question Tests', () => {
     })
   })
 
-  describe('update by Tag', () => {
+  describe('update by ID', () => {
     it('should update a question by the tag', () => {
       return question.create( newQuestion[1] )
         .then( () => {
-          return question.updatebyTag( ["woodchuckin"], {question: 'why do you want to become a full stack developer', answer: "pancakes"} )
+          return question.updatebyID( 2, {question: 'why do you want to become a full stack developer', answer: "pancakes"} )
           .then( question => {
             expect(question[0].answer).to.equal("pancakes")
           })
@@ -80,18 +76,6 @@ describe('Question Tests', () => {
     })
   })
 
-  // describe('Multiple Tags', () => {
-  //   it('should store tags into an array when more than one exist', () => {
-  //     return question.create( newQuestion[1] )
-  //       .then( () => {
-  //         return question.updatebyTag("woodchuckin", {tags: 'things', tags: 'stuff'})
-  //         .then( question => {
-  //           console.log('tags--->', question[0].tags)
-  //           expect(question[0].tags).to.equal("things")
-  //         })
-  //       })
-  //   })
-  // })
 
   describe('update by Level', () => {
     it('should update a question by the level', () => {

@@ -14,7 +14,7 @@ const utilities = {
       .where(column, data)
       .returning('*')
   },
-  
+
   findAllWhereRaw: (table, rawSql) => {
     return knex
       .table(table)
@@ -27,6 +27,7 @@ const utilities = {
       .table(table)
       .returning('*')
   },
+
 
   update: (table, column, data, attributes) => {
     return knex

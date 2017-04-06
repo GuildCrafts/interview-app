@@ -7,6 +7,9 @@ const create = attributes => {
   .then(question => question)
 }
 
+const findbyID = ( data ) =>
+  utilities.findAllWhere('questions', 'id', data)
+  .then(question => question)
 
 const findbyTag = ( tags ) => {
   let whereClauses = tags.map(tag => "tags @> '" + JSON.stringify([tag]) + "'")
@@ -15,16 +18,12 @@ const findbyTag = ( tags ) => {
   .then(question => question)
 }
 
-// const findbyTopic = ( data ) =>
-//   utilities.findAllWhere('questions', 'topic', data)
-//   .then(question => question)
-
 const findbyLevel = ( data ) =>
   utilities.findAllWhere('questions', 'level', data)
   .then(question => question)
 
-const updatebyTag = ( data, attributes ) =>
-  utilities.update( 'questions', 'tags', data, attributes)
+const updatebyID = ( data, attributes ) =>
+  utilities.update( 'questions', 'id', data, attributes)
   .then(question => question)
 
 const updatebyTopic = ( data, attributes ) =>
@@ -52,8 +51,9 @@ const updatebyTopic = ( data, attributes ) =>
 export {
   create,
   findbyTag,
+  findbyID,
   findbyLevel,
-  updatebyTag,
+  updatebyID,
   updatebyLevel,
   deleteByQuestion,
   deleteByTopic,
