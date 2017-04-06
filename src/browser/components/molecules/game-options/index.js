@@ -29,7 +29,7 @@ export default class GameOptions extends Component {
             <SelectTag options={levels} label="Level:" onChange={this.handleChange.bind(this, 'level')} />
             <SelectTag options={tags} label="Tag:" onChange={this.handleChange.bind(this, 'tag')} />
           </fieldset>
-          <button className="uk-button uk-button-primary" >Submit</button>
+          <button className="uk-button uk-button-primary" >Submits</button>
         </form>
       </div>
     )
