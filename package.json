@@ -11,7 +11,6 @@
     "prod": "./node_modules/.bin/babel-node app.js",
     "heroku-postbuild": "webpack -p --progress --colors",
     "test": "NODE_ENV=test ./node_modules/.bin/nyc ./node_modules/.bin/mocha --require babel-register ./test/*"
-
   },
 
   "author": "",
@@ -27,6 +26,7 @@
     "extract-text-webpack-plugin": "^2.1.0",
     "fs": "0.0.1-security",
     "html-webpack-plugin": "^2.28.0",
+    "ignore-styles": "^5.0.1",
     "json-loader": "^0.5.4",
     "knex": "^0.12.9",
     "lodash": "^4.17.4",
@@ -34,6 +34,8 @@
     "pg": "^6.1.5",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0",
     "react-uikit-flex": "^2.0.3",
     "style-loader": "^0.16.0",
     "webpack": "^2.3.0",

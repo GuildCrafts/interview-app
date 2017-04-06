@@ -38,7 +38,8 @@ export default class Landing extends Component {
     this.setState(state)
   }
 
-  render() {
+  render(params) {
+    console.log('params')
     const tagsAndLevels = findTagsAndLevels()
     const filteredQuestions = filterQuestions(questions, this.state.tag, this.state.level)
 
