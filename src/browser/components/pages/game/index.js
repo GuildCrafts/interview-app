@@ -81,7 +81,6 @@ export default class Game extends Component {
         <Scorecard answered={this.state.answered} skipped={this.state.skipped} questions={this.props.questions} />
         <progress className="uk-progress" value={currentQuestionPosition + 1} max={questions.length}></progress>
         {content}
-        <hr className="uk-divider-icon" />
         <div className="uk-container-center uk-margin uk-width-1-1">
           <textarea className="uk-textarea" placeholder="Submit your interview notes here..."></textarea>
         </div>
