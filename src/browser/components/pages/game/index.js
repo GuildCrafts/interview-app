@@ -54,7 +54,6 @@ export default class Game extends Component {
           </div>
           {this.answerJSX(question)}
         </div>
-
       )
   }
 
