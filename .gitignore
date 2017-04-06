@@ -30,7 +30,13 @@ node_modules
 npm-debug.log
 
 # ignore the dist folder that webpack creates for are react app.
-public/dist/
+public/dist/*
+
+# allow
+!public/dist/jquery.js
+!public/dist/uikit.js
+!public/dist/uikit.min.js
+!public/dist/uikit.min.css
 
 .env
 .DS_Store
