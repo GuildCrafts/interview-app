@@ -8,7 +8,7 @@ import GameOptions from '../../molecules/game-options/index'
 import questions from '../../../../../data/questions.json'
 import Header from '../../molecules/header/index'
 
-require('../../../../../public/stylesheets/uikit.min.css')
+// require('../../../../../public/stylesheets/uikit.min.css')
 
 const findTopicsAndDifficulty = () => {
   const topics = uniq(flatMap(questions.map(question => question.topics))).sort()

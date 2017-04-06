@@ -1,5 +1,3 @@
-// in server.js
-
 import express from 'express'
 import authInitialize from './src/config/auth'
 import cookieParser from 'cookie-parser'
