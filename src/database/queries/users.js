@@ -6,7 +6,7 @@ const create = attributes =>
   .then(user => user)
 
 const findbyGithub = ( data ) =>
-  utilities.findAllWhere('users', 'github', data)
+  utilities.findAllWhere('users', 'github_handle', data)
   .then(user => user)
 
 const findbyName = ( data ) =>
@@ -14,7 +14,7 @@ const findbyName = ( data ) =>
   .then(user => user)
 
 const updatebyGithub = ( data, attributes ) =>
-  utilities.update('users', 'github', data, attributes)
+  utilities.update('users', 'github_handle', data, attributes)
   .then(user => user)
 
 const updatebyName = ( data, attributes ) =>
@@ -22,7 +22,7 @@ const updatebyName = ( data, attributes ) =>
   .then(user => user)
 
 const deletebyGithub = ( data ) =>
-  utilities.delete('users', 'github', data)
+  utilities.delete('users', 'github_handle', data)
   .then(user => user)
 
 const deletebyName = ( data ) =>

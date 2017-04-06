@@ -5,7 +5,8 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('users', function(table) {
       table.increments('id').primary();
       table.string('name');
-      table.string('github');
+      table.string('github_handle');
+      table.boolean('approver');
     }),
 
     knex.schema.createTable('questions', function(table) {
@@ -14,7 +15,8 @@ exports.up = function(knex, Promise) {
       table.string('question');
       table.string('level');
       table.string('answer');
-      table.string('prompts')
+      table.integer('score');
+      table.specificType('prompts', 'jsonb')
     })
   ])
 

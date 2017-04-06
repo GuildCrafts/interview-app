@@ -3,6 +3,7 @@ import utilities from './utilities'
 
 const create = attributes => {
   attributes.tags = JSON.stringify(attributes.tags)
+  attributes.prompts = JSON.stringify(attributes.prompts)
   return utilities.create('questions', attributes)
   .then(question => question)
 }
@@ -26,9 +27,6 @@ const updatebyID = ( data, attributes ) =>
   utilities.update( 'questions', 'id', data, attributes)
   .then(question => question)
 
-const updatebyTopic = ( data, attributes ) =>
-  utilities.update( 'questions', 'topic', data, attributes)
-  .then(question => question)
 
   const updatebyLevel = ( data, attributes ) =>
     utilities.update( 'questions', 'level', data, attributes)
@@ -38,9 +36,6 @@ const updatebyTopic = ( data, attributes ) =>
       utilities.delete( 'questions', 'question', data, attributes)
       .then(question => question)
 
-    const deleteByTopic = ( data, attributes ) =>
-      utilities.delete( 'questions', 'topic', data, attributes)
-      .then(question => question)
 
       const deleteByLevel = ( data, attributes ) =>
         utilities.delete( 'questions', 'level', data, attributes)
@@ -56,6 +51,5 @@ export {
   updatebyID,
   updatebyLevel,
   deleteByQuestion,
-  deleteByTopic,
   deleteByLevel
 }
