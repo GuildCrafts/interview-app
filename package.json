@@ -10,10 +10,8 @@
     "migrate:rollback": "babel-node ./node_modules/.bin/knex --knexfile ./src/database/knexfile.js migrate:rollback",
     "prod": "./node_modules/.bin/babel-node app.js",
     "heroku-postbuild": "webpack -p --progress --colors",
-    "test": "mocha --require babel-register ./tests/*.js",
-    "migrate": "babel-node ./node_modules/.bin/knex --knexfile ./src/database/knexfile.js migrate:latest",
-    "migrate:make": "babel-node ./node_modules/.bin/knex --knexfile ./src/database/knexfile.js migrate:make",
-    "migrate:rollback": "babel-node ./node_modules/.bin/knex --knexfile ./src/database/knexfile.js migrate:rollback"
+    "test": "NODE_ENV=test ./node_modules/.bin/nyc ./node_modules/.bin/mocha --require babel-register ./test/database/queries/*.js"
+
 
   },
 
