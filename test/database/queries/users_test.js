@@ -5,15 +5,18 @@ describe('User Tests', () => {
   const newUser = [
     {
       name: "Dongle McDongleface",
-      github: '@donglyboy69'
+      github_handle: '@donglyboy69',
+      approver: true
     },
     {
       name: "Armand Hammer",
-      github: "@bakes4soda"
+      github_handle: "@bakes4soda",
+      approver: false
     },
     {
       name: "Becky Fast",
-      github: "@ihop4pancakes"
+      github_handle: "@ihop4pancakes",
+      approver: true
     }
   ]
 
@@ -24,9 +27,10 @@ describe('User Tests', () => {
 describe('create', () => {
 
   it('Should create data in the users table', () => {
-    return user.create(newUser[0]).then( user =>
+    return user.create(newUser[0]).then( user => {
       expect(user[0].name).to.equal('Dongle McDongleface')
-    )
+      expect(user[0].approver).to.equal(true)
+    })
   })
 })
 
@@ -50,7 +54,7 @@ describe('FindbyGithub', () => {
       .then ( () => {
         return user.findbyName('Becky Fast')
         .then( user => {
-            expect(user[0].github).to.equal('@ihop4pancakes')
+            expect(user[0].github_handle).to.equal('@ihop4pancakes')
           })
         })
       })
@@ -74,9 +78,9 @@ describe('FindbyGithub', () => {
     it('Should update the table by name after a new user is created', () => {
       return user.create(newUser[0])
       .then ( () => {
-        return user.updatebyName('Dongle McDongleface', {github: '@dingledongle12'})
+        return user.updatebyName('Dongle McDongleface', {github_handle: '@dingledongle12'})
         .then( user => {
-            expect(user[0].github).to.equal('@dingledongle12')
+            expect(user[0].github_handle).to.equal('@dingledongle12')
           })
         })
       })

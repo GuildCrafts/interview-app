@@ -7,19 +7,25 @@ describe('Question Tests', () => {
       question: "What is the number that represents the meaning of life",
       tags: ["existentialism", "midlife-crisis"],
       level: "10",
-      answer: "42"
+      answer: "42",
+      prompts: ["Hitchhiking", "Galaxy"],
+      score: 12
     },
     {
       question: "How much wood could a woodchuck chuck if a woodchuck could chuck wood",
       tags: ["woodchuckin", "pepperoni"],
       level: "9",
-      answer: "a lot"
+      answer: "a lot",
+      prompts: ["Wisconsin", "Wood"],
+      score: 20
     },
     {
       question: "What is the most inefficient algorithm",
-      tags: ["Don't let Shereef see this", "BubbleSort"],
+      tags: ["Don't let Shereef see this", "MachineLearning"],
       level: "0",
-      answer: "THE ALGORITHM"
+      answer: "THE ALGORITHM",
+      prompts: ["BubbleSort", "LearnersGuild", "#LGPROBLEMS"],
+      score: 1
     }
   ]
 
@@ -33,6 +39,7 @@ describe('Question Tests', () => {
         .then( question => {
           expect(question[0].question).to.equal('What is the number that represents the meaning of life')
           expect(question[0].tags).to.eql(["existentialism", "midlife-crisis"])
+          expect(question[0].score).to.eql(12)
         })
     })
   })
@@ -64,8 +71,20 @@ describe('Question Tests', () => {
     })
   })
 
+  describe('find by ID', () => {
+    it('should find a question by the ID', () => {
+      return question.create( newQuestion[1] )
+        .then( () => {
+          return question.findbyID( 1 )
+          .then( question => {
+            expect(question[0].tags[0]).to.equal("existentialism")
+          })
+        })
+    })
+  })
+
   describe('update by ID', () => {
-    it('should update a question by the tag', () => {
+    it('should update a question by the id', () => {
       return question.create( newQuestion[1] )
         .then( () => {
           return question.updatebyID( 2, {question: 'why do you want to become a full stack developer', answer: "pancakes"} )
