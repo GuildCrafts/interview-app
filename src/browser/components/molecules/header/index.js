@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import flex from 'react-uikit-flex'
-
 import ProfileBox from '../../atoms/profile-box/index'
 import StatBox from '../../atoms/stat-box/index'
 import AddInput from '../prompt-input/index'
+
 require('../../../../../public/stylesheets/uikit.min.css')
 
 export default class Header extends Component {
@@ -16,7 +16,7 @@ export default class Header extends Component {
       <div>
         <nav className="uk-navbar">
           <div className="uk-offcanvas-content">
-            <button className="uk-button uk-button-default uk-margin-top uk-margin-small-right" type="button" data-uk-toggle="target: #offcanvas-nav-primary">Primary Nav</button>
+            <button className="uk-button uk-button-default uk-margin-top uk-margin-small-right" type="button" data-uk-toggle="target: #offcanvas-nav-primary">Menu</button>
             <div id="offcanvas-nav-primary" data-uk-offcanvas="overlay: false">
               <div className="uk-offcanvas-bar uk-flex uk-flex-column">
                 <ul className="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
@@ -80,6 +80,7 @@ export default class Header extends Component {
               </div>
             </div>
           </div>
+
           <ul className="uk-navbar-right">
             <ProfileBox profile={this.props.profile.profileName.value}/>
             <ProfileBox profile={this.props.profile.topic.value}/>

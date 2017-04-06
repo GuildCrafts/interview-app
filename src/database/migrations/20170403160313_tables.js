@@ -7,14 +7,14 @@ exports.up = function(knex, Promise) {
       table.string('name');
       table.string('github');
     }),
-    
+
     knex.schema.createTable('questions', function(table) {
       table.increments('id').primary();
-      table.array('tags');
+      table.specificType('tags', 'jsonb');
       table.string('question');
-      table.string('difficulty');
-      table.string('topic');
+      table.string('level');
       table.string('answer');
+      table.string('prompts')
     })
   ])
 
@@ -22,7 +22,7 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   return Promise.all([
-    knex.schema.dropTable('candidate'),
+    knex.schema.dropTable('users'),
     knex.schema.dropTable('questions'),
   ])
 

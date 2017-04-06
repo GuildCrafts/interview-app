@@ -3,6 +3,7 @@ import flex from 'react-uikit-flex'
 
 import Scorecard from '../../molecules/scorecard/index'
 import questions from '../../../../../data/questions.json'
+require('../../../../../public/stylesheets/uikit.min.css')
 
 export default class Game extends Component {
   constructor() {
@@ -53,6 +54,7 @@ export default class Game extends Component {
           </div>
           {this.answerJSX(question)}
         </div>
+
       )
   }
 
@@ -65,6 +67,7 @@ export default class Game extends Component {
       </div>
     )
   }
+
 
   render() {
     const questions = this.props.questions
@@ -84,10 +87,12 @@ export default class Game extends Component {
         <Scorecard answered={this.state.answered} skipped={this.state.skipped} questions={this.props.questions} />
         <progress className="uk-progress" value={currentQuestionPosition + 1} max={questions.length}></progress>
         {content}
-        <hr className="uk-divider-icon" />
+
         <div className="uk-container-center uk-margin uk-width-1-1">
           <textarea className="uk-textarea" placeholder="Submit your interview notes here..."></textarea>
         </div>
+        <button className="uk-button uk-button-default" data-uk-toggle="target: #my-id" type="button">HINT!</button>
+        <p id="my-id" hidden>Silly</p>
       </div>
     )
   }
