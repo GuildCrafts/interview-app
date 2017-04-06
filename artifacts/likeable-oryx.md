@@ -11,7 +11,7 @@ Setting up Knex & creating tables
 - [x] [Issue #21:](https://github.com/GuildCrafts/interview-app/issues/21) Create questions table
 - [x] [Issue #28:](https://github.com/GuildCrafts/interview-app/issues/28) Create go file
 - [x] [Issue #29:](https://github.com/GuildCrafts/interview-app/issues/29) Setup Istanbul NYC
-
+- [x] [Issue #42:](https://github.com/GuildCrafts/interview-app/issues/42) CRUD
 
 ## Quality
 * Making sure all tests pass.

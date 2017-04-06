@@ -1,17 +1,23 @@
 import knex from '../db.js'
 import utilities from './utilities'
 
-const create = attributes =>
-  utilities.create('questions', attributes)
+const create = attributes => {
+  attributes.tags = JSON.stringify(attributes.tags)
+  return utilities.create('questions', attributes)
   .then(question => question)
+}
 
-const findbyTag = ( data ) =>
-  utilities.findAllWhere('questions', 'tags', data)
-  .then(question => question)
 
-const findbyTopic = ( data ) =>
-  utilities.findAllWhere('questions', 'topic', data)
+const findbyTag = ( tags ) => {
+  let whereClauses = tags.map(tag => "tags @> '" + JSON.stringify([tag]) + "'")
+  whereClauses = whereClauses.join(' OR ')
+  return utilities.findAllWhereRaw('questions', whereClauses)
   .then(question => question)
+}
+
+// const findbyTopic = ( data ) =>
+//   utilities.findAllWhere('questions', 'topic', data)
+//   .then(question => question)
 
 const findbyLevel = ( data ) =>
   utilities.findAllWhere('questions', 'level', data)
@@ -46,10 +52,8 @@ const updatebyTopic = ( data, attributes ) =>
 export {
   create,
   findbyTag,
-  findbyTopic,
   findbyLevel,
   updatebyTag,
-  updatebyTopic,
   updatebyLevel,
   deleteByQuestion,
   deleteByTopic,

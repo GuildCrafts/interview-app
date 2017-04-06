@@ -14,6 +14,13 @@ const utilities = {
       .where(column, data)
       .returning('*')
   },
+  
+  findAllWhereRaw: (table, rawSql) => {
+    return knex
+      .table(table)
+      .where(knex.raw(rawSql))
+      .returning('*')
+  },
 
   findAll: () => {
     return knex

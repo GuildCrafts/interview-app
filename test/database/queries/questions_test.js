@@ -8,19 +8,19 @@ import * as question from '../../../src/database/queries/questions'
 describe('Question Tests', () => {
   const newQuestion = [
     {
-      tags: "existentialism",
+      tags: ["existentialism", "midlife-crisis"],
       question: "What is the number that represents the meaning of life",
       level: "10",
       answer: "42"
     },
     {
-      tags: "woodchuckin'",
+      tags: ["woodchuckin", "pepperoni"],
       question: "How much wood could a woodchuck chuck if a woodchuck could chuck wood",
       level: "9",
       answer: "a lot"
     },
     {
-      tags: "Don't let Shereef see this",
+      tags: ["Don't let Shereef see this"],
       question: "What is the most inefficient algorithm",
       level: "0",
       answer: "THE ALGORITHM"
@@ -36,17 +36,20 @@ describe('Question Tests', () => {
       return question.create( newQuestion[0] )
         .then( question => {
           expect(question[0].question).to.equal('What is the number that represents the meaning of life')
+          expect(question[0].tags).to.eql(["existentialism", "midlife-crisis"])
         })
     })
   })
 
   describe('find by Tag', () => {
     it('should find a question by the tag', () => {
-      return question.create( newQuestion[1] )
+      return Promise.all([question.create( newQuestion[1] ), question.create( newQuestion[0])])
         .then( () => {
-          return question.findbyTag( "woodchuckin'" )
+          return question.findbyTag(["woodchuckin", "existentialism"])
           .then( question => {
-            expect(question[0].level).to.equal('9')
+            expect(question[0].level).to.equal('10')
+            expect(question[0].tags[1]).to.equal('pepperoni')
+            expect(question.length).to.equal(2)
           })
         })
     })
@@ -59,7 +62,7 @@ describe('Question Tests', () => {
         .then( () => {
           return question.findbyLevel( "9" )
           .then( question => {
-            expect(question[0].tags).to.equal("woodchuckin'")
+            expect(question[0].tags[0]).to.equal("woodchuckin")
           })
         })
     })
@@ -69,7 +72,7 @@ describe('Question Tests', () => {
     it('should update a question by the tag', () => {
       return question.create( newQuestion[1] )
         .then( () => {
-          return question.updatebyTag( "woodchuckin'", {question: 'why do you want to become a full stack developer', answer: "pancakes"} )
+          return question.updatebyTag( ["woodchuckin"], {question: 'why do you want to become a full stack developer', answer: "pancakes"} )
           .then( question => {
             expect(question[0].answer).to.equal("pancakes")
           })
@@ -81,7 +84,7 @@ describe('Question Tests', () => {
   //   it('should store tags into an array when more than one exist', () => {
   //     return question.create( newQuestion[1] )
   //       .then( () => {
-  //         return question.updatebyTag("woodchuckin'", {tags: 'things', tags: 'stuff'})
+  //         return question.updatebyTag("woodchuckin", {tags: 'things', tags: 'stuff'})
   //         .then( question => {
   //           console.log('tags--->', question[0].tags)
   //           expect(question[0].tags).to.equal("things")
