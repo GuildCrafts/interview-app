@@ -12,11 +12,12 @@ export default class Header extends Component {
   }
 
   render() {
+    console.log("===========>", this.props.profile);
     return (
       <div>
         <nav className="uk-navbar">
           <div className="uk-offcanvas-content">
-            <button className="uk-button uk-button-default uk-margin-top uk-margin-small-right" type="button" data-uk-toggle="target: #offcanvas-nav-primary">Menu</button>
+            <button id="menu" className="uk-button uk-button-default uk-margin-top uk-margin-small-right" type="button" data-uk-toggle="target: #offcanvas-nav-primary">Menu</button>
             <div id="offcanvas-nav-primary" data-uk-offcanvas="overlay: false">
               <div className="uk-offcanvas-bar uk-flex uk-flex-column">
                 <ul className="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
@@ -30,7 +31,7 @@ export default class Header extends Component {
                           <div className="uk-modal-dialog uk-modal-body">
                               <h2 className="uk-modal-title uk-text-center">New Question Form</h2>
                               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                              <form className="uk-form-horizontal uk-margin-large">
+                              <form method="post" action="/create" className="uk-form-horizontal uk-margin-large">
                                 <div className="uk-margin">
                                     <label className="uk-form-label" htmlFor="form-horizontal-text">What Is Your Question?</label>
                                     <div className="uk-form-controls">
@@ -63,11 +64,11 @@ export default class Header extends Component {
                                     </div>
                                 </div>
                                 <AddInput />
+                              <p className="uk-text-right">
+                                  <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                                  <input className="uk-button uk-button-primary" type="submit" value="Save"/>
+                              </p>
                             </form>
-                            <p className="uk-text-right">
-                                <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                                <button className="uk-button uk-button-primary" type="button">Save</button>
-                            </p>
                           </div>
                         </div>
                       </li>
