@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import flex from 'react-uikit-flex'
-
 import ProfileBox from '../../atoms/profile-box/index'
 import StatBox from '../../atoms/stat-box/index'
+
 require('../../../../../public/stylesheets/uikit.min.css')
 
 export default class Header extends Component {
