@@ -32,6 +32,7 @@ const updatebyTopic = ( data, attributes ) =>
 
   const updatebyLevel = ( data, attributes ) =>
     utilities.update( 'questions', 'level', data, attributes)
+
     .then(question => question)
 
     const deleteByQuestion = ( data, attributes ) =>

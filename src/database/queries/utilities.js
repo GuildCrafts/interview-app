@@ -28,7 +28,6 @@ const utilities = {
       .returning('*')
   },
 
-
   update: (table, column, data, attributes) => {
     return knex
       .table(table)
