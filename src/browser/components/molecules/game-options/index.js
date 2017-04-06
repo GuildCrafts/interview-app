@@ -20,6 +20,7 @@ export default class GameOptions extends Component {
   render() {
     const tags = this.props.tags || []
     const levels = this.props.levels || []
+    const gameModes = this.props.gameModes || []
     return (
       <div>
         <h2>Time to mock interview</h2>
@@ -28,6 +29,7 @@ export default class GameOptions extends Component {
           <fieldset className="uk-fieldset">
             <SelectTag options={levels} label="Level:" onChange={this.handleChange.bind(this, 'level')} />
             <SelectTag options={tags} label="Tag:" onChange={this.handleChange.bind(this, 'tag')} />
+            <SelectTag options={gameModes} label="Game Mode:" onChange={this.handleChange.bind(this, 'gameMode')} />
           </fieldset>
           <button className="uk-button uk-button-primary" >Submits</button>
         </form>

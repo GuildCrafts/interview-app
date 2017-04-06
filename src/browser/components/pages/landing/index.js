@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
+import {uniq, flatMap, take, shuffle} from 'lodash'
+
 import Game from '../game/index'
 import GameOptions from '../../molecules/game-options/index'
 import questions from '../../../../../data/questions.json'
-import {uniq, flatMap, take, shuffle} from 'lodash'
+import Header from '../../molecules/header/index'
 
 require('../../../../../public/stylesheets/uikit.min.css')
 
@@ -45,8 +47,20 @@ export default class Landing extends Component {
           <Game questions={filteredQuestions}/>
           : <GameOptions onSubmit={this.updateState} {...tagsAndLevels}/>
 
+    const fakeStats = {
+      experience: {value: 100, heading: "Experience"},
+      difficulty: {value: "Beginner", heading: "Difficulty"}
+    }
+
+    const fakeProfile = {
+      profileName: {value: "Murphy"},
+      topic: {value: "JavaScript"},
+      gameMode: {value: "Speaking"}
+    }
+
     return (
       <div className="uk-container">
+        <Header stats={fakeStats} profile={fakeProfile} />
         <div className="uk-card uk-card-default uk-card-body uk-width-1-1 uk-padding">
           {content}
         </div>
