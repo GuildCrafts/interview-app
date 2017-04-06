@@ -33,6 +33,7 @@ export default class Header extends Component {
               </div>
             </div>
           </div>
+
           <ul className="uk-navbar-right">
             <ProfileBox profile={this.props.profile.profileName.value}/>
             <ProfileBox profile={this.props.profile.topic.value}/>
