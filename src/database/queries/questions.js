@@ -28,18 +28,18 @@ const updatebyID = ( data, attributes ) =>
   .then(question => question)
 
 
-  const updatebyLevel = ( data, attributes ) =>
-    utilities.update( 'questions', 'level', data, attributes)
-    .then(question => question)
+const updatebyLevel = ( data, attributes ) =>
+  utilities.update( 'questions', 'level', data, attributes)
+  .then(question => question)
 
-    const deleteByQuestion = ( data, attributes ) =>
-      utilities.delete( 'questions', 'question', data, attributes)
-      .then(question => question)
+const deleteByQuestion = ( data, attributes ) =>
+  utilities.delete( 'questions', 'question', data, attributes)
+  .then(question => question)
 
 
-      const deleteByID = ( data, attributes ) =>
-        utilities.delete( 'questions', 'id', data, attributes)
-        .then(question => question)
+const deleteByID = ( data, attributes ) =>
+  utilities.delete( 'questions', 'id', data, attributes)
+  .then(question => question)
 
 
 
@@ -51,5 +51,5 @@ export {
   updatebyID,
   updatebyLevel,
   deleteByQuestion,
-  deleteByLevel
+  deleteByID
 }

@@ -5,12 +5,13 @@ const cors = require('cors')
 const pgp = require('pg-promise')
 const bodyParser = require('body-parser')
 const questions = require('./src/database/queries/questions.js')
+const users = require('./src/database/queries/users.js')
 
 app.use( bodyParser.json() )
 app.use( bodyParser.urlencoded( {extended: false}) )
 app.use( express.static(__dirname + '/public/dist/') );
 app.use( express.static(__dirname + '/src/browser/') );
-app.use( ( cors() )
+app.use( cors() )
 
 app.get('/users/:name', (request, response) => {
   const { name } = request.params
@@ -26,14 +27,14 @@ app.get('/users/:github_handle', (request, response) => {
   .catch( err => console.log('err', err) )
 })
 
-app.get('/questions/:tags', (request, response) => {
+app.get('/questions/tags/:tags', (request, response) => {
   const { tags } = request.params
   questions.findbyTag(tags)
   .then( results => response.json( results ) )
   .catch( err => console.log('err', err) )
 })
 
-app.get('/questions/:level', (request, response) => {
+app.get('/questions/level/:level', (request, response) => {
   const { level } = request.params
   questions.findbyLevel(level)
   .then( results => response.json( results ) )

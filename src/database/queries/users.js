@@ -44,8 +44,8 @@ export {
   findbyName,
   updatebyGithub,
   updatebyName,
-  updateByID,
+  updatebyID,
   deletebyGithub,
   deletebyName,
-  deleteByID
+  deletebyID
 }

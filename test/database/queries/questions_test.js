@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai'
 import * as question from '../../../src/database/queries/questions'
 
-describe.only('Question Tests', () => {
+describe('Question Tests', () => {
   const newQuestion = [
     {
       question: "What is the number that represents the meaning of life",
@@ -84,17 +84,6 @@ describe.only('Question Tests', () => {
   })
 
   describe('update by ID', () => {
-    it('should update a question by the id', () => {
-      return question.create( newQuestion[1] )
-        .then( () => {
-          return question.updatebyID( 2, {question: 'why do you want to become a full stack developer', answer: "pancakes"} )
-          .then( question => {
-            expect(question[0].answer).to.equal("pancakes")
-          })
-        })
-    })
-  })
-  describe('update by ID', () => {
     it('should update a question by the ID', () => {
       return question.create( newQuestion[2] )
         .then( () => {
@@ -135,7 +124,7 @@ describe.only('Question Tests', () => {
     it('should delete by ID', () => {
       return question.create( newQuestion[0] )
         .then( () => {
-          return question.deleteByID( "yes" )
+          return question.deleteByID( '1', "yes" )
           .then( question => {
             expect(question[0]).to.equal( undefined )
           })
