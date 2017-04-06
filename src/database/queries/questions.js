@@ -30,7 +30,6 @@ const updatebyID = ( data, attributes ) =>
 
   const updatebyLevel = ( data, attributes ) =>
     utilities.update( 'questions', 'level', data, attributes)
-
     .then(question => question)
 
     const deleteByQuestion = ( data, attributes ) =>
@@ -38,8 +37,8 @@ const updatebyID = ( data, attributes ) =>
       .then(question => question)
 
 
-      const deleteByLevel = ( data, attributes ) =>
-        utilities.delete( 'questions', 'level', data, attributes)
+      const deleteByID = ( data, attributes ) =>
+        utilities.delete( 'questions', 'id', data, attributes)
         .then(question => question)
 
 

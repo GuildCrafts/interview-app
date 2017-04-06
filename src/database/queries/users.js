@@ -21,6 +21,10 @@ const updatebyName = ( data, attributes ) =>
   utilities.update('users', 'name', data, attributes)
   .then(user => user)
 
+const updatebyID = ( data, attributes ) =>
+  utilities.update('users', 'ID', data, attributes)
+  .then(user => user)
+
 const deletebyGithub = ( data ) =>
   utilities.delete('users', 'github_handle', data)
   .then(user => user)
@@ -29,12 +33,19 @@ const deletebyName = ( data ) =>
   utilities.delete('users', 'name', data)
   .then(user => user)
 
+const deletebyID = ( data ) =>
+  utilities.delete('users', 'ID', data)
+  .then(user => user)
+
+
 export {
   create,
   findbyGithub,
   findbyName,
   updatebyGithub,
   updatebyName,
+  updateByID,
   deletebyGithub,
-  deletebyName
+  deletebyName,
+  deleteByID
 }
