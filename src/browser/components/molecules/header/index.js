@@ -15,7 +15,7 @@ export default class Header extends Component {
       <div>
         <nav className="uk-navbar">
           <div className="uk-offcanvas-content">
-            <button className="uk-button uk-button-default uk-margin-top uk-margin-small-right" type="button" data-uk-toggle="target: #offcanvas-nav-primary">Primary Nav</button>
+            <button className="uk-button uk-button-default uk-margin-top uk-margin-small-right" type="button" data-uk-toggle="target: #offcanvas-nav-primary">Menu</button>
             <div id="offcanvas-nav-primary" data-uk-offcanvas="overlay: false">
               <div className="uk-offcanvas-bar uk-flex uk-flex-column">
                 <ul className="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
