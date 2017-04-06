@@ -1,4 +1,7 @@
 import React, {Component} from 'react'
+import flex from 'react-uikit-flex'
+import ProfileBox from '../../atoms/profile-box/index'
+import StatBox from '../../atoms/stat-box/index'
 
 require('../../../../../public/stylesheets/uikit.min.css')
 
@@ -11,21 +14,13 @@ export default class Header extends Component {
     return (
       <div>
         <nav className="uk-navbar">
-          <div className="uk-h2">
-            Parent
-            <ul className="uk-navbar-nav">
-              <li>a</li>
-              <li>b</li>
-              <li>c</li>
-            </ul>
-          </div>
-          <div className="uk-navbar-flip">
-            <ul className="uk-navbar-nav">
-              <li className="uk-active">Foo</li>
-              <li>Bar</li>
-              <li>Baz</li>
-            </ul>
-          </div>
+          <ul className="uk-navbar-right">
+            <ProfileBox profile={this.props.profile.profileName.value}/>
+            <ProfileBox profile={this.props.profile.topic.value}/>
+            <ProfileBox profile={this.props.profile.gameMode.value}/>
+            <StatBox name={this.props.stats.experience.heading} count={this.props.stats.experience.value}/>
+            <StatBox name={this.props.stats.difficulty.heading} count={this.props.stats.difficulty.value}/>
+          </ul>
         </nav>
       </div>
     )

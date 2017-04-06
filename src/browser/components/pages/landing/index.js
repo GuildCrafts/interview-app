@@ -46,9 +46,20 @@ export default class Landing extends Component {
           <Game questions={filteredQuestions}/>
           : <GameOptions onSubmit={this.updateState} {...tagsAndLevels}/>
 
+    const fakeStats = {
+      experience: {value: 100, heading: "Experience"},
+      difficulty: {value: "Beginner", heading: "Difficulty"}
+    }
+
+    const fakeProfile = {
+      profileName: {value: "Murphy"},
+      topic: {value: "JavaScript"},
+      gameMode: {value: "Speaking"}
+    }
+
     return (
       <div className="uk-container">
-        <Header />
+        <Header stats={fakeStats} profile={fakeProfile} />
         <div className="uk-card uk-card-default uk-card-body uk-width-1-1 uk-padding">
           {content}
         </div>
