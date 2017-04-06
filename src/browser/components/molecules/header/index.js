@@ -14,6 +14,26 @@ export default class Header extends Component {
     return (
       <div>
         <nav className="uk-navbar">
+          <div className="uk-offcanvas-content">
+            <button className="uk-button uk-button-default uk-margin-top uk-margin-small-right" type="button" data-uk-toggle="target: #offcanvas-nav-primary">Menu</button>
+            <div id="offcanvas-nav-primary" data-uk-offcanvas="overlay: false">
+              <div className="uk-offcanvas-bar uk-flex uk-flex-column">
+                <ul className="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
+                  <li className="uk-active">
+                    <a href="#">Start New Interview</a>
+                    <ul className="uk-nav-sub">
+                      <li><a href="#">Approve Questions</a></li>
+                      <li><a href="#">Create New Question</a></li>
+                      <li className="uk-nav-divider"></li>
+                      <li><a href="#">Profile</a></li>
+                      <li><a href="#">Log Out</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
           <ul className="uk-navbar-right">
             <ProfileBox profile={this.props.profile.profileName.value}/>
             <ProfileBox profile={this.props.profile.topic.value}/>
