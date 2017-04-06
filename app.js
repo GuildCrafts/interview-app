@@ -1,4 +1,5 @@
 // in server.js
+
 import express from 'express'
 import authInitialize from './src/config/auth'
 import cookieParser from 'cookie-parser'
@@ -40,6 +41,7 @@ app.use(express.static(__dirname + '/public/dist/'));
 app.use(express.static(__dirname + '/src/browser/main.js'));
 
 authInitialize(app)
+
 
 /* GET home page. */
 app.get('*', function(req, res, next) {
