@@ -3,6 +3,7 @@ import flex from 'react-uikit-flex'
 
 import ProfileBox from '../../atoms/profile-box/index'
 import StatBox from '../../atoms/stat-box/index'
+import AddInput from '../prompt-input/index'
 require('../../../../../public/stylesheets/uikit.min.css')
 
 export default class Header extends Component {
@@ -33,13 +34,14 @@ export default class Header extends Component {
                                 <div className="uk-margin">
                                     <label className="uk-form-label" htmlFor="form-horizontal-text">What Is Your Question?</label>
                                     <div className="uk-form-controls">
-                                        <input className="uk-input" id="form-horizontal-text" type="text" placeholder="What does fubar stand for?" />
+                                        <input className="uk-input" id="form-horizontal-text" type="text" placeholder="What is the meaning of life, the universe, and everything?" />
                                     </div>
                                 </div>
                                 <div className="uk-margin">
                                     <label className="uk-form-label" htmlFor="form-horizontal-text">What Is The Answer?</label>
                                     <div className="uk-form-controls">
-                                        <input className="uk-input" id="form-horizontal-text" type="text" placeholder="effed up beyond all recognition" />
+
+                                        <input className="uk-input" id="form-horizontal-text" type="text" placeholder="42" />
                                     </div>
                                 </div>
                                 <div className="uk-margin">
@@ -55,11 +57,12 @@ export default class Header extends Component {
                                     <div className="uk-form-label">Difficulty Levels</div>
                                     <div className="uk-form-controls uk-form-controls-text">
                                         <label><input className="uk-radio" type="radio" name="radio1" /> Beginner</label><br></br>
-                                        <label><input className="uk-radio" type="radio" name="radio1" />Intermediate</label><br></br>
-                                        <label><input className="uk-radio" type="radio" name="radio1" />Advanced</label><br></br>
-                                        <label><input className="uk-radio" type="radio" name="radio1" />Jedi</label>
+                                        <label><input className="uk-radio" type="radio" name="radio1" /> Intermediate</label><br></br>
+                                        <label><input className="uk-radio" type="radio" name="radio1" /> Advanced</label><br></br>
+                                        <label><input className="uk-radio" type="radio" name="radio1" /> Jedi</label>
                                     </div>
                                 </div>
+                                <AddInput />
                             </form>
                             <p className="uk-text-right">
                                 <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
