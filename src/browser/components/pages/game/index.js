@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
+import flex from 'react-uikit-flex'
+
 import Scorecard from '../../molecules/scorecard/index'
 import questions from '../../../../../data/questions.json'
+require('../../../../../public/stylesheets/uikit.min.css')
 
 export default class Game extends Component {
   constructor() {
@@ -34,31 +37,36 @@ export default class Game extends Component {
   questionJSX(question) {
       return (
         <div>
-        <div className="uk-card-title uk-animation-fade uk-placeholder">{question.question}</div>
+          <div className="uk-card-title uk-animation-fade uk-placeholder">{question.question}</div>
 
-        <div className="uk-flex uk-grid">
-          <div className="uk-flex-first">
-            <button className="uk-button uk-button-primary"
-                    onClick={this.incrementQuestionState.bind(this, 'answered')}>Correct</button>
+          <div className="uk-flex uk-grid">
+            <div className="uk-flex-first">
+              <button className="uk-button uk-button-primary"
+                      onClick={this.incrementQuestionState.bind(this, 'answered')}>Correct</button>
+            </div>
+            <div className="uk-flex">
+              <button className="uk-button uk-button-danger"
+                      onClick={this.incrementQuestionState.bind(this, 'skipped')}>Skip</button>
+            </div>
+            <div className="uk-flex">
+              <button className="uk-button-secondary uk-button" onClick={this.toggleProperty.bind(this, 'showAnswer')}>Show Answer</button>
+            </div>
           </div>
-          <div className="uk-flex">
-            <button className="uk-button uk-button-danger"
-                    onClick={this.incrementQuestionState.bind(this, 'skipped')}>Skip</button>
-          </div>
-          <div className="uk-flex">
-            <button className="uk-button-secondary uk-button" onClick={this.toggleProperty.bind(this, 'showAnswer')}>Show Answer</button>
-          </div>
-        </div>
-        {this.answerJSX(question)}
+          {this.answerJSX(question)}
         </div>
       )
   }
 
   allQuestionsCompletedJSX() {
     return (
-      <h3 className="uk-align-center"> All Done!</h3>
+      <div>
+        <button className="uk-button-secondary uk-button uk-width-1-1">
+          Finish Interview and Submit Notes!
+        </button>
+      </div>
     )
   }
+
 
   render() {
     const questions = this.props.questions
@@ -78,7 +86,12 @@ export default class Game extends Component {
         <Scorecard answered={this.state.answered} skipped={this.state.skipped} questions={this.props.questions} />
         <progress className="uk-progress" value={currentQuestionPosition + 1} max={questions.length}></progress>
         {content}
-        <hr className="uk-divider-icon" />
+
+        <div className="uk-container-center uk-margin uk-width-1-1">
+          <textarea className="uk-textarea" placeholder="Submit your interview notes here..."></textarea>
+        </div>
+        <button className="uk-button uk-button-default" data-uk-toggle="target: #my-id" type="button">HINT!</button>
+        <p id="my-id" hidden>Silly</p>
       </div>
     )
   }

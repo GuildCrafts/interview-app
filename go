@@ -13,7 +13,7 @@
     dbname=interviewdb-${env}
     dropdb ${dbname}
     createdb ${dbname}
-    NODE_ENV=${env} npm run migrate
+    NODE_ENV=${env} npm run migrate 
   }
 
   function test {
