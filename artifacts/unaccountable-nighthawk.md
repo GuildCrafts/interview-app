@@ -1,4 +1,4 @@
- - unaccountable-nighthawk - Team-Members: HJBowers, AbrahamFergie
+ -unaccountable-nighthawk - Team-Members: HJBowers, AbrahamFergie
 Issue #5-Interviewer Notes
     Create a space for interviewer to write notes during the mock interview, and submit afterwards. (These notes will become      available for the candidate to see after session is complete. See issue #7)
 Issue #9-Questions Page
