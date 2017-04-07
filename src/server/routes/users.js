@@ -12,7 +12,6 @@ router.get('/name/:name', (request, response) => {
 
 router.get('/github_handle/:github_handle', (request, response) => {
   const { github_handle } = request.params
-  console.log('request', request.params)
   users.findbyGithub(github_handle)
   .then( results => {response.json( results )
   console.log('results', results)

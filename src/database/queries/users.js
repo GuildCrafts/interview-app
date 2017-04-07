@@ -7,7 +7,7 @@ const create = attributes =>
 
 const findbyGithub = ( data ) =>
   utilities.findAllWhere('users', 'github_handle', data)
-  .then(user => user)
+  .then(users => users[0])
 
 const findbyName = ( data ) =>
   utilities.findAllWhere('users', 'name', data)

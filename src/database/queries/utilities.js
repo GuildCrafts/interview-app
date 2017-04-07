@@ -22,7 +22,7 @@ const utilities = {
       .returning('*')
   },
 
-  findAll: () => {
+  findAll: (table) => {
     return knex
       .table(table)
       .returning('*')
