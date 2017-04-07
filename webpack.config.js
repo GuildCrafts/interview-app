@@ -1,5 +1,6 @@
+const path = require('path')
 const rootDir = __dirname
-require('webpack')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 require('json-loader')
 require('css-loader')
@@ -22,13 +23,17 @@ const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   }
 })
 
-console.log('ROOTDIR::', rootDir);
-
 module.exports = {
-  entry: './src/browser/main.js',
+  context: path.join(__dirname),
+  entry: [
+    './src/browser/main.js'
+  ],
   module: {
     rules: [
-      {test:/\.js$/, include: `${rootDir}/src/browser`, loaders: ['babel-loader']},
+      {
+        test:/\.js$/, include: `${rootDir}/src/browser`,
+        loaders: ['react-hot-loader', 'babel-loader']
+      },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
@@ -43,11 +48,10 @@ module.exports = {
     filename: 'bundle.js',
     path: `${rootDir}/public/dist`
   },
-  externals: {
-    'cheerio': 'window',
-    'react/addons': true,
-    'react/lib/ExecutionEnvironment': true,
-    'react/lib/ReactContext': true
-  },
-  plugins: [HTMLWebpackPluginConfig, new ExtractTextPlugin("styles.css")]
+
+  plugins:
+  [
+    new ExtractTextPlugin("styles.css"),
+    HTMLWebpackPluginConfig
+  ]
 }
