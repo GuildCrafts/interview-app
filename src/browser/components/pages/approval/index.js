@@ -11,17 +11,28 @@ export default class ApprovalPage extends Component {
     this.state = {questions}
   }
 
+  onClick(index){
+    let questArr = this.state.questions
+    let place = index
+    questArr.splice(this.refs[index], 1)
+
+    console.log("==============",this.refs[index]);
+    console.log("-------------------->>", questArr);
+    this.setState({questions: questArr})
+  }
+
   renderQuestions(){
     return (
       this.state.questions.map((question, index) => {
+        index = "question" + index
         return (
           <div>
-            <button className="uk-button uk-button-default uk-margin-small-right" type="button" data-uk-toggle="target: #modal-example">{question.question}</button>
+            <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" data-uk-toggle="target:#modal-example">{question.question}</button>
               <div id="modal-example" data-uk-modal>
                 <div className="uk-modal-dialog uk-modal-body">
                   <h2 className="uk-modal-title uk-text-center">Approve Question</h2>
                   <p>laborum.</p>
-                  <form method="post" action="/questions" className="uk-form-horizontal uk-margin-large">
+                  <form method="put" action="/edit" className="uk-form-horizontal uk-margin-large">
                     <div className="uk-margin">
                       <label className="uk-form-label" htmlFor="form-horizontal-text">Questions:</label>
                       <div className="uk-form-controls">
@@ -59,7 +70,7 @@ export default class ApprovalPage extends Component {
                 </form>
                 </div>
               </div>
-              <button className="uk-button-small uk-button-danger" type="button">Delete this question</button>
+              <button className="uk-button-small uk-button-danger" onClick={this.onClick.bind(this, index)} ref={index} type="button">Delete this question</button>
           </div>
         )
       })
