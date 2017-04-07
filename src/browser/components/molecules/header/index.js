@@ -23,14 +23,14 @@ export default class Header extends Component {
                   <li className="uk-active">
                     <a href="#">Start New Interview</a>
                     <ul className="uk-nav-sub">
-                      <li><a href="#">Approve Questions</a></li>
+                      <li><a href="/approval">Approve Questions</a></li>
                       <li>
                         <button className="uk-button uk-button-default uk-margin-small-right" type="button" data-uk-toggle="target: #modal-example">Create Question</button>
                         <div id="modal-example" data-uk-modal>
                           <div className="uk-modal-dialog uk-modal-body">
                               <h2 className="uk-modal-title uk-text-center">New Question Form</h2>
                               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                              <form className="uk-form-horizontal uk-margin-large">
+                              <form method="post" action="/questions" className="uk-form-horizontal uk-margin-large">
                                 <div className="uk-margin">
                                     <label className="uk-form-label" htmlFor="form-horizontal-text">What Is Your Question?</label>
                                     <div className="uk-form-controls">
@@ -63,11 +63,11 @@ export default class Header extends Component {
                                     </div>
                                 </div>
                                 <AddInput />
-                            </form>
                             <p className="uk-text-right">
                                 <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                                <button className="uk-button uk-button-primary" type="button">Save</button>
+                                <button className="uk-button uk-button-primary" type="submit">Save</button>
                             </p>
+                          </form>
                           </div>
                         </div>
                       </li>
