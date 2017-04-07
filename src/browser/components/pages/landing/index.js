@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
+import QueryString from 'query-string'
 import {uniq, flatMap, take, shuffle} from 'lodash'
 
 import Game from '../game/index'
@@ -8,29 +9,29 @@ import Header from '../../molecules/header/index'
 
 require('../../../../../public/stylesheets/uikit.min.css')
 
-const findTagsAndLevels = () => {
-  const tags = uniq(flatMap(questions.map(question => question.tags))).sort()
-  const levels = uniq(questions.map(question => question.level)).sort()
-  return {tags: ['any'].concat(tags), levels: ['any'].concat(levels)}
+const findTopicsAndDifficulty = () => {
+  const topics = uniq(flatMap(questions.map(question => question.topics))).sort()
+  const difficulty = uniq(questions.map(question => question.difficulty)).sort()
+  return {topics: ['any'].concat(topics), difficulty: ['any'].concat(difficulty)}
 }
 
-const filterQuestions = (questions, tag, level) => {
+const filterQuestions = (questions, topic, difficulty) => {
   let q = shuffle(questions)
-  if(tag === 'any' && level === 'any') {
+  if(topic === 'any' && difficulty === 'any') {
     return take(q, 7)
-  } else if( tag === 'any') {
-    return q.filter(question => question.level === level)
-  } else if (level === 'any') {
-    return q.filter(question => question.tags.includes(tag))
+  } else if( topic === 'any') {
+    return q.filter(question => question.difficulty === difficulty)
+  } else if (difficulty === 'any') {
+    return q.filter(question => question.topics.includes(topic))
   } else {
-    return q.filter(question => question.level === level &&  question.tags.includes(tag))
+    return q.filter(question => question.difficulty === difficulty &&  question.topics.includes(topic))
   }
 }
 
 export default class Landing extends Component {
   constructor() {
     super()
-    this.state = {level: null, tag: null}
+    this.state = {difficulty: null, topic: null}
     this.updateState = this.updateState.bind(this)
   }
 
@@ -38,14 +39,15 @@ export default class Landing extends Component {
     this.setState(state)
   }
 
-  render(params) {
-    console.log('params')
-    const tagsAndLevels = findTagsAndLevels()
-    const filteredQuestions = filterQuestions(questions, this.state.tag, this.state.level)
+  render() {
+    const parsed = QueryString.parse(this.props.location.search)
+    const topicsAndDifficulty = findTopicsAndDifficulty()
+    const filteredQuestions = filterQuestions(questions, this.state.topic, this.state.difficulty)
 
-    const content = (this.state.level && this.state.tag) ?
+    const content = (this.state.difficulty && this.state.topic) ?
           <Game questions={filteredQuestions}/>
-          : <GameOptions onSubmit={this.updateState} {...tagsAndLevels}/>
+          : <GameOptions onSubmit={this.updateState} {...topicsAndDifficulty}
+          parse={parsed} />
 
     const fakeStats = {
       experience: {value: 100, heading: "Experience"},
