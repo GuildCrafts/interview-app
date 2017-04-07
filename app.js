@@ -10,7 +10,6 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from './webpack.config'
 
 const compiler = webpack(webpackConfig)
-const router = express.Router()
 const app = express()
 
 
@@ -51,4 +50,5 @@ app.get('*', function(req, res, next) {
 //  so that you can access your site with https default port.
 // Falback port will be 8080; basically for pre-production test in localhost
 // You will use $ npm run prod for this
+
 app.listen(process.env.PORT || 3000);
