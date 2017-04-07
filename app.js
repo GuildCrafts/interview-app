@@ -39,6 +39,7 @@ app.use( (error, request, response, next) => {
 //render error page
   response.status(error.status || 500)
   response.json({error: error.stack})
+})
 
 
 if(getEnv() === 'development') {
@@ -63,7 +64,6 @@ app.use(express.static(__dirname + '/src/browser/main.js'));
 /* GET home page. */
 app.get('*', function(req, res, next) {
   res.sendFile(path.join(__dirname, 'src/browser/index.html'))
-
 })
 
 // Heroku bydefault set an ENV variable called PORT=443
@@ -71,6 +71,4 @@ app.get('*', function(req, res, next) {
 // Falback port will be 8080; basically for pre-production test in localhost
 // You will use $ npm run prod for this
 
-app.listen(process.env.PORT || 4000);
-
-export default app
+app.listen(process.env.PORT || 3000);
