@@ -5,7 +5,7 @@ import * as utilities from '../../database/queries/utilities.js'
 const router = express.Router()
 
 router.get('/:column/:input', (request, response) => {
-  const { column, input } = request.params
+  const { column: column, input: input } = request.params
   utilities.findAllWhere('questions', column, input)
   .then( results => response.json( results ) )
   .catch( err => console.log('err', err) )

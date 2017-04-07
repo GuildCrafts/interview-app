@@ -17,12 +17,12 @@ app.use( express.static(__dirname + '/src/browser/') );
 app.use('/api/users', users)
 app.use('/api/questions', questions)
 
-//404 error handler
-app.use( (request, response, next) => {
-  let err = new Error('404 Not Found')
-  err.status = 404
-  next(err)
-})
+// 404 error handler
+// app.use( (request, response, next) => {
+//   let err = new Error('404 Not Found')
+//   err.status = 404
+//   next(err)
+// })
 
 //error handler
 app.use( (error, request, response, next) => {
