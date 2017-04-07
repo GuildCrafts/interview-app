@@ -34,7 +34,7 @@ export default class GameOptions extends Component {
             <SelectTag options={gameModes} label="Game Mode:" onChange={this.handleChange.bind(this, 'gameMode')} />
 
           </fieldset>
-          <button className="uk-button uk-button-primary" >Submit</button>
+          <button className="uk-button uk-button-primary" >Submits</button>
         </form>
       </div>
     )
