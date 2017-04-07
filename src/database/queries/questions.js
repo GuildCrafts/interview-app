@@ -23,8 +23,8 @@ const findbyLevel = ( data ) =>
   utilities.findAllWhere('questions', 'level', data)
   .then(question => question)
 
-const updatebyID = ( data, attributes ) =>
-  utilities.update( 'questions', 'id', data, attributes)
+const updatebyID = ( id, attributes ) =>
+  utilities.update( 'questions', 'id', id, attributes)
   .then(question => question)
 
 
