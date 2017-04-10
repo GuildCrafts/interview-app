@@ -1,5 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
-import Landing from './components/pages/landing/index'
+import Routes from './components/common/router'
 
-render(<Landing />, document.getElementById('app'))
+
+render(<Routes />, document.getElementById('app'))
+
