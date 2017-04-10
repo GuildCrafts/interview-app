@@ -96,7 +96,7 @@
     npm install mehserve -g
     mkdir -p ~/.mehserve
     echo 9001 > ~/.mehserve/idm.learnersguild
-    echo 3000 > ~/.mehserve/noob.learnersguild
+    echo 3000 > ~/.mehserve/interview.learnersguild
     mehserve install
     echo "!!!! IMPORTANT !!!!"
     echo "paste the 5 commands above for successfull mehserve configuration"
