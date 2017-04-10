@@ -1,5 +1,8 @@
 // in server.js
 import express from 'express'
+import authInitialize from './src/config/auth'
+import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
 import path from 'path'
 import { parseConfig, getEnv } from './src/config/config'
 import webpack from 'webpack'
@@ -10,11 +13,15 @@ const compiler = webpack(webpackConfig)
 
 const app = express()
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
+
 if(getEnv() === 'development') {
   app.use(webpackDevMiddleware(compiler, {
     publicPath: webpackConfig.output.publicPath,
     filename: webpackConfig.output.filename,
-    serverSideRender: false,
+    serverSideRender: true,
     stats: {
       color: true,
       hash: false,
@@ -26,8 +33,12 @@ if(getEnv() === 'development') {
   }))
 }
 
+
 app.use(express.static(__dirname + '/public/dist/'));
 app.use(express.static(__dirname + '/src/browser/main.js'));
+
+
+authInitialize(app)
 
 /* GET home page. */
 app.get('*', function(req, res, next) {
