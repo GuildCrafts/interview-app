@@ -4,11 +4,12 @@ import ProfileBox from '../../atoms/profile-box/index'
 import StatBox from '../../atoms/stat-box/index'
 import AddInput from '../prompt-input/index'
 
+
 require('../../../../../public/stylesheets/uikit.min.css')
 
 export default class Header extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
   }
 
   render() {

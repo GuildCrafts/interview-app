@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import QueryString from 'query-string'
 import {uniq, flatMap, take, shuffle} from 'lodash'
 
+import Layout from '../layout/index'
 import Game from '../game/index'
 import GameOptions from '../../molecules/game-options/index'
 import questions from '../../../../../data/questions.json'
@@ -29,8 +30,8 @@ const filterQuestions = (questions, topic, difficulty) => {
 }
 
 export default class Landing extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {difficulty: null, topic: null}
     this.updateState = this.updateState.bind(this)
   }
@@ -40,32 +41,20 @@ export default class Landing extends Component {
   }
 
   render() {
+    console.log('this::', this.props)
     const parsed = QueryString.parse(this.props.location.search)
     const topicsAndDifficulty = findTopicsAndDifficulty()
     const filteredQuestions = filterQuestions(questions, this.state.topic, this.state.difficulty)
-
     const content = (this.state.difficulty && this.state.topic) ?
           <Game questions={filteredQuestions}/>
           : <GameOptions onSubmit={this.updateState} {...topicsAndDifficulty}
           parse={parsed} />
 
-    const fakeStats = {
-      experience: {value: 100, heading: "Experience"},
-      difficulty: {value: "Beginner", heading: "Difficulty"}
-    }
-
-    const fakeProfile = {
-      profileName: {value: "Murphy"},
-      topic: {value: "JavaScript"},
-      gameMode: {value: "Speaking"}
-    }
-
     return (
       <div className="uk-container">
-        <Header stats={fakeStats} profile={fakeProfile} />
-        <div className="uk-card uk-card-default uk-card-body uk-width-1-1 uk-padding">
+        <Layout profile={this.props.profile} stats={this.props.stats}>
           {content}
-        </div>
+        </Layout>
       </div>
     )
   }
