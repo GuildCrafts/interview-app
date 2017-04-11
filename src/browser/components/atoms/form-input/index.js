@@ -8,7 +8,7 @@ export default class FormInput extends Component {
   render() {
     return (
         <div className="uk-form-controls">
-            <input className="uk-input" id="form-horizontal-text" type="text" placeholder="Here's a hint to help..." />
+            <input className="uk-input form-horizontal-text" type="text" placeholder="Here's a hint to help..." />
         </div>
     )
   }
