@@ -17,8 +17,13 @@ Specifications and requirements will be assigned based on the items in backlog w
 
 ### Setup instructions
 If this is the first time you're setting up this repo:
+
 ./go init
 ./go install_idm
+
+You will need to create a `.env.development` file in IDM and follow steps 7 & 8 in the idm ReadMe. 
+
+Then, you will need to create a `.env.development` file in this repo and add the JWT_PUBLIC_KEY from IDM.
 
 If you've worked on this repo in the past, and you're working in the development environment:
 ./go start

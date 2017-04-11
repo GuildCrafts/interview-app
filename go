@@ -78,7 +78,7 @@
     fi
 
     echo "Going to login to npmjs.org. "
-    echo "If you dont remember the password, goto npmjs.org to reset password or create new account"
+    echo "If you dont remember the password, go to npmjs.org to reset password or create new account"
     if ! [ -f "${HOME}/.npmrc" ]; then
         npm login
     fi
@@ -114,6 +114,8 @@
     init) init $@
     ;;
     reset_db) shift; reset_db $@
+    ;;
+    install_idm) shift; install_idm $@
     ;;
     test) shift; test $@
     ;;
