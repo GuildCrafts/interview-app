@@ -4,11 +4,12 @@ import ProfileBox from '../../atoms/profile-box/index'
 import StatBox from '../../atoms/stat-box/index'
 import AddInput from '../prompt-input/index'
 
+
 require('../../../../../public/stylesheets/uikit.min.css')
 
 export default class Header extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
   }
 
   render() {
@@ -34,20 +35,20 @@ export default class Header extends Component {
                                 <div className="uk-margin">
                                     <label className="uk-form-label" htmlFor="form-horizontal-text">What Is Your Question?</label>
                                     <div className="uk-form-controls">
-                                        <input className="uk-input" id="form-horizontal-text" type="text" placeholder="What is the meaning of life, the universe, and everything?" />
+                                        <input className="uk-input form-horizontal-text" type="text" placeholder="What is the meaning of life, the universe, and everything?" />
                                     </div>
                                 </div>
                                 <div className="uk-margin">
                                     <label className="uk-form-label" htmlFor="form-horizontal-text">What Is The Answer?</label>
                                     <div className="uk-form-controls">
 
-                                        <input className="uk-input" id="form-horizontal-text" type="text" placeholder="42" />
+                                        <input className="uk-input form-horizontal-text" type="text" placeholder="42" />
                                     </div>
                                 </div>
                                 <div className="uk-margin">
                                     <label className="uk-form-label" htmlFor="form-horizontal-select">Topic</label>
                                     <div className="uk-form-controls">
-                                        <select className="uk-select" id="form-horizontal-select">
+                                        <select className="uk-select form-horizontal-text">
                                             <option>core-javascript</option>
                                             <option>functional-programming</option>
                                         </select>
