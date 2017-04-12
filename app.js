@@ -9,9 +9,11 @@ import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from './webpack.config'
-const compiler = webpack(webpackConfig)
 
+const compiler = webpack(webpackConfig)
+const router = express.Router()
 const app = express()
+
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -21,7 +23,7 @@ if(getEnv() === 'development') {
   app.use(webpackDevMiddleware(compiler, {
     publicPath: webpackConfig.output.publicPath,
     filename: webpackConfig.output.filename,
-    serverSideRender: true,
+    serverSideRender: false,
     stats: {
       color: true,
       hash: false,
@@ -33,10 +35,9 @@ if(getEnv() === 'development') {
   }))
 }
 
-
+app.use(express.static(__dirname + '/public/javascripts/'));
 app.use(express.static(__dirname + '/public/dist/'));
 app.use(express.static(__dirname + '/src/browser/main.js'));
-
 
 authInitialize(app)
 
