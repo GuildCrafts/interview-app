@@ -18,7 +18,7 @@
 
   function test {
     reset_db test
-    NODE_ENV=test npm test
+    NODE_ENV=test PORT=3001 npm test
   }
 
   function init {

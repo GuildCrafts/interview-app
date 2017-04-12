@@ -8,14 +8,20 @@ import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from './webpack.config'
+import questions from './src/server/routes/questions'
+import users from './src/server/routes/users'
+
 
 const compiler = webpack(webpackConfig)
 const app = express()
-
+const router = express.Router()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
+
+app.use('/api/users', users)
+app.use('/api/questions', questions)
 
 if(getEnv() === 'development') {
   app.use(webpackDevMiddleware(compiler, {
