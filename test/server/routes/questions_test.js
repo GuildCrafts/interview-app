@@ -6,7 +6,7 @@ import chaiHttp from 'chai-http'
 let should = chai.should()
 chai.use(chaiHttp)
 
-describe.only('api/questions', () => {
+describe('api/questions', () => {
   it('Should respond with a status code of 200 and get all the questions', (done) => {
     chai.request('http://interview.learnersguild.dev/api')
     .get('/questions')

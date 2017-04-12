@@ -3,19 +3,11 @@ import * as users from '../../database/queries/users.js'
 
 const router = express.Router()
 
-router.get('/name/:name', (request, response) => {
-  const { name } = request.params
-  users.findbyName(name)
-  .then( results => response.json( results ) )
-  .catch( err => console.log('err', err) )
-})
-
 router.get('/github_handle/:github_handle', (request, response) => {
   const { github_handle } = request.params
   users.findbyGithub(github_handle)
-  .then( results => {response.json( results )
-  console.log('results', results)
-})
+  .then( (user) => {response.json( user )
+  })
   .catch( err => console.log('err', err) )
 })
 

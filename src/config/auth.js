@@ -1,12 +1,14 @@
 import { addUserToRequestFromJWT } from '@learnersguild/idm-jwt-auth/lib/middlewares'
-import { parseConfig } from '../config/config'
+import { parseConfig, getEnv } from '../config/config'
 
 const initialize = app => {
-  if ( !process.env.JWT_PUBLIC_KEY ) {
-    throw new Error(`You do not have a JWT_PUBLIC_KEY in your .env. Please add it.`)
+  if(getEnv() != 'test') {
+    if ( !process.env.JWT_PUBLIC_KEY ) {
+      throw new Error(`You do not have a JWT_PUBLIC_KEY in your .env. Please add it.`)
+    }
+    app.use( addUserToRequestFromJWT )
+    app.use( ensureUserLoggedIn )
   }
-  app.use( addUserToRequestFromJWT )
-  app.use( ensureUserLoggedIn )
 }
 
 const config = parseConfig()

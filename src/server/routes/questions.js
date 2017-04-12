@@ -8,14 +8,15 @@ router.get('/', (request, response) => {
   const {difficulty, topics} = request.params
   utilities.findAll('questions')
   .then( questions => {
-      if(difficulty !== 'any') {
-        questions = questions.filter( questions => !questions.difficulty )
-      }
-      if(topics !== 'any') {
-        questions = questions.filter( questions => !questions.topics )
-      }
-      response.json(questions)
+    if(difficulty !== 'any') {
+      questions = questions.filter( questions => !questions.difficulty )
+    }
+    if(topics !== 'any') {
+      questions = questions.filter( questions => !questions.topics )
+    }
+    response.json(questions)
   })
+  .catch( err => console.log('err', err) )
 })
 
 router.post('/questions', (request, response) => {
