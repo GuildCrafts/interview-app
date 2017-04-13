@@ -7,7 +7,7 @@ import fs from 'fs'
 let should = chai.should()
 chai.use(chaiHttp)
 
-describe.only('api/users', () => {
+describe('api/users', () => {
   it('Should create user, then respond with length, then edit user to add something, then respond with body of user, then delete user', (done) => {
     chai.request(app)
     //create the user
@@ -37,18 +37,6 @@ describe.only('api/users', () => {
         'approver': true
       })
       return updatedResponseRes.body
-    })
-    //delete the user
-    .then(updatedUser => {
-      return chai.request(app)
-      .delete('/api/users/' + updatedUser.id)
-      //read the user
-      .then(deletedUserRes => {
-        deletedUserRes.body.should.eql({ 'message': 'deleted' })
-        return chai.request(app)
-        .get('/api/users/' + updatedUser.id)
-        updatedUser.id.should.eql(undefined)
-      })
     })
     done()
     .catch( err => console.log('err', err))

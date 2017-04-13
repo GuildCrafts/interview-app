@@ -26,11 +26,4 @@ router.put('/github_handle/:github_handle', (request, response) => {
   .catch( err => console.log('err', err) )
 })
 
-router.delete('/github_handle/:github_handle', (request, response) => {
-  const { id } = request.params
-  users.deleteByID( id )
-  .then( () => response.json( { 'message': 'deleted' } ) )
-  .catch( err => console.log('err', err) )
-})
-
 export default router
