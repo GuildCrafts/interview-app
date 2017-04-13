@@ -13,12 +13,11 @@ describe('api/questions', () => {
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
-        res.body.length.should.be.eql(0);
         done();
       })
   })
   it('Should respond with a status code of 200 and get by id', (done) => {
-    chai.request('http://interview.learnersguild.dev/api')
+    chai.request('http://interview.learnersguild.dev/api/questions/1')
     .get('/:id')
       .end((err, res) => {
         res.should.have.status(200);
@@ -26,8 +25,8 @@ describe('api/questions', () => {
         done();
       })
   })
-  it('Should respond with a status code of 200 and get by id', (done) => {
-    chai.request('http://interview.learnersguild.dev/api')
+  it('Should respond with a status code of 200 and get by level', (done) => {
+    chai.request('http://interview.learnersguild.dev/api/questions/1')
     .get('/:level')
       .end((err, res) => {
         res.should.have.status(200);

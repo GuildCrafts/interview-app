@@ -9,8 +9,8 @@ chai.use(chaiHttp)
 
 describe('api/users', () => {
   it('Should respond with a status code of 200 and get all the users', (done) => {
-    chai.request('http://interview.learnersguild.dev')
-    .post('/api/users')
+    chai.request('http://interview.learnersguild.dev/api')
+    .post('/users')
     .field("Murph Murph", "@MurphyCat")
       .end((err, res) => {
         res.should.have.status(200)
@@ -18,7 +18,7 @@ describe('api/users', () => {
       })
   })
   it('should respond with a status code of 200 and get by id', (done) => {
-    chai.request('http://interview.learnersguild.dev/api')
+    chai.request('http://interview.learnersguild.dev/api/users/1')
     .get('/:id')
       .end((err, res) => {
         res.should.have.status(200)
@@ -26,8 +26,8 @@ describe('api/users', () => {
         done()
       })
   })
-  it('should resppond with a status code of 200 and get by id', (done) => {
-    chai.request('http://interview.learnersguild.dev/api')
+  it('should resppond with a status code of 200 and get by GitHub Handle', (done) => {
+    chai.request('http://interview.learnersguild.dev/api/users/1')
     .get('/github_handle/:github_handle')
       .end((err, res) => {
         res.should.have.status(200)
