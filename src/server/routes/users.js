@@ -12,13 +12,13 @@ router.get('/github_handle/:github_handle', (request, response) => {
 })
 
 router.post('/', (request, response) => {
-  const { attributes } = request.body
+  const attributes = request.body
   users.create(attributes)
   .then( () => response.json( {1: 'success'} ) )
   .catch( err => console.log('err', err) )
 })
 
-router.put('/:id', (request, response) => {
+router.put('/github_handle/:github_handle', (request, response) => {
   const { id } = request.params
   const { attributes } = request.body
   users.updatebyID( id, attributes )
@@ -26,10 +26,10 @@ router.put('/:id', (request, response) => {
   .catch( err => console.log('err', err) )
 })
 
-router.delete('/:id', (request, response) => {
+router.delete('/github_handle/:github_handle', (request, response) => {
   const { id } = request.params
   users.deleteByID( id )
-  .then( () => response.json( { 1: 'deleted' } ) )
+  .then( () => response.json( { 'message': 'deleted' } ) )
   .catch( err => console.log('err', err) )
 })
 

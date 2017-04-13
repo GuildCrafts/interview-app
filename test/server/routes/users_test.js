@@ -1,5 +1,5 @@
 import chai, { expect } from 'chai'
-import * as question from '../../../src/server/routes/questions'
+import * as user from '../../../src/server/routes/users'
 import app from '../../../app.js'
 import chaiHttp from 'chai-http'
 import fs from 'fs'
@@ -7,32 +7,50 @@ import fs from 'fs'
 let should = chai.should()
 chai.use(chaiHttp)
 
-describe('api/users', () => {
-  it('Should respond with a status code of 200 and get all the users', (done) => {
-    chai.request('http://interview.learnersguild.dev/api')
-    .post('/users')
-    .field("Murph Murph", "@MurphyCat")
-      .end((err, res) => {
-        res.should.have.status(200)
-        done()
+describe.only('api/users', () => {
+  it('Should create user, then respond with length, then edit user to add something, then respond with body of user, then delete user', (done) => {
+    chai.request(app)
+    //create the user
+    .post('/api/users/')
+    .send({
+      'user': 'Murphy?',
+      'github_handle': 'Smurphy'
+    })
+    //read the user
+    .then((newUserRes) => {
+      newUserRes.should.have.status(200);
+      newUserRes.body.length.should.eql(1);
+      return newUserRes.body[0]
+    })
+    //update the user by github_handle
+    .then(newUser => {
+      return chai.request(app)
+      .put('/api/users/' + newUser.github_handle)
+      .send({'approver': true})
+    })
+    //read the user
+    .then(updatedResponseRes => {
+      updatedResponseRes.should.have.status(200);
+      updatedResponseRes.body.should.eql({
+        'user': 'Murphy?',
+        'github_handle': 'Smurphy',
+        'approver': true
       })
-  })
-  it('should respond with a status code of 200 and get by id', (done) => {
-    chai.request('http://interview.learnersguild.dev/api/users/1')
-    .get('/:id')
-      .end((err, res) => {
-        res.should.have.status(200)
-        res.body.should.be.a('object')
-        done()
+      return updatedResponseRes.body
+    })
+    //delete the user
+    .then(updatedUser => {
+      return chai.request(app)
+      .delete('/api/users/' + updatedUser.id)
+      //read the user
+      .then(deletedUserRes => {
+        deletedUserRes.body.should.eql({ 'message': 'deleted' })
+        return chai.request(app)
+        .get('/api/users/' + updatedUser.id)
+        updatedUser.id.should.eql(undefined)
       })
-  })
-  it('should resppond with a status code of 200 and get by GitHub Handle', (done) => {
-    chai.request('http://interview.learnersguild.dev/api/users/1')
-    .get('/github_handle/:github_handle')
-      .end((err, res) => {
-        res.should.have.status(200)
-        res.body.should.be.a('object')
-        done()
-      })
+    })
+    done()
+    .catch( err => console.log('err', err))
   })
 })

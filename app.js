@@ -58,3 +58,5 @@ app.get('*', function(req, res, next) {
 // You will use $ npm run prod for this
 
 app.listen(process.env.PORT || 3000);
+
+export default app
