@@ -11,7 +11,7 @@ global.window = doc.defaultView
 import Routes from '../src/browser/components/common/router'
 import Landing from '../src/browser/components/pages/landing/index'
 import Scorecard from '../src/browser/components/molecules/scorecard/index'
-import SelectTag from '../src/browser/components/atoms/select-tag/index'
+import FormSelect from '../src/browser/components/atoms/form-select/index'
 import GameOptions from '../src/browser/components/molecules/game-options/index'
 
 describe('<Routes />', () => {
