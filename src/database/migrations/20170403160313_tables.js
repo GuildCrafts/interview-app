@@ -12,6 +12,7 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('questions', function(table) {
       table.increments('id').primary();
       table.specificType('tags', 'jsonb');
+      table.string('approval');
       table.string('question');
       table.string('level');
       table.string('answer');
