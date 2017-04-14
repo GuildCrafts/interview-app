@@ -3,9 +3,9 @@ import { expect } from 'chai'
 import { mount } from 'enzyme'
 import { jsdom } from 'jsdom'
 
-import Header from '../src/browser/components/molecules/header/index'
-import StatBox from '../src/browser/components/atoms/stat-box/index'
-import ProfileBox from '../src/browser/components/atoms/profile-box/index'
+import Header from '../../src/browser/components/molecules/header/index'
+import StatBox from '../../src/browser/components/atoms/stat-box/index'
+import ProfileBox from '../../src/browser/components/atoms/profile-box/index'
 
 global.document = jsdom('');
 global.window = document.defaultView;

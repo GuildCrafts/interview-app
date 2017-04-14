@@ -84,17 +84,16 @@ describe('Question Tests', () => {
   })
 
   describe('update by ID', () => {
-    it('should update a question by the id', () => {
-      return question.create( newQuestion[1] )
+    it('should update a question by the ID', () => {
+      return question.create( newQuestion[2] )
         .then( () => {
-          return question.updatebyID( 2, {question: 'why do you want to become a full stack developer', answer: "pancakes"} )
+          return question.updatebyID( '2', {level: '1000'} )
           .then( question => {
-            expect(question[0].answer).to.equal("pancakes")
+            expect(question[0].level).to.equal('1000')
           })
         })
     })
   })
-
 
   describe('update by Level', () => {
     it('should update a question by the level', () => {
@@ -121,11 +120,11 @@ describe('Question Tests', () => {
   })
 
 
-  describe('delete by Level', () => {
-    it('should delete by level', () => {
+  describe('delete by ID', () => {
+    it('should delete by ID', () => {
       return question.create( newQuestion[0] )
         .then( () => {
-          return question.deleteByLevel( "yes" )
+          return question.deleteByID( '1', "yes" )
           .then( question => {
             expect(question[0]).to.equal( undefined )
           })

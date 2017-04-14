@@ -10,7 +10,7 @@ const create = attributes => {
 
 const findbyID = ( data ) =>
   utilities.findAllWhere('questions', 'id', data)
-  .then(question => question)
+  .then(questions => questions[0])
 
 const findbyTag = ( tags ) => {
   let whereClauses = tags.map(tag => "tags @> '" + JSON.stringify([tag]) + "'")
@@ -23,24 +23,23 @@ const findbyLevel = ( data ) =>
   utilities.findAllWhere('questions', 'level', data)
   .then(question => question)
 
-const updatebyID = ( data, attributes ) =>
-  utilities.update( 'questions', 'id', data, attributes)
+const updatebyID = ( id, attributes ) =>
+  utilities.update( 'questions', 'id', id, attributes)
   .then(question => question)
 
 
-  const updatebyLevel = ( data, attributes ) =>
-    utilities.update( 'questions', 'level', data, attributes)
+const updatebyLevel = ( data, attributes ) =>
+  utilities.update( 'questions', 'level', data, attributes)
+  .then(question => question)
 
-    .then(question => question)
-
-    const deleteByQuestion = ( data, attributes ) =>
-      utilities.delete( 'questions', 'question', data, attributes)
-      .then(question => question)
+const deleteByQuestion = ( data, attributes ) =>
+  utilities.delete( 'questions', 'question', data, attributes)
+  .then(question => question)
 
 
-      const deleteByLevel = ( data, attributes ) =>
-        utilities.delete( 'questions', 'level', data, attributes)
-        .then(question => question)
+const deleteByID = ( data, attributes ) =>
+  utilities.delete( 'questions', 'id', data, attributes)
+  .then(question => question)
 
 
 
@@ -52,5 +51,5 @@ export {
   updatebyID,
   updatebyLevel,
   deleteByQuestion,
-  deleteByLevel
+  deleteByID
 }

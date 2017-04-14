@@ -18,7 +18,7 @@
 
   function test {
     reset_db test
-    NODE_ENV=test npm test
+    NODE_ENV=test PORT=3001 npm test
   }
 
   function init {
@@ -29,7 +29,7 @@
   }
 
   function start {
-    npm run start:dev
+    npm run start:test
   }
 
   function add_env_var_to_shell {
