@@ -6,7 +6,7 @@ import chaiHttp from 'chai-http'
 let should = chai.should()
 chai.use(chaiHttp)
 
-describe('api/questions', () => {
+describe.only('api/questions', () => {
   it('Should respond with a status code of 200 and get all the questions', (done) => {
     chai.request(app)
     .get('/api/questions')
@@ -16,7 +16,8 @@ describe('api/questions', () => {
         done();
       })
   })
-  it('Should create question, then respond with length, then edit question to add level, then respond with body of question, then delete question', (done) => {
+  it('Should create question, then respond with length, then edit question to add level, \
+  then respond with body of question, then delete question', (done) => {
     chai.request(app)
     //create the question
     .post('/api/questions/')
@@ -59,10 +60,12 @@ describe('api/questions', () => {
         deletedQuestionRes.body.should.eql({ 'message': 'deleted' })
         return chai.request(app)
         .get('/api/questions/' + updatedQuestion.id)
-        updatedQuestion.id.should.eql(undefined)
+      })
+      .then (findDeletedQuestionRes => {
+        findDeletedQuestionRes.body.should.eql('')
+        done()
       })
     })
-    done()
     .catch( err => console.log('err', err))
   })
 })

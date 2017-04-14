@@ -14,15 +14,15 @@ const findbyName = ( data ) =>
   .then(user => user)
 
 const updatebyGithub = ( data, attributes ) =>
-  utilities.update('users', 'github_handle', data, attributes)
-  .then(user => user)
+  utilities.update('users', 'github_handle', data.github_handle, attributes)
+  .then(users => users)
 
 const updatebyName = ( data, attributes ) =>
   utilities.update('users', 'name', data, attributes)
   .then(user => user)
 
 const updatebyID = ( data, attributes ) =>
-  utilities.update('users', 'ID', data, attributes)
+  utilities.update('users', 'id', data, attributes)
   .then(user => user)
 
 const deletebyGithub = ( data ) =>
@@ -34,7 +34,7 @@ const deletebyName = ( data ) =>
   .then(user => user)
 
 const deletebyID = ( data ) =>
-  utilities.delete('users', 'ID', data)
+  utilities.delete('users', 'id', data)
   .then(user => user)
 
 

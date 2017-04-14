@@ -38,7 +38,7 @@ router.get('/:id', (request, response) => {
   const { id } = request.params
   const attributes = request.body
   questions.findbyID( id, attributes )
-  .then( () => response.json( { 1: 'success' } ) )
+  .then( question => response.json( question ) )
   .catch( err => console.log('err', err) )
 })
 

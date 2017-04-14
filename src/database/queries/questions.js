@@ -10,7 +10,7 @@ const create = attributes => {
 
 const findbyID = ( data ) =>
   utilities.findAllWhere('questions', 'id', data)
-  .then(question => question)
+  .then(questions => questions[0])
 
 const findbyTag = ( tags ) => {
   let whereClauses = tags.map(tag => "tags @> '" + JSON.stringify([tag]) + "'")
