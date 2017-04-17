@@ -4,7 +4,7 @@ import flex from 'react-uikit-flex'
 import Scorecard from '../../molecules/scorecard/index'
 import questions from '../../../../../data/questions.json'
 import Header from '../../molecules/header/index'
-import SelectTag from '../../atoms/select-tag/index'
+import SelectTag from '../../atoms/form-select/index'
 require('../../../../../public/stylesheets/uikit.min.css')
 
 export default class ApprovalPage extends Component {
