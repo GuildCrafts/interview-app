@@ -5,7 +5,7 @@ import Landing from '../../components/Pages/Landing/index'
 
 import Layout from '../common/router'
 import Header from '../molecules/header/index'
-import GameOptions from '../../components/molecules/game-options/index'
+import ApprovalPage from '../pages/approval/index'
 import Profile from '../pages/profile/index'
 
 export default class Routes extends Component {
@@ -32,10 +32,10 @@ export default class Routes extends Component {
     return (
       <BrowserRouter>
         <div>
-          <Route exact path='/' component={LandingComponent} />
-          <Route path='/test' component={GameOptionsComponent} />
+          <Route exact path='/' component={Landing} />      
+          <Route path='/:topic/:difficulty' component={Landing} />
+          <Route path='/approval' component={ApprovalPage} />
           <Route path='/profile' component={ProfileComponent} />
-          <Route path='/:topic/:difficulty' component={LandingComponent} />
         </div>
       </BrowserRouter>
     )

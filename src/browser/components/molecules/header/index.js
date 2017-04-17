@@ -50,7 +50,7 @@ export default class Header extends Component {
                   <li className="uk-active">
                     <a href="#">Start New Interview</a>
                     <ul className="uk-nav-sub">
-                      <li><a href="#">Approve Questions</a></li>
+                      <li><a href="/approval">Approve Questions</a></li>
                       <li>
                         <button className="uk-button uk-button-default uk-margin-small-right" type="button" data-uk-toggle="target: #modal-example">Create Question</button>
                         <div id="modal-example" data-uk-modal>
@@ -61,8 +61,9 @@ export default class Header extends Component {
                               <AddInput />
                             <p className="uk-text-right">
                                 <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                                <button className="uk-button uk-button-primary" type="button">Save</button>
+                                <button className="uk-button uk-button-primary" type="submit">Save</button>
                             </p>
+                          </form>
                           </div>
                         </div>
                       </li>
