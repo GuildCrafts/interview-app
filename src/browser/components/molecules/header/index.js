@@ -28,6 +28,12 @@ export default class Header extends Component {
         "prompt"     : "What Is The Answer?"
       },
       {
+        "type"            : "Select",
+        "prompt"          : "Game Mode",
+        "options"         : ['Question & Answer'],
+        "isOptionRequired": true
+      },
+      {
         "type"   : "Checkbox",
         "options": ["Core-JavaScript","Functional-Programming"],
         "prompt" : "Topic"
