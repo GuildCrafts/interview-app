@@ -30,7 +30,7 @@ export default class Header extends Component {
       {
         "type"            : "Select",
         "prompt"          : "Game Mode",
-        "options"         : ['Question & Answer'],
+        "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
         "isOptionRequired": true
       },
       {
