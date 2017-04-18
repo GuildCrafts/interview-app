@@ -7,7 +7,7 @@ import fs from 'fs'
 let should = chai.should()
 chai.use(chaiHttp)
 
-describe.only('api/users', () => {
+describe('api/users', () => {
   it('Should create user, then respond with length, then edit user to add something, then respond with body of user', (done) => {
     chai.request(app)
     .post('/api/users/')
