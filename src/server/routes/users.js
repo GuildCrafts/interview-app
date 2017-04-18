@@ -26,4 +26,8 @@ router.put('/github_handle/:github_handle', (request, response) => {
   .catch( err => console.log('err ROUTES 3', err) )
 })
 
+router.get('/current_user', (request, response) => {
+  response.json(request.user)
+})
+
 export default router
