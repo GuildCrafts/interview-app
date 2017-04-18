@@ -4,6 +4,7 @@ import FormCheckbox from '../../atoms/form-checkbox'
 import FormRadio from '../../atoms/form-radio/index'
 import FormSelect from '../../atoms/form-select/index'
 import FormInput from '../../atoms/form-input/index'
+import AddInput from '../prompt-input/index'
 
 // Implementation:
 /*
@@ -63,9 +64,9 @@ export default class Form extends Component{
   }
 
   initTextInput(inputModule) {
-    let domElement = (<FormInput 
-      prompt={inputModule.prompt} 
-      placeholder={inputModule.placeholder} 
+    let domElement = (<FormInput
+      prompt={inputModule.prompt}
+      placeholder={inputModule.placeholder}
       onChange={this.handleChange.bind(this)}/>
     )
 
@@ -76,9 +77,9 @@ export default class Form extends Component{
   }
 
   initCheckbox(inputModule) {
-    let domElement = (<FormCheckbox 
-      prompt={inputModule.prompt} 
-      options={inputModule.options} 
+    let domElement = (<FormCheckbox
+      prompt={inputModule.prompt}
+      options={inputModule.options}
       onChange={this.handleChange.bind(this)}/>)
 
     let currentState = this.state
@@ -90,9 +91,9 @@ export default class Form extends Component{
   }
 
   initRadio(inputModule) {
-    let domElement = (<FormRadio 
-      prompt={inputModule.prompt} 
-      options={inputModule.options} 
+    let domElement = (<FormRadio
+      prompt={inputModule.prompt}
+      options={inputModule.options}
       onChange={this.handleChange.bind(this)}
       />)
     let currentState = this.state
@@ -104,11 +105,11 @@ export default class Form extends Component{
 
   initSelect(inputModule) {
     let domElement = (
-      <FormSelect 
-      prompt={inputModule.prompt} 
-      options={inputModule.options} 
-      isOptionRequired={inputModule.isOptionRequired} 
-      onChange={this.handleChange.bind(this) } 
+      <FormSelect
+      prompt={inputModule.prompt}
+      options={inputModule.options}
+      isOptionRequired={inputModule.isOptionRequired}
+      onChange={this.handleChange.bind(this) }
       passId={inputModule.id}
       />)
     let currentState = this.state
@@ -130,9 +131,16 @@ export default class Form extends Component{
 
   render(){
     return(
-      <form className="uk-form-horizontal uk-margin-large">
-        {this.state.form}
-      </form>
+      <div>
+        <form className="uk-form-horizontal uk-margin-large">
+          {this.state.form}
+        </form>
+        <AddInput />
+        <p className="uk-text-right">
+            <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+            <button className="uk-button uk-button-primary" type="submit">Save</button>
+        </p>
+      </div>
     )
   }
 }
