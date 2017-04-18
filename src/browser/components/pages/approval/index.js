@@ -108,7 +108,7 @@ export default class ApprovalPage extends Component {
         // Drop down input
         <div><Header stats={fakeStats} profile={fakeProfile}/></div>
         <br></br>
-        <SelectTag options={filterArray} label='Filter' onChange={this.handleChange.bind(this, 'filter')}/>
+        <FormSelect options={filterArray} label='Filter' onChange={this.handleChange.bind(this, 'filter')}/>
         <br></br>
         {content}
       </div>

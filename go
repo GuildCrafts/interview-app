@@ -29,7 +29,7 @@
   }
 
   function start {
-    npm run start:test
+    npm run start:dev
   }
 
   function add_env_var_to_shell {
