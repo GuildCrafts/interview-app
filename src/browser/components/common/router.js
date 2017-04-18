@@ -32,8 +32,8 @@ export default class Routes extends Component {
     return (
       <BrowserRouter>
         <div>
-          <Route exact path='/' component={Landing} />      
-          <Route path='/:topic/:difficulty' component={Landing} />
+          <Route exact path='/' component={LandingComponent} />
+          <Route path='/:topic/:difficulty' component={LandingComponent} />
           <Route path='/approval' component={ApprovalPage} />
           <Route path='/profile' component={ProfileComponent} />
         </div>

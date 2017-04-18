@@ -29,9 +29,9 @@ export default class GameOptions extends Component {
         <form className="uk-form-horizontal" onSubmit={this.handleSubmit}>
           <fieldset className="uk-fieldset">
 
-            <FormSelect options={difficulty} label="Difficulty:" onChange={this.handleChange.bind(this, 'difficulty')} initValue={this.state.difficulty} />
-            <FormSelect options={topics} label="Topic:" onChange={this.handleChange.bind(this, 'topic')} initValue={this.state.topic} />
-            <FormSelect options={gameModes} label="Game Mode:" onChange={this.handleChange.bind(this, 'gameMode')} />
+            <FormSelect options={difficulty} prompt="Difficulty:" onChange={this.handleChange.bind(this, 'difficulty')} initValue={this.state.difficulty} />
+            <FormSelect options={topics} prompt="Topic:" onChange={this.handleChange.bind(this, 'topic')} initValue={this.state.topic} />
+            <FormSelect options={gameModes} prompt="Game Mode:" onChange={this.handleChange.bind(this, 'gameMode')} />
 
           </fieldset>
           <button className="uk-button uk-button-primary" >Submits</button>
