@@ -128,10 +128,16 @@ export default class Form extends Component{
     this.setState({form: form})
   }
 
+
+
   render(){
     return(
       <form className="uk-form-horizontal uk-margin-large">
         {this.state.form}
+        <p className="uk-text-right">
+            <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+            <button className="uk-button uk-button-primary" type="submit" onClick={this.props.onSubmitHandler.bind(this, this.state.input)}>Save</button>
+        </p>
       </form>
     )
   }

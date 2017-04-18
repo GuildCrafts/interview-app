@@ -4,7 +4,7 @@ import ProfileBox from '../../atoms/profile-box/index'
 import StatBox from '../../atoms/stat-box/index'
 import AddInput from '../prompt-input/index'
 import Form from '../../molecules/form/index'
-
+import Requests from '../../common/requests'
 
 require('../../../../../public/stylesheets/uikit.min.css')
 
@@ -13,18 +13,24 @@ export default class Header extends Component {
     super(props)
   }
 
+submitQuestion(event, formData) {
+  event.preventDefault()
+  // make a call to the backend to create the Question
+  Requests.post('/api/questions', formData)
+  .then( response => response.json())
+}
 
-  render() {   
-    
+  render() {
+
     const inputModules = [
       {
         "type"       : "Input",
-        "placeholder": "What is the meaning of life, the universe, and everything?", 
+        "placeholder": "What is the meaning of life, the universe, and everything?",
         "prompt"     : "What Is Your Question?"
       },
       {
-        "type"       : "Input", 
-        "placeholder": "42", 
+        "type"       : "Input",
+        "placeholder": "42",
         "prompt"     : "What Is The Answer?"
       },
       {
@@ -57,13 +63,8 @@ export default class Header extends Component {
                           <div className="uk-modal-dialog uk-modal-body">
                               <h2 className="uk-modal-title uk-text-center">New Question Form</h2>
                               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                              <Form inputModules={inputModules} />
+                              <Form inputModules={inputModules} onSubmitHandler={this.submitQuestion}/>
                               <AddInput />
-                            <p className="uk-text-right">
-                                <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                                <button className="uk-button uk-button-primary" type="submit">Save</button>
-                            </p>
-                          </form>
                           </div>
                         </div>
                       </li>
