@@ -19,9 +19,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-app.use('/api/users', users)
-app.use('/api/questions', questions)
-
 
 if(getEnv() === 'development') {
   app.use(webpackDevMiddleware(compiler, {
@@ -45,6 +42,10 @@ app.use(express.static(__dirname + '/public/dist/'));
 app.use(express.static(__dirname + '/src/browser/main.js'));
 
 authInitialize(app)
+
+app.use('/api/users', users)
+app.use('/api/questions', questions)
+
 
 /* GET home page. */
 app.get('*', function(req, res, next) {
