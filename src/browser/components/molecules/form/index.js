@@ -63,9 +63,9 @@ export default class Form extends Component{
   }
 
   initTextInput(inputModule) {
-    let domElement = (<FormInput 
-      prompt={inputModule.prompt} 
-      placeholder={inputModule.placeholder} 
+    let domElement = (<FormInput
+      prompt={inputModule.prompt}
+      placeholder={inputModule.placeholder}
       onChange={this.handleChange.bind(this)}/>
     )
 
@@ -76,9 +76,9 @@ export default class Form extends Component{
   }
 
   initCheckbox(inputModule) {
-    let domElement = (<FormCheckbox 
-      prompt={inputModule.prompt} 
-      options={inputModule.options} 
+    let domElement = (<FormCheckbox
+      prompt={inputModule.prompt}
+      options={inputModule.options}
       onChange={this.handleChange.bind(this)}/>)
 
     let currentState = this.state
@@ -90,9 +90,9 @@ export default class Form extends Component{
   }
 
   initRadio(inputModule) {
-    let domElement = (<FormRadio 
-      prompt={inputModule.prompt} 
-      options={inputModule.options} 
+    let domElement = (<FormRadio
+      prompt={inputModule.prompt}
+      options={inputModule.options}
       onChange={this.handleChange.bind(this)}
       />)
     let currentState = this.state
@@ -104,11 +104,11 @@ export default class Form extends Component{
 
   initSelect(inputModule) {
     let domElement = (
-      <FormSelect 
-      prompt={inputModule.prompt} 
-      options={inputModule.options} 
-      isOptionRequired={inputModule.isOptionRequired} 
-      onChange={this.handleChange.bind(this) } 
+      <FormSelect
+      prompt={inputModule.prompt}
+      options={inputModule.options}
+      isOptionRequired={inputModule.isOptionRequired}
+      onChange={this.handleChange.bind(this) }
       passId={inputModule.id}
       />)
     let currentState = this.state
