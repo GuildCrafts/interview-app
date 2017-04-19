@@ -24,7 +24,7 @@ export default class Header extends Component {
             <Menu />
           </div>
           <ul className="uk-navbar-right">
-            <ProfileBox profile={this.props.profile.profileName.value}/>
+            <ProfileBox profile={this.props.profile.name}/>
             <ProfileBox profile={this.props.profile.topic.value}/>
             <ProfileBox profile={this.props.profile.gameMode.value}/>
             <StatBox name={this.props.stats.experience.heading} count={this.props.stats.experience.value}/>
