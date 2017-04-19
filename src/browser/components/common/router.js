@@ -26,7 +26,7 @@ export default class Routes extends Component {
     const realProfileName = this.state.user.name
 
     const fakeProfile = {
-      profileName: {value: realProfileName},
+      name: realProfileName,
       topic: {value: "JavaScript"},
       gameMode: {value: "Speaking"}
     }

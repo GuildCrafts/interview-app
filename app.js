@@ -39,6 +39,7 @@ if(getEnv() === 'development') {
 
 app.use(express.static(__dirname + '/public/javascripts/'));
 app.use(express.static(__dirname + '/public/dist/'));
+app.use(express.static(__dirname + '/public/images/'));
 app.use(express.static(__dirname + '/src/browser/main.js'));
 
 authInitialize(app)
