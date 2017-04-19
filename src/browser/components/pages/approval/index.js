@@ -4,7 +4,7 @@ import flex from 'react-uikit-flex'
 import Scorecard from '../../molecules/scorecard/index'
 import questions from '../../../../../data/questions.json'
 import Header from '../../molecules/header/index'
-import SelectTag from '../../atoms/select-tag/index'
+import FormSelect from '../../atoms/form-select/index'
 require('../../../../../public/stylesheets/uikit.min.css')
 
 export default class ApprovalPage extends Component {
@@ -34,7 +34,6 @@ export default class ApprovalPage extends Component {
       this.state.questions.map((question, index) => {
         let approvalState = this.state.filter
         if(approvalState === question.approval || approvalState === 'All') {
-
 
           index = "question" + index
           return (
@@ -109,7 +108,7 @@ export default class ApprovalPage extends Component {
         // Drop down input
         <div><Header stats={fakeStats} profile={fakeProfile}/></div>
         <br></br>
-        <SelectTag options={filterArray} label='Filter' onChange={this.handleChange.bind(this, 'filter')}/>
+        <FormSelect options={filterArray} label='Filter' onChange={this.handleChange.bind(this, 'filter')}/>
         <br></br>
         {content}
       </div>

@@ -2,8 +2,8 @@ import knex from '../db.js'
 import utilities from './utilities'
 
 const create = attributes => {
-  attributes.tags = JSON.stringify(attributes.tags)
-  attributes.prompts = JSON.stringify(attributes.prompts)
+  attributes.topics = JSON.stringify(attributes.topics)
+  attributes.hints = JSON.stringify(attributes.hints)
   return utilities.create('questions', attributes)
   .then(question => question)
 }
@@ -12,8 +12,8 @@ const findbyID = ( data ) =>
   utilities.findAllWhere('questions', 'id', data)
   .then(questions => questions[0])
 
-const findbyTag = ( tags ) => {
-  let whereClauses = tags.map(tag => "tags @> '" + JSON.stringify([tag]) + "'")
+const findbyTopic = ( topics ) => {
+  let whereClauses = topics.map(topic => "topics @> '" + JSON.stringify([topic]) + "'")
   whereClauses = whereClauses.join(' OR ')
   return utilities.findAllWhereRaw('questions', whereClauses)
   .then(question => question)
@@ -45,7 +45,7 @@ const deleteByID = ( data, attributes ) =>
 
 export {
   create,
-  findbyTag,
+  findbyTopic,
   findbyID,
   findbyLevel,
   updatebyID,
