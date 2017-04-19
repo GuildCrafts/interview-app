@@ -18,13 +18,13 @@ export default class NewQuestion extends Component {
     const inputModules = [
       {
         "type"       : "Input",
-        "placeholder": "What is the meaning of life, the universe, and everything?",
-        "prompt"     : "What Is Your Question?"
+        "placeholder": "Enter your question",
+        "prompt"     : "Question"
       },
       {
         "type"       : "Input",
-        "placeholder": "42",
-        "prompt"     : "What Is The Answer?"
+        "placeholder": "Answer it thoroughly",
+        "prompt"     : "Answer"
       },
       {
         "type"            : "Select",
@@ -35,12 +35,18 @@ export default class NewQuestion extends Component {
       {
         "type"   : "Checkbox",
         "options": ["Core-JavaScript","Functional-Programming"],
-        "prompt" : "Topic"
+        "prompt" : "Topics"
       },
       {
         "type"   : "Radio",
         "options": ["Beginner", "Intermediate", "Advanced", "Jedi"],
-        "prompt" : "Difficulty Levels"
+        "prompt" : "Difficulty Level"
+      },
+      {
+        "type"            : "Select",
+        "prompt"          : "Points",
+        "options"         : ['1', '2', '3', '4', '5'],
+        "isOptionRequired": true
       }
     ]
 
@@ -48,9 +54,9 @@ export default class NewQuestion extends Component {
       <div id="modal-example" data-uk-modal>
         <div className="uk-modal-dialog uk-modal-body">
             <h2 className="uk-modal-title uk-text-center">New Question Form</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
             <Form inputModules={inputModules} />
-            
+
         </div>
       </div>
     )

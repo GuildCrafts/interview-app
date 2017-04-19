@@ -4,7 +4,7 @@ import FormCheckbox from '../../atoms/form-checkbox'
 import FormRadio from '../../atoms/form-radio/index'
 import FormSelect from '../../atoms/form-select/index'
 import FormInput from '../../atoms/form-input/index'
-import AddInput from '../prompt-input/index'
+import NewQuestionOutput from '../../middleware/new-question-output/index'
 
 // Implementation:
 /*
@@ -61,6 +61,7 @@ export default class Form extends Component{
       currentState.input[property] = event.target.value
       this.setState(currentState)
     }
+    console.log(this.state.input)
   }
 
   initTextInput(inputModule) {
@@ -129,16 +130,33 @@ export default class Form extends Component{
     this.setState({form: form})
   }
 
+  addHint(){
+    let currentState = this.state
+    let hint = "Hint " + ( Object.keys(this.state.form).length - 4 )
+    currentState.form.push(
+      <FormInput
+        prompt={hint}
+        placeholder="Add a usefull hint"
+        onChange={this.handleChange.bind(this)}/>
+    )
+    this.setState( currentState )
+  }
+
+  handleSubmit(){
+    //pass NewQuestionOutput(this.state.input) into the route
+  }
+
   render(){
     return(
       <div>
         <form className="uk-form-horizontal uk-margin-large">
           {this.state.form}
         </form>
-        <AddInput />
+
         <p className="uk-text-right">
-            <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-            <button className="uk-button uk-button-primary" type="submit">Save</button>
+          <button onClick = {this.addHint.bind(this)} className="uk-button uk-button-default" type="button">Add Hint</button>
+          <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+          <button onClick = {this.handleSubmit.bind(this)} className="uk-button uk-button-primary" type="submit">Submit</button>
         </p>
       </div>
     )
