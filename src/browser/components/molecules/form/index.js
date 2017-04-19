@@ -61,7 +61,6 @@ export default class Form extends Component{
       currentState.input[property] = event.target.value
       this.setState(currentState)
     }
-    console.log(this.state.input)
   }
 
   initTextInput(inputModule) {
@@ -132,7 +131,7 @@ export default class Form extends Component{
 
   addHint(){
     let currentState = this.state
-    let hint = "Hint " + ( Object.keys(this.state.form).length - 4 )
+    let hint = "Hint " + ( Object.keys(this.state.form).length - 5 )
     currentState.form.push(
       <FormInput
         prompt={hint}
