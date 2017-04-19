@@ -79,5 +79,5 @@ Run this in a terminal window
 
 ### Guide to contributing questions
 - Fork the repo
-- Add the questions to the file `data/questions.json`. Make sure the questions are tagged with the appropriate `tags`, and `level`.
+- Add the questions to the file `data/questions.json`. Make sure the questions are tagged with the appropriate `topics`, and `level`.
 - Create a Pull Request from your forked repo against the master branch of this repo.

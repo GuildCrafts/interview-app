@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import flex from 'react-uikit-flex'
+
 import FormCheckbox from '../../atoms/form-checkbox'
 import FormRadio from '../../atoms/form-radio/index'
 import FormSelect from '../../atoms/form-select/index'
@@ -138,7 +139,7 @@ export default class Form extends Component{
         <AddInput />
         <p className="uk-text-right">
             <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-            <button className="uk-button uk-button-primary" type="submit">Save</button>
+            <button className="uk-button uk-button-primary" type="submit" onClick={this.props.onSubmitHandler.bind(this, this.state.input)}>Save</button>
         </p>
       </div>
     )
