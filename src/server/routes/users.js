@@ -1,5 +1,4 @@
 import express from 'express'
-import * as users from '../../database/queries/users.js'
 
 const router = express.Router()
 

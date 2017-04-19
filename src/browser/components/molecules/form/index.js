@@ -128,6 +128,7 @@ export default class Form extends Component{
     })
     this.setState({form: form})
   }
+  
 
   render(){
     return(
