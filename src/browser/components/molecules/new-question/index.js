@@ -46,6 +46,12 @@ let inputModules = [
     "options"         : ['1', '2', '3', '4', '5'],
     "tag"             : "points",
     "isOptionRequired": true
+  },
+  {
+    "type"            : "Hint",
+    "prompt"          : "Hints",
+    "tag"             : "hints",
+    "placeholder"     : "Write a helpfull hint",
   }
 ]
 
@@ -54,12 +60,10 @@ export default class NewQuestion extends Component {
     super()
     this.state = {
       form: inputModules,
-      hints: 0
     }
   }
 
   render() {
-
     return (
       <div id="modal-example" data-uk-modal>
         <div className="uk-modal-dialog uk-modal-body">

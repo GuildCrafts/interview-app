@@ -4,6 +4,7 @@ import FormCheckbox from '../../atoms/form-checkbox'
 import FormRadio from '../../atoms/form-radio/index'
 import FormSelect from '../../atoms/form-select/index'
 import FormInput from '../../atoms/form-input/index'
+import FormHints from '../../atoms/form-hints/index'
 
 // Implementation:
 /*
@@ -50,7 +51,8 @@ export default class Form extends Component{
       return {'Input': this.initTextInput.bind(this, inputModule),
         'Checkbox': this.initCheckbox.bind(this, inputModule),
         'Radio': this.initRadio.bind(this, inputModule),
-        'Select': this.initSelect.bind(this, inputModule)
+        'Select': this.initSelect.bind(this, inputModule),
+        'Hint': this.initHints.bind(this, inputModule)
       }[inputModule.type]()
     })
     this.setState({form: form})
@@ -81,6 +83,20 @@ export default class Form extends Component{
 
     let currentState = this.state
     currentState.input[inputModule.tag] = ""
+    this.setState( currentState )
+    return domElement
+  }
+
+  initHints(inputModule) {
+    let domElement = (<FormHints
+      prompt={inputModule.prompt}
+      placeholder={inputModule.placeholder}
+      tag={inputModule.tag}
+      onChange={this.updateInput.bind(this)}/>
+    )
+
+    let currentState = this.state
+    currentState.input[inputModule.tag] = []
     this.setState( currentState )
     return domElement
   }
