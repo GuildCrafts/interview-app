@@ -19,7 +19,6 @@ export default class FormHints extends Component {
 
   render() {
     const changeHandler = (event) => {
-      console.log( "hints event.taget.value  ",event.target.value )
       let currentState = this.state
       currentState.input[event.target.id] = event.target.value
       this.setState(currentState)

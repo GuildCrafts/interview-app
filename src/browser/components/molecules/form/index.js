@@ -70,7 +70,6 @@ export default class Form extends Component{
     let currentState = this.state
     currentState.input[tag] = data
     this.setState( currentState )
-    console.log('Form state.input',this.state.input)
   }
 
   initTextInput(inputModule) {
