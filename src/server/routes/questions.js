@@ -21,6 +21,7 @@ router.get('/', (request, response) => {
 
 router.post('/', (request, response) => {
   const attributes  = request.body
+  console.log('attributes', attributes);
   questions.create( attributes )
   .then( (question) => response.json( question ) )
   .catch( err => console.log('err', err) )

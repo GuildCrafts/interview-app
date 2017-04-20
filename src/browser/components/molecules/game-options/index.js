@@ -24,7 +24,7 @@ export default class GameOptions extends Component {
 
     return (
       <div>
-        <h2>Time to mock interview</h2>
+        <h2>Mock Interview</h2>
         <h4>Select your options</h4>
         <form className="uk-form-horizontal" onSubmit={this.handleSubmit}>
           <fieldset className="uk-fieldset">
@@ -34,7 +34,7 @@ export default class GameOptions extends Component {
             <FormSelect options={gameModes} prompt="Game Mode:" onChange={this.handleChange.bind(this, 'gameMode')} />
 
           </fieldset>
-          <button className="uk-button uk-button-primary" >Submits</button>
+          <button className="uk-button uk-button-primary" >Start Interview</button>
         </form>
       </div>
     )

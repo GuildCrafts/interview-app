@@ -6,6 +6,7 @@ import FormRadio from '../../atoms/form-radio/index'
 import FormSelect from '../../atoms/form-select/index'
 import FormInput from '../../atoms/form-input/index'
 import AddInput from '../prompt-input/index'
+// import Requests from '../../common/requests'
 
 // Implementation:
 /*
@@ -45,6 +46,15 @@ export default class Form extends Component{
       input: {}
     }
   }
+
+  // submitQuestion(formData, event) {
+  //   console.log('formData::', formData);
+  //   event.preventDefault()
+  //   console.log('Requests', Requests);
+  //   Requests.post('api/questions', formData)
+  //   .then( response => response.json() )
+  //   .then( question => console.log('question', question) )
+  // }
 
   parseName(inputModule, option){
     return inputModule.prompt+'-'+option.split(' ').join('-')
@@ -121,7 +131,8 @@ export default class Form extends Component{
 
   componentDidMount() {
     const form = this.props.inputModules.map( inputModule => {
-      return {'Input': this.initTextInput.bind(this, inputModule),
+      return {
+        'Input': this.initTextInput.bind(this, inputModule),
         'Checkbox': this.initCheckbox.bind(this, inputModule),
         'Radio': this.initRadio.bind(this, inputModule),
         'Select': this.initSelect.bind(this, inputModule)
@@ -129,7 +140,6 @@ export default class Form extends Component{
     })
     this.setState({form: form})
   }
-  
 
   render(){
     return(

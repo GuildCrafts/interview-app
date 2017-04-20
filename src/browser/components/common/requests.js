@@ -1,6 +1,7 @@
 const post = (url, body) => {
    return fetch(url, {
      method:'POST',
+     header: 'Content-Type, application/JSON',  //This is NOT the the right way to write headers
      mode: 'cors',
      body: JSON.stringify(body),
      credentials: 'same-origin'
@@ -10,7 +11,7 @@ const post = (url, body) => {
  const get = (url, params={}) => {
    return fetch(url, {
      method:'GET',
-     header: 'Content-Type, application/JSON',
+     header: 'Content-Type, application/JSON',  //This is NOT the the right way to write headers
      mode: 'cors',
      credentials: 'same-origin'
    }).then(result => {
