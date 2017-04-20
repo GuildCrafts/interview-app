@@ -3,13 +3,19 @@ import React,{Component} from 'react'
 export default class FormInput extends Component {
   constructor() {
     super()
+    this.state = {
+      input: ""
+    }
   }
 
-
   render() {
-    const changeHandler = ( event ) => {
-      this.props.onChange( {property: prompt, isCheckbox: false}, event )
+    const changeHandler = (event) => {
+      let currentState = this.state
+      currentState.input = event.target.value
+      this.setState( currentState )
+      this.props.onChange( this.props.tag, this.state.input )
     }
+
     const prompt = this.props.prompt
     const placeholder = this.props.placeholder
     return (

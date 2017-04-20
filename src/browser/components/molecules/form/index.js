@@ -4,7 +4,6 @@ import FormCheckbox from '../../atoms/form-checkbox'
 import FormRadio from '../../atoms/form-radio/index'
 import FormSelect from '../../atoms/form-select/index'
 import FormInput from '../../atoms/form-input/index'
-import NewQuestionOutput from '../../middleware/new-question-output/index'
 
 // Implementation:
 /*
@@ -41,37 +40,47 @@ export default class Form extends Component{
   constructor(props){
     super(props)
     this.state = {
-      input: {}
+      input: {},
+      inputModules: props.inputModules
     }
   }
 
-  parseName(inputModule, option){
-    return inputModule.prompt+'-'+option.split(' ').join('-')
+  buildJSX() {
+    const form = this.state.inputModules.map( inputModule => {
+      return {'Input': this.initTextInput.bind(this, inputModule),
+        'Checkbox': this.initCheckbox.bind(this, inputModule),
+        'Radio': this.initRadio.bind(this, inputModule),
+        'Select': this.initSelect.bind(this, inputModule)
+      }[inputModule.type]()
+    })
+    this.setState({form: form})
   }
 
-  handleChange(args, event) {
-    let property = args.property
-    let isCheckbox = args.isCheckbox
-    if(isCheckbox) {
-      let currentState = this.state
-      currentState.input[property] = event.target.checked
-      this.setState(currentState)
-    } else {
-      let currentState = this.state
-      currentState.input[property] = event.target.value
-      this.setState(currentState)
-    }
+  componentDidMount(){
+    this.buildJSX()
+  }
+
+  componentWillReceiveProps(){
+    this.buildJSX()
+  }
+
+  updateInput( tag, data ){
+    let currentState = this.state
+    currentState.input[tag] = data
+    this.setState( currentState )
+    console.log('Form state.input',this.state.input)
   }
 
   initTextInput(inputModule) {
     let domElement = (<FormInput
       prompt={inputModule.prompt}
       placeholder={inputModule.placeholder}
-      onChange={this.handleChange.bind(this)}/>
+      tag={inputModule.tag}
+      onChange={this.updateInput.bind(this)}/>
     )
 
     let currentState = this.state
-    currentState.input[inputModule.prompt] = ''
+    currentState.input[inputModule.tag] = ""
     this.setState( currentState )
     return domElement
   }
@@ -80,12 +89,11 @@ export default class Form extends Component{
     let domElement = (<FormCheckbox
       prompt={inputModule.prompt}
       options={inputModule.options}
-      onChange={this.handleChange.bind(this)}/>)
+      tag={inputModule.tag}
+      onChange={this.updateInput.bind(this)}/>)
 
     let currentState = this.state
-    inputModule.options.forEach( option => {
-      currentState.input[this.parseName(inputModule, option)] = false
-    })
+    currentState.input[inputModule.tag] = []
     this.setState( currentState )
     return domElement
   }
@@ -94,11 +102,12 @@ export default class Form extends Component{
     let domElement = (<FormRadio
       prompt={inputModule.prompt}
       options={inputModule.options}
-      onChange={this.handleChange.bind(this)}
+      tag={inputModule.tag}
+      onChange={this.updateInput.bind(this)}
       />)
-    let currentState = this.state
 
-    currentState.input[inputModule.prompt] = inputModule.options[0]
+    let currentState = this.state
+    currentState.input[inputModule.tag] = null
     this.setState( currentState )
     return domElement
   }
@@ -109,40 +118,19 @@ export default class Form extends Component{
       prompt={inputModule.prompt}
       options={inputModule.options}
       isOptionRequired={inputModule.isOptionRequired}
-      onChange={this.handleChange.bind(this) }
+      onChange={this.updateInput.bind(this) }
+      tag={inputModule.tag}
       passId={inputModule.id}
       />)
     let currentState = this.state
-    currentState.input[inputModule.prompt] = inputModule.options[0]
+    currentState.input[inputModule.tag] = inputModule.options[0]
     this.setState( currentState )
     return domElement
   }
 
-  componentDidMount() {
-    const form = this.props.inputModules.map( inputModule => {
-      return {'Input': this.initTextInput.bind(this, inputModule),
-        'Checkbox': this.initCheckbox.bind(this, inputModule),
-        'Radio': this.initRadio.bind(this, inputModule),
-        'Select': this.initSelect.bind(this, inputModule)
-      }[inputModule.type]()
-    })
-    this.setState({form: form})
-  }
-
-  addHint(){
-    let currentState = this.state
-    let hint = "Hint " + ( Object.keys(this.state.form).length - 5 )
-    currentState.form.push(
-      <FormInput
-        prompt={hint}
-        placeholder="Add a usefull hint"
-        onChange={this.handleChange.bind(this)}/>
-    )
-    this.setState( currentState )
-  }
-
   handleSubmit(){
     //pass NewQuestionOutput(this.state.input) into the route
+    console.log(NewQuestionOutput(this.state.input))
   }
 
   render(){
@@ -153,7 +141,6 @@ export default class Form extends Component{
         </form>
 
         <p className="uk-text-right">
-          <button onClick = {this.addHint.bind(this)} className="uk-button uk-button-default" type="button">Add Hint</button>
           <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
           <button onClick = {this.handleSubmit.bind(this)} className="uk-button uk-button-primary" type="submit">Submit</button>
         </p>

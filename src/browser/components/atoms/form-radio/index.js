@@ -4,6 +4,9 @@ export default class FormRadio extends Component {
   constructor(props) {
     super(props)
     FormRadio.increment()
+    this.state = {
+      input: null
+    }
   }
 
   static increment() {
@@ -15,9 +18,11 @@ export default class FormRadio extends Component {
   }
 
   render() {
-
     const changeHandler = (event) => {
-      this.props.onChange({property: this.props.prompt, isCheckbox: false}, event)
+      let currentState = this.state
+      currentState.input = event.target.value
+      this.setState( currentState )
+      this.props.onChange( this.props.tag, this.state.input )
     }
 
     const radio = this.props.options.map( (option, index) => {

@@ -3,11 +3,17 @@ import React, {Component} from 'react'
 export default class FormSelect extends Component {
   constructor(props){
     super(props)
+    this.state = {
+      input: null
+    }
   }
 
   render() {
     const changeHandler = (event) => {
-      this.props.onChange({property: this.props.prompt, isCheckbox: false}, event)
+      let currentState = this.state
+      currentState.input = event.target.value
+      this.setState( currentState )
+      this.props.onChange( this.props.tag, this.state.input )
     }
 
     const options = this.props.options.map((option, index) => {

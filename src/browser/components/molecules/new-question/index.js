@@ -8,55 +8,64 @@ import Form from '../../molecules/form/index'
 
 require('../../../../../public/stylesheets/uikit.min.css')
 
+let inputModules = [
+  {
+    "type"       : "Input",
+    "placeholder": "Enter your question",
+    "prompt"     : "Question",
+    "tag"        : "question"
+  },
+  {
+    "type"       : "Input",
+    "placeholder": "Answer it thoroughly",
+    "prompt"     : "Answer",
+    "tag"        : "answer"
+  },
+  {
+    "type"            : "Select",
+    "prompt"          : "Game Mode",
+    "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
+    "tag"             : "game_mode",
+    "isOptionRequired": true
+  },
+  {
+    "type"   : "Checkbox",
+    "options": ["Core-JavaScript","Functional-Programming"],
+    "prompt" : "Topics",
+    "tag"    : "topics"
+  },
+  {
+    "type"   : "Radio",
+    "options": ["Beginner", "Intermediate", "Advanced", "Jedi"],
+    "prompt" : "Difficulty Level",
+    "tag"    : "level"
+  },
+  {
+    "type"            : "Select",
+    "prompt"          : "Points",
+    "options"         : ['1', '2', '3', '4', '5'],
+    "tag"             : "points",
+    "isOptionRequired": true
+  }
+]
+
 export default class NewQuestion extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
+    this.state = {
+      form: inputModules,
+      hints: 0
+    }
   }
 
   render() {
-
-    const inputModules = [
-      {
-        "type"       : "Input",
-        "placeholder": "Enter your question",
-        "prompt"     : "Question"
-      },
-      {
-        "type"       : "Input",
-        "placeholder": "Answer it thoroughly",
-        "prompt"     : "Answer"
-      },
-      {
-        "type"            : "Select",
-        "prompt"          : "Game Mode",
-        "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
-        "isOptionRequired": true
-      },
-      {
-        "type"   : "Checkbox",
-        "options": ["Core-JavaScript","Functional-Programming"],
-        "prompt" : "Topics"
-      },
-      {
-        "type"   : "Radio",
-        "options": ["Beginner", "Intermediate", "Advanced", "Jedi"],
-        "prompt" : "Difficulty Level"
-      },
-      {
-        "type"            : "Select",
-        "prompt"          : "Points",
-        "options"         : ['1', '2', '3', '4', '5'],
-        "isOptionRequired": true
-      }
-    ]
 
     return (
       <div id="modal-example" data-uk-modal>
         <div className="uk-modal-dialog uk-modal-body">
             <h2 className="uk-modal-title uk-text-center">New Question Form</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
-            <Form inputModules={inputModules} />
-
+            <Form inputModules={this.state.form} />
         </div>
       </div>
     )
