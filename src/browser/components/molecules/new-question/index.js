@@ -8,7 +8,7 @@ import Form from '../../molecules/form/index'
 
 require('../../../../../public/stylesheets/uikit.min.css')
 
-let inputModules = [
+const inputModules = [
   {
     "type"       : "Input",
     "placeholder": "Enter your question",
@@ -55,6 +55,7 @@ let inputModules = [
   }
 ]
 
+
 export default class NewQuestion extends Component {
   constructor() {
     super()
@@ -63,13 +64,18 @@ export default class NewQuestion extends Component {
     }
   }
 
+  handleSubmit( data ){
+    //you can put the submit route here
+    console.log(data)
+  }
+
   render() {
     return (
       <div id="modal-example" data-uk-modal>
         <div className="uk-modal-dialog uk-modal-body">
             <h2 className="uk-modal-title uk-text-center">New Question Form</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
-            <Form inputModules={this.state.form} />
+            <Form inputModules={this.state.form} onSubmit={this.handleSubmit.bind(this)}/>
         </div>
       </div>
     )

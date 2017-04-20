@@ -145,7 +145,7 @@ export default class Form extends Component{
 
   handleSubmit(){
     //pass NewQuestionOutput(this.state.input) into the route
-    console.log(this.state.input)
+    this.props.onSubmit(this.state.input)
   }
 
   render(){
@@ -157,7 +157,7 @@ export default class Form extends Component{
 
         <p className="uk-text-right">
           <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-          <button onClick = {this.handleSubmit.bind(this)} className="uk-button uk-button-primary" type="submit">Submit</button>
+          <button onClick = {this.handleSubmit.bind(this)} className="uk-button uk-button-primary uk-modal-close" type="submit">Submit</button>
         </p>
       </div>
     )
