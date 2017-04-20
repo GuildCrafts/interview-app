@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import flex from 'react-uikit-flex'
+
 import FormCheckbox from '../../atoms/form-checkbox'
 import FormRadio from '../../atoms/form-radio/index'
 import FormSelect from '../../atoms/form-select/index'
@@ -147,6 +148,7 @@ export default class Form extends Component{
     //pass NewQuestionOutput(this.state.input) into the route
     this.props.onSubmit(this.state.input)
   }
+  
 
   render(){
     return(

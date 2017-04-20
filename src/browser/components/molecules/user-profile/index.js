@@ -9,8 +9,7 @@ export default class UserProfile extends Component {
     const user = this.props.user
     return (
       <div>
-        <div style={{width:'200', height:'250', backgroundColor:'gray'}}>
-        </div>
+        <img src="MurphyHeadshot.jpg" alt="Nope" />
         <h3>{user.profileName.value}</h3>
         <p>Joined on: {"04/09/2017"}</p>
         <p>Experience: {"Ultra Advanced"}</p>

@@ -1,5 +1,4 @@
 import express from 'express'
-import * as users from '../../database/queries/users.js'
 
 const router = express.Router()
 
@@ -24,6 +23,10 @@ router.put('/github_handle/:github_handle', (request, response) => {
   users.updatebyGithub( data, attributes )
   .then( users => response.json(users[0]) )
   .catch( err => console.log('err ROUTES 3', err) )
+})
+
+router.get('/current_user', (request, response) => {
+  response.json(request.user)
 })
 
 export default router

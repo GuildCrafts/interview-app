@@ -1,20 +1,36 @@
 import React, {Component} from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter, Route, Link } from 'react-router-dom'
-import Landing from '../../components/Pages/Landing/index'
 
+import Landing from '../../components/Pages/Landing/index'
 import Layout from '../common/router'
 import Header from '../molecules/header/index'
 import ApprovalPage from '../pages/approval/index'
 import Profile from '../pages/profile/index'
+import Requests from './requests'
 
 export default class Routes extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {user: {dummy: true}}
+  }
+
+  componentDidMount() {
+    Requests.get('/api/users/current_user')
+    .then(user => {
+      this.setState(Object.assign(this.state, {user: user}))
+    })
+  }
+
   render() {
+    const realProfileName = this.state.user.name
+
     const fakeProfile = {
-      profileName: {value: "Murphy"},
+      name: realProfileName,
       topic: {value: "JavaScript"},
       gameMode: {value: "Speaking"}
     }
+
     const fakeStats = {
       experience: {value: 100, heading: "Experience"},
       difficulty: {value: "Beginner", heading: "Difficulty"}
