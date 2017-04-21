@@ -8,13 +8,13 @@ export default class GameOptions extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange(property, event) {
-    this.setState({[property]: event.target.value});
-  }
-
   handleSubmit(event) {
     event.preventDefault();
     this.props.onSubmit(this.state)
+  }
+
+  handleChange( tag, data ){
+    this.setState( {[tag]: data} )
   }
 
   render() {
@@ -29,9 +29,9 @@ export default class GameOptions extends Component {
         <form className="uk-form-horizontal" onSubmit={this.handleSubmit}>
           <fieldset className="uk-fieldset">
 
-            <FormSelect options={difficulty} prompt="Difficulty:" onChange={this.handleChange.bind(this, 'difficulty')} initValue={this.state.difficulty} />
-            <FormSelect options={topics} prompt="Topic:" onChange={this.handleChange.bind(this, 'topic')} initValue={this.state.topic} />
-            <FormSelect options={gameModes} prompt="Game Mode:" onChange={this.handleChange.bind(this, 'gameMode')} />
+            <FormSelect options={difficulty} prompt="Difficulty:" tag="difficulty" onChange={this.handleChange.bind(this)} initValue={this.state.difficulty} />
+            <FormSelect options={topics} prompt="Topic:" tag="topic" onChange={this.handleChange.bind(this)} initValue={this.state.topic} />
+            <FormSelect options={gameModes} prompt="Game Mode:" tag="gameMode" onChange={this.handleChange.bind(this)} />
 
           </fieldset>
           <button className="uk-button uk-button-primary" >Submits</button>
