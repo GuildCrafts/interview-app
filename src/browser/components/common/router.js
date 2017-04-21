@@ -16,7 +16,7 @@ export default class Routes extends Component {
   }
 
   componentDidMount() {
-    Requests.get('/api/users/current_user')
+    Requests.getUserName('/api/users/current_user')
     .then(user => {
       this.setState(Object.assign(this.state, {user: user}))
     })
@@ -24,7 +24,6 @@ export default class Routes extends Component {
 
   render() {
     const realProfileName = this.state.user.name
-
     const fakeProfile = {
       name: realProfileName,
       topic: {value: "JavaScript"},

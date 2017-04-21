@@ -1,17 +1,17 @@
 const post = (url, body) => {
    return fetch(url, {
      method:'POST',
-     header: 'Content-Type, application/JSON',  //This is NOT the the right way to write headers
+     headers: {'Content-Type': 'text/plain'},
      mode: 'cors',
      body: JSON.stringify(body),
      credentials: 'same-origin'
    })
  }
 
- const get = (url, params={}) => {
+ const getUserName = (url, params={}) => {
    return fetch(url, {
      method:'GET',
-     header: 'Content-Type, application/JSON',  //This is NOT the the right way to write headers
+     headers: {'Content-Type': 'application/json'},
      mode: 'cors',
      credentials: 'same-origin'
    }).then(result => {
@@ -19,8 +19,36 @@ const post = (url, body) => {
    })
  }
 
+ const getDatabaseQuestions = (url, params={}) => {
+   return fetch(url, {
+     method:'GET',
+     headers: {'Content-Type': 'text/plain'},
+     mode: 'cors',
+     credentials: 'same-origin'
+   }).then(result => {
+     console.log(result);
+     return result.json()
+   })
+ }
+
  // add put request here
+const put = (url, body) => {
+  return fetch(url, {
+    method: 'PUT',
+    mode: 'cors',
+    body: JSON.stringify(body),
+    credentials: 'same-origin'
+  })
+}
+
+const deleteQuestion = (url, id) => {
+  return fetch(url, {
+    method: 'DELETE',
+    mode: 'cors',
+    credentials: 'same-origin'
+  })
+}
 
 
 
- export default {get, post}
+ export default {getUserName, getDatabaseQuestions, post, put, deleteQuestion}

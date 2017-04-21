@@ -5,6 +5,7 @@ import Scorecard from '../../molecules/scorecard/index'
 import questions from '../../../../../data/questions.json'
 import Header from '../../molecules/header/index'
 import FormSelect from '../../atoms/form-select/index'
+import Request from '../../common/requests'
 require('../../../../../public/stylesheets/uikit.min.css')
 
 export default class ApprovalPage extends Component {
@@ -14,11 +15,24 @@ export default class ApprovalPage extends Component {
     this.state.filter = "All"
   }
 
+  componentDidMount(){
+    Request.getDatabaseQuestions('/api/questions/approval').then(questions => {
+      console.log('questions>>>>>', questions)
+      return questions
+    })
+    .then(question => {
+      this.setState(Object.assign(this.state, {questions: question}))
+    })
+  }
+
   onClick(index){
     let questArr = this.state.questions
-    let place = index
     questArr.splice(this.refs[index], 1)
     this.setState({questions: questArr})
+    Request.deleteQuestion('/api/questions/approval/:id').then(question => {
+      console.log('question>>>>>', question)
+      return question
+    })
   }
 
   handleChange(property, event) {
@@ -34,7 +48,6 @@ export default class ApprovalPage extends Component {
       this.state.questions.map((question, index) => {
         let approvalState = this.state.filter
         if(approvalState === question.approval || approvalState === 'All') {
-
           index = "question" + index
           return (
             <div key = {index}>
@@ -81,7 +94,7 @@ export default class ApprovalPage extends Component {
                   </form>
                   </div>
                 </div>
-                <button className="uk-button-small uk-button-danger" onClick={this.onClick.bind(this, index)} ref={index} type="button">Delete this question</button>
+                <button className="uk-button-small uk-button-danger" onClick={this.onClick.bind(this, index)} ref={index} type="button" >Delete this question</button>
             </div>
           )
         }

@@ -19,6 +19,20 @@ router.get('/', (request, response) => {
   .catch( err => console.log('err', err) )
 })
 
+router.get('/approval', (request, response) => {
+  questions.findAllQuestions()
+  .then( questions => {
+    response.send(questions)
+  })
+})
+
+router.delete('/approval', (request, response) => {
+  const { id } = request.params
+  questions.deleteByID( id )
+  .then( () => response.json( { 'message': 'deleted' } ) )
+  .catch( err => console.log('err', err) )
+})
+
 router.post('/', (request, response) => {
   const attributes  = request.body
   console.log('attributes', attributes);

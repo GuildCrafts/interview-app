@@ -6,13 +6,13 @@ import chaiHttp from 'chai-http'
 let should = chai.should()
 chai.use(chaiHttp)
 
-describe('api/questions', () => {
+describe.only('api/questions', () => {
   it('Should respond with a status code of 200 and get all the questions', (done) => {
     chai.request(app)
-    .get('/api/questions')
+    .get('/api/questions/')
       .then((res) => {
-        res.should.have.status(200);
-        res.body.should.be.a('array');
+        res.should.have.status(200)
+        res.body.should.be.a('array')
         done();
       })
   })
@@ -42,12 +42,14 @@ describe('api/questions', () => {
       updatedQuestionRes.should.have.status(200);
       updatedQuestionRes.body.should.eql({
         id: updatedQuestionRes.body.id,
-        topics: null,
+        approval: null,
         question: 'Who is Murphy?',
         level: 'beginner',
         answer: 'your mom',
+        game_mode: null,
         points: null,
-        hints: null
+        hints: null,
+        topics: null
       })
       return updatedQuestionRes.body
     })

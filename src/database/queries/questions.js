@@ -23,6 +23,10 @@ const findbyLevel = ( data ) =>
   utilities.findAllWhere('questions', 'level', data)
   .then(question => question)
 
+const findAllQuestions = ( data ) =>
+  utilities.findAll('questions', data)
+  .then(question => question)
+
 const updatebyID = ( id, attributes ) =>
   utilities.update( 'questions', 'id', id, attributes)
   .then(question => question)
@@ -48,6 +52,7 @@ export {
   findbyTopic,
   findbyID,
   findbyLevel,
+  findAllQuestions,
   updatebyID,
   updatebyLevel,
   deleteByQuestion,
