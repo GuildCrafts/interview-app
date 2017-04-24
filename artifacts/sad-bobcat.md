@@ -7,7 +7,7 @@ Building the interview tables and API
 
 ## Project Specs
 - [ ] [Make sure users are in the system #101](https://github.com/GuildCrafts/interview-app/issues/101)
-- [ ] [Interviews Table #102](https://github.com/GuildCrafts/interview-app/issues/102)
+- [x] [Interviews Table #102](https://github.com/GuildCrafts/interview-app/issues/102)
 - [ ] [Interview CRUD #118](https://github.com/GuildCrafts/interview-app/issues/118)
 - [ ] [Interview API #119](https://github.com/GuildCrafts/interview-app/issues/119)
 
