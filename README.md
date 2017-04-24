@@ -18,13 +18,12 @@ Specifications and requirements will be assigned based on the items in backlog w
 ### Setup instructions
 If this is the first time you're setting up the Interview-App repo:
 
-1. Enter these commands in the interview-app directory (this will clone the IDM repo):
+1. Get the IDM repo from your team lead, and have move it to the same folder level that your interview-app resides (do not put IDM into the interview-app repo). In your terminal, navigate to the interview-app directory and enter the following command:
   - `./go init`
-  - `./go install_idm`
 <br></br>  
 2. Create a `.env.development` file in the IDM repo and follow steps 7 & 8 in the IDM `README`.
 
-3. Create a `.env.development` file in the Interview-App repo and add only the `JWT_PUBLIC_KEY` from the IDM repo. Example (This should all be one single line with `/n` as line breaks):
+3. Create a `.env.development` file in the Interview-App repo and add only the `JWT_PUBLIC_KEY` from the IDM repo. THIS IS AN EXAMPLE, this is not the real key (The key should all be one single line with `/n` as line breaks):
    - `JWT_PUBLIC_KEY="-----BEGIN PUBLIC KEY-----\nMEOWMEOWMEOWMEOWIjANBgkqhkiG9w0BAQ3FAAOCAQ8AMIIBCgKCAQEAvr1sxNbmbBwWlT101LWj\ngYp9csutmPKX6yi0DOojeg2RDaRwkr5UOd4pbr6/5Plgvx12hXxWGN54ZG4Aaz1y\nZmDs6DFyeWNtzcVdjhOuoG8PzF/kt613JJClkZ/k827bW7go4TGL3cRg9E8Rdcc7\nhKmWo2nPNSV6EiQreGzvlPCqbpVyqvKOrtDXVSn73HxGlrBLbZXq6YPNfrvgKOCm\nyMNsnfYS6nLTJ+YERNzZuZOX2steqsyFuN5cygvme5AMxjo3fi5tBN5IkFwYWFh1\nOGqEE3w+WOlN1spS/6d9EADOzCbRWx7rUaiRrdLDKhBldmoqdUhCjw8f8vAntEWh\nGwIDAQAB\n-----END PUBLIC KEY-----"`
 <br></br>
 4. Make sure your IDM repo is on the same level as your Interview-App repo (but not within the Inverview-App repo)

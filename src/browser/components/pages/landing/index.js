@@ -46,7 +46,7 @@ export default class Landing extends Component {
     const filteredQuestions = filterQuestions(questions, this.state.topic, this.state.difficulty)
     const content = (this.state.difficulty && this.state.topic) ?
           <Game questions={filteredQuestions}/>
-          : <GameOptions onSubmit={this.updateState} {...topicsAndDifficulty}
+          : <GameOptions onSubmit={this.updateState.bind(this)} {...topicsAndDifficulty}
           parse={parsed} />
 
     return (

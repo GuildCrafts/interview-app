@@ -1,0 +1,25 @@
+# wiggley-hartbeest
+
+Trevor & Jeffrey
+
+## Description
+
+
+## Project Specs
+- [ ] [Issue #115:](https://github.com/GuildCrafts/interview-app/issues/115) Approval page edit form
+- [ ] [Issue #122:](https://github.com/GuildCrafts/interview-app/issues/122) Topics populated
+- [ ] [Issue #117:](https://github.com/GuildCrafts/interview-app/issues/117) Hint button at end of intervierw
+- [ ] [Issue #45:](https://github.com/GuildCrafts/interview-app/issues/45) Finish and submit button
+
+## Quality
+* Making sure all tests pass.
+* Make sure all new code has tests.
+* Test React components as well.
+
+* Commit messages are concise and descriptive
+* Every pull request has a description summarizing the changes made.
+
+* Code is easily readable with descriptive variable names.
+* No stray comments and console logs left in code.
+* Formatting is accounted for (whitespace, etc.)
+* All frontend code has basic styling
