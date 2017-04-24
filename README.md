@@ -20,6 +20,7 @@ If this is the first time you're setting up the Interview-App repo:
 
 1. Enter these commands in the interview-app directory (this will clone the IDM repo):
   - `./go init`
+  - `./go install_idm`
  
 <br></br>  
 2. Create a `.env.development` file in the IDM repo and follow steps 7 & 8 in the IDM `README`.
