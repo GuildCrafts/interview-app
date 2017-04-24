@@ -35,7 +35,7 @@
   function add_env_var_to_shell {
     if [ $SHELL = "/bin/bash" ] ; then
       echo "${1}" >> ~/.bashrc
-    elif [ $SHELL = "bin/zsh" ] ; then
+    elif [ $SHELL = "/bin/zsh" ] ; then
       echo "${1}" >> ~/.zshrc
     fi
   }
@@ -43,7 +43,7 @@
   function source_shell_profile {
     if [ $SHELL = "/bin/bash" ] ; then
       source ~/.bashrc
-    elif [ $SHELL = "bin/zsh" ] ; then
+    elif [ $SHELL = "/bin/zsh" ] ; then
       source ~/.zshrc
     fi
   }
