@@ -7,7 +7,7 @@ const create = attributes =>
 
 const findbyGithub = ( data ) =>
   utilities.findAllWhere('users', 'github_handle', data)
-  .then(users => users[0])
+  .then(users => users)
 
 const findbyName = ( data ) =>
   utilities.findAllWhere('users', 'name', data)
@@ -38,7 +38,7 @@ const deletebyID = ( data ) =>
   .then(user => user)
 
 
-export {
+module.exports = {
   create,
   findbyGithub,
   findbyName,
