@@ -116,14 +116,21 @@ export default class ApprovalPage extends Component {
     console.log('THIS.STATE.questions::', this.state.questions);
     let content = this.renderQuestions()
     return (
-      <div className="uk-container">
+      <div className="uk-container" >
         <Layout profile={this.props.profile} stats={this.props.stats}>
-          Click to edit the following questions:
-            <br></br>
-            <FormSelect options={filterArray} label='Filter' onChange={this.handleChange.bind(this, 'filter')}/>
-            <br></br>
-            {content}
-            <Form inputModules={inputModules} onSubmitHandler={this.submitQuestion} />
+            <div className="uk-grid-match uk-child-width-1-2 uk-padding" data-uk-grid>
+              <div className="uk-card uk-card-default uk-card-body">
+                Click to edit the following questions:
+                <br></br>
+                <FormSelect options={filterArray} label='Filter' onChange={this.handleChange.bind(this, 'filter')}/>
+                <br></br>
+                {content}
+              </div>
+              <br></br>
+              <div className="uk-card uk-card-default uk-card-body">
+                <Form inputModules={inputModules} onSubmitHandler={this.submitQuestion} />
+              </div>
+            </div>
         </Layout>
       </div>
     )

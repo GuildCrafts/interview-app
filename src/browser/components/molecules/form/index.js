@@ -7,37 +7,6 @@ import FormSelect from '../../atoms/form-select/index'
 import FormInput from '../../atoms/form-input/index'
 import FormHints from '../../atoms/form-hints/index'
 
-// Implementation:
-/*
-
-const inputModules = [
-  {
-    "type"       : "Input",
-    "placeholder": "What is the meaning of life, the universe, and everything?",
-    "prompt"     : "What Is Your Question?"
-  },
-  {
-    "type"            : "Select",
-    "options"         : ["1","262","42","9"],
-    "prompt"          : "What Is The Answer?",
-    "isOptionRequired": false
-  },
-  {
-    "type"   : "Checkbox",
-    "options": ["Core-JavaScript","Functional-Programming"],
-    "prompt" : "Topic"
-  },
-  {
-    "type"   : "Radio",
-    "options": ["Beginner", "Intermediate", "Advanced", "Jedi"],
-    "prompt" : "Difficulty Levels"
-  }
-]
-
-<Form inputModules={inputModules} />
-
-*/
-
 export default class Form extends Component{
   constructor(props){
     super(props)
