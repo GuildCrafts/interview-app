@@ -1,38 +1,88 @@
 import React, {Component} from 'react';
 import flex from 'react-uikit-flex'
 
-import Scorecard from '../../molecules/scorecard/index'
-import questions from '../../../../../data/questions.json'
-import Header from '../../molecules/header/index'
+// import questions from '../../../../../data/questions.json'
 import FormSelect from '../../atoms/form-select/index'
 import Request from '../../common/requests'
+import Form from '../../molecules/form/index'
+import Layout from '../layout/index'
+
 require('../../../../../public/stylesheets/uikit.min.css')
 
+const inputModules = [
+  {
+    "type"       : "Input",
+    "placeholder": "Enter your question",
+    "prompt"     : "Question",
+    "tag"        : "question"
+  },
+  {
+    "type"       : "Input",
+    "placeholder": "Answer it thoroughly",
+    "prompt"     : "Answer",
+    "tag"        : "answer"
+  },
+  {
+    "type"            : "Select",
+    "prompt"          : "Game Mode",
+    "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
+    "tag"             : "game_mode",
+    "isOptionRequired": true
+  },
+  {
+    "type"   : "Checkbox",
+    "options": ["Core-JavaScript","Functional-Programming"],
+    "prompt" : "Topics",
+    "tag"    : "topics"
+  },
+  {
+    "type"   : "Radio",
+    "options": ["Beginner", "Intermediate", "Advanced", "Jedi"],
+    "prompt" : "Difficulty Level",
+    "tag"    : "level"
+  },
+  {
+    "type"            : "Select",
+    "prompt"          : "Points",
+    "options"         : ['1', '2', '3', '4', '5'],
+    "tag"             : "points",
+    "isOptionRequired": true
+  },
+  {
+    "type"            : "Hint",
+    "prompt"          : "Hints",
+    "tag"             : "hints",
+    "placeholder"     : "Write a helpfull hint",
+  }
+]
+
 export default class ApprovalPage extends Component {
-  constructor() {
-    super()
-    this.state = {questions}
-    this.state.filter = "All"
+  constructor(props) {
+    super(props)
+    this.state = {questions: [], filter: "All"}
+    this.populateForm = this.populateForm.bind(this)
   }
 
   componentDidMount(){
+    console.log('THIS IS componentDidMount');
     Request.getDatabaseQuestions('/api/questions/approval').then(questions => {
-      console.log('questions>>>>>', questions)
-      return questions
-    })
-    .then(question => {
-      this.setState(Object.assign(this.state, {questions: question}))
+      console.log('questions from API::', questions);
+      this.setState(Object.assign(this.state, {questions: questions}))
     })
   }
 
-  onClick(index){
+  onClickDelete(index){
     let questArr = this.state.questions
     questArr.splice(this.refs[index], 1)
     this.setState({questions: questArr})
     Request.deleteQuestion('/api/questions/approval/:id').then(question => {
-      console.log('question>>>>>', question)
       return question
     })
+  }
+
+  populateForm(index) {
+    // questions are already in the state of this component. This function needs to populate the form with the question that was clicked on.
+    console.log('THIS IS THE QUESTION CLICKED', this.state.questions[index])
   }
 
   handleChange(property, event) {
@@ -48,53 +98,12 @@ export default class ApprovalPage extends Component {
       this.state.questions.map((question, index) => {
         let approvalState = this.state.filter
         if(approvalState === question.approval || approvalState === 'All') {
-          index = "question" + index
           return (
-            <div key = {index}>
-              <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" data-uk-toggle="target:#modal-example">{question.question}</button>
-                <div id="modal-example" data-uk-modal>
-                  <div className="uk-modal-dialog uk-modal-body">
-                    <h2 className="uk-modal-title uk-text-center">Approve Question</h2>
-                    <p>laborum.</p>
-                    <form method="put" action="/edit" className="uk-form-horizontal uk-margin-large">
-                      <div className="uk-margin">
-                        <label className="uk-form-label" htmlFor="form-horizontal-text">Questions:</label>
-                        <div className="uk-form-controls">
-                          <input className="uk-input" id="form-horizontal-text" type="text" defaultValue={question.question} />
-                        </div>
-                      </div>
-                      <div className="uk-margin">
-                        <label className="uk-form-label" htmlFor="form-horizontal-text">Answer:</label>
-                        <div className="uk-form-controls">
-                          <input className="uk-input" id="form-horizontal-text" type="text" defaultValue={question.answer} />
-                        </div>
-                      </div>
-                      <div className="uk-margin">
-                        <label className="uk-form-label" htmlFor="form-horizontal-select">Topic:</label>
-                        <div className="uk-form-controls">
-                          <select className="uk-select" id="form-horizontal-select">
-                            <option>core-javascript</option>
-                            <option>functional-programming</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="uk-margin">
-                        <div className="uk-form-label">Difficulty Level:</div>
-                        <div className="uk-form-controls uk-form-controls-text">
-                          <label><input className="uk-radio" type="radio" name="radio1" /> Beginner</label><br></br>
-                          <label><input className="uk-radio" type="radio" name="radio1" /> Intermediate</label><br></br>
-                          <label><input className="uk-radio" type="radio" name="radio1" /> Advanced</label><br></br>
-                          <label><input className="uk-radio" type="radio" name="radio1" /> Jedi</label>
-                        </div>
-                      </div>
-                    <p className="uk-text-right">
-                      <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                      <button className="uk-button uk-button-primary" type="submit">Save Edits</button>
-                    </p>
-                  </form>
-                  </div>
-                </div>
-                <button className="uk-button-small uk-button-danger" onClick={this.onClick.bind(this, index)} ref={index} type="button" >Delete this question</button>
+            <div>
+              <div key = {index}>
+                <button className="uk-button-small uk-button-danger" onClick={this.onClickDelete.bind(this, index)} ref={index} type="button" >Delete this question</button>
+                <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.populateForm.bind(this, index)}>{question.question}</button>
+              </div>
             </div>
           )
         }
@@ -102,28 +111,20 @@ export default class ApprovalPage extends Component {
     )
   }
   render() {
-    const fakeStats = {
-      experience: {value: 100, heading: "Experience"},
-      difficulty: {value: "Beginner", heading: "Difficulty"}
-    }
-
-    const fakeProfile = {
-      profileName: {value: "Murphy"},
-      topic: {value: "JavaScript"},
-      gameMode: {value: "Speaking"}
-    }
 
     const filterArray = ['All', 'Approved', 'Pending']
-
+    console.log('THIS.STATE.questions::', this.state.questions);
     let content = this.renderQuestions()
     return (
-      <div>Click to edit the following questions:
-        // Drop down input
-        <div><Header stats={fakeStats} profile={fakeProfile}/></div>
-        <br></br>
-        <FormSelect options={filterArray} label='Filter' onChange={this.handleChange.bind(this, 'filter')}/>
-        <br></br>
-        {content}
+      <div className="uk-container">
+        <Layout profile={this.props.profile} stats={this.props.stats}>
+          Click to edit the following questions:
+            <br></br>
+            <FormSelect options={filterArray} label='Filter' onChange={this.handleChange.bind(this, 'filter')}/>
+            <br></br>
+            {content}
+            <Form inputModules={inputModules} onSubmitHandler={this.submitQuestion} />
+        </Layout>
       </div>
     )
   }

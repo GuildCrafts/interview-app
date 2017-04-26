@@ -4,30 +4,8 @@ import {uniq, flatMap, take, shuffle} from 'lodash'
 import Form from '../../molecules/form/index'
 import Game from '../../pages/game/index'
 import Request from '../../common/requests'
+import inputModules from '../../common/game-options-template'
 
-const inputModules = [
-  {
-    "type"    : "Select",
-    "prompt"  : "Difficulty",
-    "options" : ["any","beginner","intermediate"],
-    "tag"     : "level",
-    "isOptionRequired": true
-  },
-  {
-    "type"    : "Select",
-    "prompt"  : "Topic",
-    "options" : ["any","javascript","http","sql"],
-    "tag"     : "topic",
-    "isOptionRequired": true
-  },
-  {
-    "type"    : "Select",
-    "prompt"  : "Game Mode",
-    "options" : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
-    "tag"     : "game_mode",
-    "isOptionRequired": true
-  }
-]
 
 export default class GameOptions extends Component {
   constructor(props) {
@@ -67,9 +45,9 @@ export default class GameOptions extends Component {
     }
   }
 
-  handleChange( tag, data ){
-    this.setState( {[tag]: data} )
-  }
+  // handleChange( tag, data ){
+  //   this.setState( {[tag]: data} )
+  // }
 
   render() {
     const topics = this.props.topics || []
@@ -82,7 +60,7 @@ export default class GameOptions extends Component {
     else if (!this.state.isForm) {
       correctElement = <Game questions={this.state.questions} />
     }
-
+console.log("GAME-OPTIONS, this.props", this.props);
     return (
       <div>
         <h2>Mock Interview</h2>
