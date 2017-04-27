@@ -1,4 +1,4 @@
-./#! /bin/bash
+#! /bin/bash
 
   function help {
     echo "Usage"
