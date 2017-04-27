@@ -3,7 +3,7 @@ import utilities from './utilities'
 
 const create = attributes =>
   utilities.create('users', attributes)
-  .then(user => user)
+  .then(users => users[0])
 
 const findbyGithub = ( githubHandle ) =>
   utilities.findAllWhere('users', 'github_handle', githubHandle)
