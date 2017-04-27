@@ -22,9 +22,10 @@ router.get('/', (request, response) => {
 
 router.post('/', (request, response) => {
   const attributes  = request.body
+  console.log(attributes)
   questions.create( attributes )
   .then( (question) => response.json( question ) )
-  .catch( err => console.log('err', err) )
+  .catch( err => response.status(400).json({error: err.message, params: attributes}) )
 })
 
 router.put('/:id', (request, response) => {

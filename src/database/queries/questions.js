@@ -22,6 +22,9 @@ const create = ( question ) => {
       .from('topics')
       .whereIn('name',question.topics)
       .then( topicIDs => {
+        if(topicIDs.length != question.topics.length){
+          return Promise.reject(new Error('topic not found'))
+        }
         return knex('questionTopics')
         .transacting(trx)
         .insert( topicIDs.map( topicID => {

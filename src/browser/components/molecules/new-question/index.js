@@ -4,7 +4,7 @@ import ProfileBox from '../../atoms/profile-box/index'
 import StatBox from '../../atoms/stat-box/index'
 import AddInput from '../prompt-input/index'
 import Form from '../../molecules/form/index'
-import create from '../../../../database/queries/questions'
+import Requests from '../../common/requests'
 
 
 require('../../../../../public/stylesheets/uikit.min.css')
@@ -65,17 +65,18 @@ export default class NewQuestion extends Component {
     }
   }
 
-  handleSubmit( data ){
-    create(data)
-    console.log(data)
+  handleSubmit(formData, event) {
+    console.log('formData::', formData);
+    Requests.post('/api/questions/', formData)
+    .then( response => response.json() )
+    .then( question => console.log('question', question) )
   }
 
   render() {
     return (
       <div id="modal-example" data-uk-modal>
         <div className="uk-modal-dialog uk-modal-body">
-          <h2 className="uk-modal-title uk-text-center">New Question Form</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+          <h2 className="uk-modal-title uk-text-center">New Question</h2>
           <Form inputModules={this.state.form} onSubmit={this.handleSubmit.bind(this)}/>
         </div>
       </div>

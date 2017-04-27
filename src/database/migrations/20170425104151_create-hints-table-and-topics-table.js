@@ -5,13 +5,13 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('hints', function(table) {
       table.increments('id').primary();
       table.integer('question_id');
-      table.string('hints');
+      table.string('text');
       table.foreign('question_id').references('questions.id')
     }),
 
     knex.schema.createTable('topics', function(table) {
       table.increments('id').primary();
-      table.string('topics');
+      table.string('name');
     }),
 
     knex.schema.createTable('questionTopics', function(table) {
