@@ -38,7 +38,7 @@ const deletebyID = ( data ) =>
   .then(user => user)
 
 
-export {
+module.exports = {
   create,
   findbyGithub,
   findbyName,
