@@ -5,7 +5,8 @@ import * as utilities from '../../database/queries/utilities.js'
 const router = express.Router()
 
 router.get('/', (request, response) => {
-  const {difficulty, topics} = request.params
+  const {difficulty, topics} = request.query
+  console.log(request.query)
   utilities.findAll('questions')
   .then( questions => {
     if(difficulty !== 'any') {

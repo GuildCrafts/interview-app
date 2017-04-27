@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import flex from 'react-uikit-flex'
 
 import Scorecard from '../../molecules/scorecard/index'
-import questions from '../../../../../data/questions.json'
+import Requests from '../../common/requests.js'
 require('../../../../../public/stylesheets/uikit.min.css')
 
 export default class Game extends Component {
@@ -11,7 +11,21 @@ export default class Game extends Component {
     this.state = {currentQuestionPosition: 0,
                   answered: [],
                   skipped: [],
-                  showAnswer: false}
+                  showAnswer: false,
+                  questions: []}
+  }
+
+  componentDidMount(){
+    const {difficulty,topics} = this.props
+    const topicsQueryString = topics.reduce( ( queryString, topic ) => {
+      return queryString + `&topics=${topic}`
+    },'')
+    console.log('game topicsQueryString   ',topicsQueryString)
+    Requests.get(`/api/questions?difficulty=${difficulty}&${topicsQueryString}`)
+    .then( questions => {
+      this.setState(Object.assign(this.state, {questions}))
+      console.log('game state.questions',this.state.questions)
+    })
   }
 
   incrementQuestionState(property) {

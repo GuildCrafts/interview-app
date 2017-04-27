@@ -58,6 +58,20 @@ describe('Question Tests', () => {
     })
   })
 
+  describe.only('find by topic', () => {
+    it('should find a question by the topic', () => {
+      return Promise.all([question.create( newQuestion[1] ), question.create( newQuestion[0])])
+        .then( () => {
+          return question.findbyTopic(["core-javascript", "functional-programming"])
+          .then( question => {
+            expect(question[0].level).to.equal('10')
+            expect(question[1].topics[1]).to.equal('pepperoni')
+            expect(question.length).to.equal(2)
+          })
+        })
+    })
+  })
+
 
   describe('find by Level', () => {
     it('should find a question by the level', () => {

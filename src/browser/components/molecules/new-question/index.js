@@ -4,6 +4,7 @@ import ProfileBox from '../../atoms/profile-box/index'
 import StatBox from '../../atoms/stat-box/index'
 import AddInput from '../prompt-input/index'
 import Form from '../../molecules/form/index'
+import create from '../../../../database/queries/questions'
 
 
 require('../../../../../public/stylesheets/uikit.min.css')
@@ -65,7 +66,7 @@ export default class NewQuestion extends Component {
   }
 
   handleSubmit( data ){
-    //you can put the submit route here
+    create(data)
     console.log(data)
   }
 

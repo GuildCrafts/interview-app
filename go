@@ -1,4 +1,4 @@
-#! /bin/bash
+./#! /bin/bash
 
   function help {
     echo "Usage"
@@ -100,7 +100,7 @@
     mehserve install
     echo "!!!! IMPORTANT !!!!"
     echo "paste the 5 commands above for successfull mehserve configuration"
-  } 
+  }
 
   if [ -z "${1}" ] ; then
     init

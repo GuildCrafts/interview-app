@@ -11,7 +11,7 @@ const inputModules = [
     "isOptionRequired": true
   },
   {
-    "type"    : "Select",
+    "type"    : "Checkbox",
     "prompt"  : "Topic",
     "options" : ["any","core-javascript","http","sql"],
     "tag"     : "topic",

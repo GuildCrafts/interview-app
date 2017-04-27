@@ -37,6 +37,7 @@ export default class Landing extends Component {
   }
 
   updateState(state) {
+    console.log('landing state  ',state)
     this.setState(state)
   }
 
@@ -45,7 +46,7 @@ export default class Landing extends Component {
     const topicsAndDifficulty = findTopicsAndDifficulty()
     const filteredQuestions = filterQuestions(questions, this.state.topic, this.state.difficulty)
     const content = (this.state.difficulty && this.state.topic) ?
-          <Game questions={filteredQuestions}/>
+          <Game questions={filteredQuestions} difficulty={this.state.difficulty} topics={this.state.topic}/>
           : <GameOptions onSubmit={this.updateState.bind(this)} {...topicsAndDifficulty}
           parse={parsed} />
 
