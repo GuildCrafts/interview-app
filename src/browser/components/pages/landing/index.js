@@ -10,12 +10,6 @@ import Header from '../../molecules/header/index'
 
 require('../../../../../public/stylesheets/uikit.min.css')
 
-const findTopicsAndDifficulty = () => {
-  const topics = uniq(flatMap(questions.map(question => question.topics))).sort()
-  const difficulty = uniq(questions.map(question => question.difficulty)).sort()
-  return {topics: ['any'].concat(topics), difficulty: ['any'].concat(difficulty)}
-}
-
 const filterQuestions = (questions, topic, difficulty) => {
   let q = shuffle(questions)
   if(topic === 'any' && difficulty === 'any') {
@@ -42,11 +36,10 @@ export default class Landing extends Component {
 
   render() {
     const parsed = QueryString.parse(this.props.location.search)
-    const topicsAndDifficulty = findTopicsAndDifficulty()
     const filteredQuestions = filterQuestions(questions, this.state.topic, this.state.difficulty)
     const content = (this.state.difficulty && this.state.topic) ?
           <Game questions={filteredQuestions} difficulty={this.state.difficulty} topics={this.state.topic}/>
-          : <GameOptions onSubmit={this.updateState.bind(this)} {...topicsAndDifficulty}
+          : <GameOptions onSubmit={this.updateState.bind(this)} topics={this.props.topics}
           parse={parsed} />
 
     return (

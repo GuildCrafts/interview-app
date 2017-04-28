@@ -84,7 +84,7 @@ export default class NewQuestion extends Component {
       <div id="modal-example" data-uk-modal>
         <div className="uk-modal-dialog uk-modal-body">
           <h2 className="uk-modal-title uk-text-center">New Question</h2>
-          <Form inputModules={this.state.form} onSubmit={this.handleSubmit.bind(this)}/>
+          <Form inputModules={this.state.form} onSubmit={this.handleSubmit.bind(this)} key='NewQuestionForm'/>
         </div>
       </div>
     )

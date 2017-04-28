@@ -15,21 +15,21 @@ const create = ( question ) => {
       .transacting(trx)
       .insert( question.hints.map( hint => {
         return { 'text': hint, 'question_id': questionID[0]}
-      }), 'question_id')
-    })
-    .then( questionID => {
-      return knex.select('id')
-      .from('topics')
-      .whereIn('name',question.topics)
-      .then( topicIDs => {
-        if(topicIDs.length != question.topics.length){
-          return Promise.reject(new Error('topic not found'))
-        }
-        return knex('questionTopics')
-        .transacting(trx)
-        .insert( topicIDs.map( topicID => {
-          return { 'topic_id': topicID.id,'question_id':questionID[0]}
-        }))
+      }))
+      .then(() => {
+        return knex.select('id')
+        .from('topics')
+        .whereIn('name',question.topics)
+        .then( topicIDs => {
+          if(topicIDs.length != question.topics.length){
+            return Promise.reject(new Error('topic not found'))
+          }
+          return knex('questionTopics')
+          .transacting(trx)
+          .insert( topicIDs.map( topicID => {
+            return { 'topic_id': topicID.id,'question_id':questionID[0]}
+          }))
+        })
       })
     })
     .then(trx.commit)
