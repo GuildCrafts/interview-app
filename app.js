@@ -10,6 +10,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from './webpack.config'
 import questions from './src/server/routes/questions'
 import users from './src/server/routes/users'
+import topics from './src/server/routes/topics'
 
 const compiler = webpack(webpackConfig)
 const app = express()
@@ -46,6 +47,7 @@ authInitialize(app)
 
 app.use('/api/users', users)
 app.use('/api/questions', questions)
+app.use('/api/topics', topics)
 
 
 /* GET home page. */

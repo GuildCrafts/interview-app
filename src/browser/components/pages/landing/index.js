@@ -37,7 +37,6 @@ export default class Landing extends Component {
   }
 
   updateState(state) {
-    console.log('landing state  ',state)
     this.setState(state)
   }
 

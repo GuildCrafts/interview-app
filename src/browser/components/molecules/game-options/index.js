@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import FormSelect from '../../atoms/form-select/index'
 import Form from '../../molecules/form/index'
+import Requests from '../../common/requests'
 
 const inputModules = [
   {
@@ -13,7 +14,7 @@ const inputModules = [
   {
     "type"    : "Checkbox",
     "prompt"  : "Topic",
-    "options" : ["any","core-javascript","http","sql"],
+    "options" : [],
     "tag"     : "topic",
     "isOptionRequired": true
   },
@@ -29,16 +30,16 @@ const inputModules = [
 export default class GameOptions extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.state = {form: inputModules}
   }
 
-  handleSubmit(){
-    this.props.onSubmit(this.state)
-  }
-
-  handleChange( tag, data ){
-    this.setState( {[tag]: data} )
+  componentDidMount(){
+    Requests.get('/api/topics/')
+    .then(response => {
+      let currentState = this.state
+      currentState.form[1].options = ['any'].concat(response)
+      this.setState(currentState)
+    })
   }
 
   render() {
@@ -50,7 +51,7 @@ export default class GameOptions extends Component {
       <div>
         <h2>Time to mock interview</h2>
         <h4>Select your options</h4>
-          <Form inputModules={inputModules} onSubmit={this.props.onSubmit}/>
+          <Form inputModules={this.state.form} onSubmit={this.props.onSubmit}/>
       </div>
     )
   }

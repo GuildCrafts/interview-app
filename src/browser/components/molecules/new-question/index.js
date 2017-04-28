@@ -31,7 +31,7 @@ const inputModules = [
   },
   {
     "type"   : "Checkbox",
-    "options": ["Core-JavaScript","Functional-Programming"],
+    "options": [],
     "prompt" : "Topics",
     "tag"    : "topics"
   },
@@ -61,15 +61,22 @@ export default class NewQuestion extends Component {
   constructor() {
     super()
     this.state = {
-      form: inputModules,
+      form: inputModules
     }
   }
 
+  componentDidMount(){
+    Requests.get('/api/topics/')
+    .then(response => {
+      let currentState = this.state
+      currentState.form[3].options = response
+      this.setState(currentState)
+    })
+  }
+
   handleSubmit(formData, event) {
-    console.log('formData::', formData);
     Requests.post('/api/questions/', formData)
     .then( response => response.json() )
-    .then( question => console.log('question', question) )
   }
 
   render() {

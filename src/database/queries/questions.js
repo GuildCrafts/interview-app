@@ -5,19 +5,19 @@ const create = ( question ) => {
   return knex.transaction(function (trx){
     return knex('questions')
     .transacting(trx)
-    .insert({question:question.question,
-              approval:false,
-              level:question.level,
-              answer:question.answer,
-              points:question.points}, 'id')
-    .then( function(questionID){
+    .insert({question  : question.question,
+              approval : false,
+              level    : question.level,
+              answer   : question.answer,
+              points   : question.points}, 'id')
+    .then( questionID => {
       return knex('hints')
       .transacting(trx)
       .insert( question.hints.map( hint => {
-        return { 'text':hint, 'question_id':questionID[0]}
+        return { 'text': hint, 'question_id': questionID[0]}
       }), 'question_id')
     })
-    .then( function(questionID){
+    .then( questionID => {
       return knex.select('id')
       .from('topics')
       .whereIn('name',question.topics)
@@ -75,6 +75,13 @@ const findbyLevel = ( data ) => {
   })
 }
 
+const getAllTopics = () => {
+  return knex
+  .select('topics.name as topics')
+  .from('topics')
+  .then( results => results.map(result => result.topics))
+}
+
 const updatebyID = ( id, attributes ) =>
   utilities.update( 'questions', 'id', id, attributes)
 
@@ -118,5 +125,6 @@ export {
   updatebyID,
   updatebyLevel,
   deleteByQuestion,
-  deleteByID
+  deleteByID,
+  getAllTopics
 }

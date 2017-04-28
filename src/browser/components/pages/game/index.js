@@ -20,11 +20,9 @@ export default class Game extends Component {
     const topicsQueryString = topics.reduce( ( queryString, topic ) => {
       return queryString + `&topics=${topic}`
     },'')
-    console.log('game topicsQueryString   ',topicsQueryString)
     Requests.get(`/api/questions?difficulty=${difficulty}&${topicsQueryString}`)
     .then( questions => {
       this.setState(Object.assign(this.state, {questions}))
-      console.log('game state.questions',this.state.questions)
     })
   }
 
@@ -44,7 +42,6 @@ export default class Game extends Component {
   }
 
   toggleProperty(property) {
-    console.log('entered', property, !this.state[property])
     this.setState({[property]: !this.state[property]})
   }
 
