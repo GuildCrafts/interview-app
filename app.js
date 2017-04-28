@@ -10,6 +10,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from './webpack.config'
 import questions from './src/server/routes/questions'
 import users from './src/server/routes/users'
+import interviews from './src/server/routes/interviews'
 
 const compiler = webpack(webpackConfig)
 const app = express()
@@ -45,6 +46,7 @@ app.use(express.static(__dirname + '/src/browser/main.js'));
 authInitialize(app)
 
 app.use('/api/users', users)
+app.use('/api/interviews', interviews)
 app.use('/api/questions', questions)
 
 

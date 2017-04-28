@@ -5,9 +5,20 @@ import users from './users'
 const create = (attributes, github_handle) => {
   return users.findbyGithub(github_handle)
     .then( theUser => {
-      attributes.user_id = theUser[0].id
-      attributes.feedback = JSON.stringify(attributes.feedback)
-      return utilities.create('interviews', attributes)
+      if(theUser) {
+        attributes.user_id = theUser.id
+        attributes.feedback = JSON.stringify(attributes.feedback)
+        return utilities.create('interviews', attributes)
+      }
+      return Promise.reject(new Error(`User with handle '${github_handle}' does not exist. `))
+    })
+}
+
+const update = (attributes, github_handle) => {
+  return users.findbyGithub(github_handle)
+    .then( theUser => {
+      attributes.user_id = theUser.id
+      return utilities.update('interviews', attributes)
     })
 }
 
@@ -26,6 +37,7 @@ const findbyID = (userID) => {
 
 export {
   create,
+  update,
   findbyID,
   findbyHandle
  }

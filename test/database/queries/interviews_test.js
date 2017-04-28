@@ -8,6 +8,11 @@ describe.only('interviews feedback', () => {
     feedback: 'You can haz job nao.'
   }
 
+  const newInterview1 = {
+    user_id: 1,
+    feedback: 'You can haz job NEVER.'
+  }
+
   const newUser = {
     name: "Becky Fast",
     github_handle: "@ihop4pancakes",
@@ -26,6 +31,18 @@ describe.only('interviews feedback', () => {
         })
         .then(interview => {
           expect(interview[0].user_id).to.be.a('number')
+        })
+    })
+  })
+
+  describe('update', () => {
+    it('Should update data in the interviews table', () => {
+      return interviews.update(newUser)
+        .then( user => {
+          return interviews.update('interviews', user.id)
+        })
+        .then(interview => {
+          expect(interview[0].user_id).to.be('number')
         })
     })
   })
