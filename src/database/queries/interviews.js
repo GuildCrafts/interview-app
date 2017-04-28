@@ -14,23 +14,20 @@ const create = (attributes, github_handle) => {
     })
 }
 
-const update = (attributes, github_handle) => {
-  return users.findbyGithub(github_handle)
-    .then( theUser => {
-      attributes.user_id = theUser.id
-      return utilities.update('interviews', attributes)
-    })
+const update = (attributes, id) => {
+  //TODO: need to check if the interview is owned by the logged in user
+  return utilities.update('interviews', 'id', id, attributes)
 }
 
 const findbyHandle = (github_handle) => {
   return users.findbyGithub(github_handle)
     .then(user => {
-      return utilities.findAllWhere('interviews', 'user_id', user[0].id)
+      return utilities.findAllWhere('interviews', 'user_id', user.id)
     })
     .then(interviews => interviews)
 }
 
-const findbyID = (userID) => {
+const findbyUserID = (userID) => {
   return utilities.findAllWhere('interviews', 'user_id', userID)
     .then(interviews => interviews)
 }
@@ -38,6 +35,6 @@ const findbyID = (userID) => {
 export {
   create,
   update,
-  findbyID,
+  findbyUserID,
   findbyHandle
  }

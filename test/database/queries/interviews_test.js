@@ -2,15 +2,14 @@ import chai, { expect } from 'chai'
 import * as interviews from '../../../src/database/queries/interviews'
 import * as user from '../../../src/database/queries/users'
 
-describe.only('interviews feedback', () => {
+describe('interviews feedback', () => {
   const newInterview = {
     user_id: 1,
     feedback: 'You can haz job nao.'
   }
 
-  const newInterview1 = {
-    user_id: 1,
-    feedback: 'You can haz job NEVER.'
+  const updatedInterview = {
+    feedback: 'You can haz job NEBER.'
   }
 
   const newUser = {
@@ -27,7 +26,7 @@ describe.only('interviews feedback', () => {
     it('Should create data in the interviews table', () => {
       return user.create(newUser)
         .then( user => {
-          return interviews.create(newInterview, user[0].github_handle)
+          return interviews.create(newInterview, user.github_handle)
         })
         .then(interview => {
           expect(interview[0].user_id).to.be.a('number')
@@ -37,12 +36,15 @@ describe.only('interviews feedback', () => {
 
   describe('update', () => {
     it('Should update data in the interviews table', () => {
-      return interviews.update(newUser)
+      return user.create(newUser)
         .then( user => {
-          return interviews.update('interviews', user.id)
+          return interviews.create(newInterview, user.github_handle)
         })
-        .then(interview => {
-          expect(interview[0].user_id).to.be('number')
+        .then(newInterviews => {
+          return interviews.update(updatedInterview, newInterviews[0].id)
+        })
+        .then(interviewAfterUpdate => {
+          expect(interviewAfterUpdate[0].feedback).to.equal('You can haz job NEBER.')
         })
     })
   })
@@ -51,16 +53,16 @@ describe.only('interviews feedback', () => {
     it('Should return interviews when given the user ID', () => {
       return interviews.findbyHandle(newUser.github_handle)
         .then(results => {
-          expect(results.length).to.eql(1)
+          expect(results.length).to.eql(2)
         })
     })
   })
 
-  describe('find interviews by ID', () => {
+  describe('find interviews by userID', () => {
     it('Should return interviews when given the user ID', () => {
-      return interviews.findbyID(1)
+      return interviews.findbyUserID(1)
         .then(results => {
-          expect(results.length).to.eql(1)
+          expect(results.length).to.eql(2)
         })
     })
   })

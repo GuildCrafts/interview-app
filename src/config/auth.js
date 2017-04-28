@@ -15,7 +15,7 @@ const initialize = app => {
 
 const fakeAuthForTesting = (req, res, next) => {
   console.log('entered fakeAuthForTesting', getEnv());
-  if(getEnv() === 'test') {
+  if(getEnv() === 'test'){
     req.user = {handle: 'fake-user'}
   }
   next()

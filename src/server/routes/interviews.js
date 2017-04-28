@@ -18,13 +18,4 @@ router.put('/submit_feedback', (request, response) => {
   .catch( err => response.json({error: err.message}))
 })
 
-// router.post('/', (request, response) => {
-//   const attributes = request.body
-//   users.create(attributes)
-//   .then( () => response.json(attributes) )
-//   .catch( err => console.log('err ROUTES 2', err) )
-// })
-//
-// request.user.github_handle
-
 export default router
