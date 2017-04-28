@@ -13,7 +13,7 @@ require('../../../../../public/stylesheets/uikit.min.css')
 export default class ApprovalPage extends Component {
   constructor(props) {
     super(props)
-    this.state = {questions: [], id: ,filter: "All", triggerState: true}
+    this.state = {questions: [], id: 0, filter: "All", triggerState: true}
     this.populateForm = this.populateForm.bind(this)
   }
 
@@ -43,18 +43,18 @@ export default class ApprovalPage extends Component {
     inputModules[3].checked = this.state.questions[index].topics
     inputModules[4].checked = this.state.questions[index].level
     inputModules[5].chooseSelect = this.state.questions[index].points
+    console.log('index of question>>>>', index)
     this.setState(prevState => {
-      triggerState: !prevState,
+      triggerState: !prevState
       id: index
     })
   }
 
-  submitQuestionEdits() {
+  submitQuestionEdits(formData) {
     console.log('the inputModules in APPROVAL component', inputModules)
 
-    // Request.put('/api/questions/approval').then(questions => {
-    //
-    // })
+    Request.put('/api/questions/approval' + "/" + this.state.id, formData)
+    .then(console.log)
   }
 
   handleChange(property, event) {

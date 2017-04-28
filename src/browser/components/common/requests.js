@@ -30,7 +30,6 @@ const post = (url, body) => {
    })
  }
 
- // add put request here
 const put = (url, body) => {
   return fetch(url, {
     method: 'PUT',

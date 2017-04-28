@@ -12,7 +12,7 @@ export default class Form extends Component{
     super(props)
     this.state = {
       input: {},
-      inputModules: props.inputModules,
+      inputModules: props.inputModules
     }
   }
 
