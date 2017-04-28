@@ -8,6 +8,17 @@ let should = chai.should()
 chai.use(chaiHttp)
 
 describe('api/users', () => {
+  it('Should return JSON when visiting the route /current_user', (done) => {
+    chai.request(app)
+      .get('/api/users/current_user')
+      .end((err, requestedUser) => {
+        requestedUser.should.have.status(200)
+        expect(requestedUser.body.github_handle).to.eql('fake-user')
+        //fake-user comes from auth.js
+        done()
+      })
+  })
+
   it('Should create user, then respond with length, then edit user to add something, then respond with body of user', (done) => {
     chai.request(app)
     .post('/api/users/')
