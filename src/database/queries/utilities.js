@@ -15,15 +15,6 @@ const utilities = {
       .returning('*')
   },
 
-  findLatest: (table, column, data) => {
-    return knex
-      .table(table)
-      .where(column, data)
-      .returning('*')
-      .orderBy('id', 'desc')
-      .limit(1)
-  },
-
   findAllWhereRaw: (table, rawSql) => {
     return knex
       .table(table)
