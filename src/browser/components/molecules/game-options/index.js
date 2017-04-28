@@ -41,7 +41,7 @@ export default class GameOptions extends Component {
     } else if (difficulty === 'any') {
       return q.filter(question => question.topics.includes(topic))
     } else {
-      return q.filter(question => question.level === difficulty && question.topics[topic] === topic)
+      return q.filter(question => question.level === difficulty && question.topics === topic)
     }
   }
 
@@ -60,7 +60,6 @@ export default class GameOptions extends Component {
     else if (!this.state.isForm) {
       correctElement = <Game questions={this.state.questions} />
     }
-console.log("GAME-OPTIONS, this.props", this.props);
     return (
       <div>
         <h2>Mock Interview</h2>

@@ -33,7 +33,7 @@ router.post('/', (request, response) => {
   .catch( err => console.log('err', err) )
 })
 
-router.put('/:id', (request, response) => {
+router.put('/approval/:id', (request, response) => {
   const { id } = request.params
   const attributes = request.body
   questions.updatebyID( id, attributes )

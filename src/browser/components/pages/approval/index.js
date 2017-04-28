@@ -6,83 +6,55 @@ import FormSelect from '../../atoms/form-select/index'
 import Request from '../../common/requests'
 import Form from '../../molecules/form/index'
 import Layout from '../layout/index'
+import inputModules from '../../common/approval-form-template'
 
 require('../../../../../public/stylesheets/uikit.min.css')
-
-const inputModules = [
-  {
-    "type"       : "Input",
-    "placeholder": "Enter your question",
-    "prompt"     : "Question",
-    "tag"        : "question"
-  },
-  {
-    "type"       : "Input",
-    "placeholder": "Answer it thoroughly",
-    "prompt"     : "Answer",
-    "tag"        : "answer"
-  },
-  {
-    "type"            : "Select",
-    "prompt"          : "Game Mode",
-    "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
-    "tag"             : "game_mode",
-    "isOptionRequired": true
-  },
-  {
-    "type"   : "Checkbox",
-    "options": ["Core-JavaScript","Functional-Programming"],
-    "prompt" : "Topics",
-    "tag"    : "topics"
-  },
-  {
-    "type"   : "Radio",
-    "options": ["Beginner", "Intermediate", "Advanced", "Jedi"],
-    "prompt" : "Difficulty Level",
-    "tag"    : "level"
-  },
-  {
-    "type"            : "Select",
-    "prompt"          : "Points",
-    "options"         : ['1', '2', '3', '4', '5'],
-    "tag"             : "points",
-    "isOptionRequired": true
-  },
-  {
-    "type"            : "Hint",
-    "prompt"          : "Hints",
-    "tag"             : "hints",
-    "placeholder"     : "Write a helpfull hint",
-  }
-]
 
 export default class ApprovalPage extends Component {
   constructor(props) {
     super(props)
-    this.state = {questions: [], filter: "All"}
+    this.state = {questions: [], id: ,filter: "All", triggerState: true}
     this.populateForm = this.populateForm.bind(this)
   }
 
   componentDidMount(){
-    console.log('THIS IS componentDidMount');
     Request.getDatabaseQuestions('/api/questions/approval').then(questions => {
-      console.log('questions from API::', questions);
       this.setState(Object.assign(this.state, {questions: questions}))
     })
   }
 
   onClickDelete(index){
-    let questArr = this.state.questions
-    questArr.splice(this.refs[index], 1)
-    this.setState({questions: questArr})
-    Request.deleteQuestion('/api/questions/approval/:id').then(question => {
-      return question
-    })
+    const deleteConfirm = confirm("Are you sure you want to delete this question?")
+    if (deleteConfirm) {
+      let questArr = this.state.questions
+      questArr.splice(this.refs[index], 1)
+      this.setState({questions: questArr})
+      Request.deleteQuestion('/api/questions/approval/:id').then(question => {
+        return question
+      })
+    }
+    else console.log('All love to MurphyCat')
   }
 
   populateForm(index) {
-    // questions are already in the state of this component. This function needs to populate the form with the question that was clicked on.
-    console.log('THIS IS THE QUESTION CLICKED', this.state.questions[index])
+    inputModules[0].value = this.state.questions[index].question
+    inputModules[1].value = this.state.questions[index].answer
+    inputModules[2].chooseSelect = this.state.questions[index].game_mode
+    inputModules[3].checked = this.state.questions[index].topics
+    inputModules[4].checked = this.state.questions[index].level
+    inputModules[5].chooseSelect = this.state.questions[index].points
+    this.setState(prevState => {
+      triggerState: !prevState,
+      id: index
+    })
+  }
+
+  submitQuestionEdits() {
+    console.log('the inputModules in APPROVAL component', inputModules)
+
+    // Request.put('/api/questions/approval').then(questions => {
+    //
+    // })
   }
 
   handleChange(property, event) {
@@ -100,9 +72,9 @@ export default class ApprovalPage extends Component {
         if(approvalState === question.approval || approvalState === 'All') {
           return (
             <div>
-              <div key = {index}>
+              <div key={index} >
                 <button className="uk-button-small uk-button-danger" onClick={this.onClickDelete.bind(this, index)} ref={index} type="button" >Delete this question</button>
-                <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.populateForm.bind(this, index)}>{question.question}</button>
+                <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.populateForm.bind(this, index)} >{question.question}</button>
               </div>
             </div>
           )
@@ -110,10 +82,9 @@ export default class ApprovalPage extends Component {
       })
     )
   }
-  render() {
 
+  render() {
     const filterArray = ['All', 'Approved', 'Pending']
-    console.log('THIS.STATE.questions::', this.state.questions);
     let content = this.renderQuestions()
     return (
       <div className="uk-container" >
@@ -128,7 +99,7 @@ export default class ApprovalPage extends Component {
               </div>
               <br></br>
               <div className="uk-card uk-card-default uk-card-body">
-                <Form inputModules={inputModules} onSubmitHandler={this.submitQuestion} />
+                <Form inputModules={inputModules} onSubmit={this.submitQuestionEdits} />
               </div>
             </div>
         </Layout>

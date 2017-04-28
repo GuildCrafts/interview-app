@@ -1,8 +1,8 @@
 import React,{Component} from 'react'
 
 export default class FormInput extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
   }
 
   changeHandler(event){
@@ -10,13 +10,11 @@ export default class FormInput extends Component {
   }
 
   render() {
-    const prompt = this.props.prompt
-    const placeholder = this.props.placeholder
     return (
-      <div key={prompt} className="uk-margin">
-        <label className="uk-form-label" htmlFor="form-horizontal-text">{prompt}</label>
+      <div key={this.props.prompt} className="uk-margin">
+        <label className="uk-form-label" htmlFor="form-horizontal-text">{this.props.prompt}</label>
         <div className="uk-form-controls">
-          <input className="uk-input form-horizontal-text" type="text" id={prompt} placeholder={placeholder} onChange={this.changeHandler.bind(this)} />
+          <input className="uk-input form-horizontal-text" type="text" id={this.props.prompt} placeholder={this.props.placeholder} onChange={this.changeHandler.bind(this)} value={this.props.value} />
         </div>
       </div>
     )

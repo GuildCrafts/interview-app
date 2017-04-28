@@ -26,7 +26,6 @@ const post = (url, body) => {
      mode: 'cors',
      credentials: 'same-origin'
    }).then(result => {
-     console.log(result);
      return result.json()
    })
  }

@@ -20,7 +20,6 @@ export default class NewQuestion extends Component {
   }
 
   submitQuestion(formData, event) {
-    console.log('formData::', formData);
     event.preventDefault()
     Requests.post('api/questions', formData)
     .then( response => response.json() )

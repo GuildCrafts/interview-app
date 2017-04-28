@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 
 export default class FormSelect extends Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
   }
 
   changeHandler(event){
@@ -10,10 +10,17 @@ export default class FormSelect extends Component {
   }
 
   render() {
-
     const options = this.props.options.map((option, index) => {
       return (<option key={index} value={option}>{option}</option>)
     })
+
+    if (this.props.chooseSelect !== "") {
+      for (let i = 0; i < options.length; i++) {
+        if (this.props.chooseSelect === this.props.options[i]) {
+          options[i] = (<option key={i} value={options[i]} selected>{options[i]}</option>)
+        }
+      }
+    }
 
     return (
       <div className="uk-margin">
