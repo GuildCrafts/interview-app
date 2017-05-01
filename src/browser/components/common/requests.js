@@ -1,4 +1,8 @@
+
+
 const post = (url, body) => {
+  let headers = new Headers()
+  headers.append('Content-Type', 'application/JSON')
    return fetch(url, {
      method:'POST',
      headers: {'Content-Type': 'text/plain'},
@@ -8,7 +12,7 @@ const post = (url, body) => {
    })
  }
 
- const getUserName = (url, params={}) => {
+ const get = (url) => {
    return fetch(url, {
      method:'GET',
      headers: {'Content-Type': 'application/json'},
@@ -47,6 +51,4 @@ const deleteQuestion = (url, id) => {
   })
 }
 
-
-
- export default {getUserName, getDatabaseQuestions, post, put, deleteQuestion}
+export default {get, getUserName, getDatabaseQuestions, post, put, deleteQuestion}

@@ -16,7 +16,7 @@ const makeKnexConfig = env => {
       tableName: 'migrations'
     },
     seeds: {
-      directory: __dirname + `/build/server/database/seeds/${env}`
+      directory: __dirname + `/seeds/${env}`
     }
   }
 }

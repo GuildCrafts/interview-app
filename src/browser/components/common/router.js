@@ -12,13 +12,14 @@ import Requests from './requests'
 export default class Routes extends Component {
   constructor(props) {
     super(props)
-    this.state = {user: {dummy: true}}
+    this.state = {user: {dummy: true},
+                  topics: []}
   }
 
   componentDidMount() {
-    Requests.getUserName('/api/users/current_user')
-    .then(user => {
-      this.setState(Object.assign(this.state, {user: user}))
+    Promise.all([Requests.get('/api/users/current_user'),Requests.get('/api/topics/')])
+    .then(([user, topics]) => {
+      this.setState(Object.assign(this.state, {user: user, topics: topics}))
     })
   }
 
@@ -36,16 +37,13 @@ export default class Routes extends Component {
     }
 
     const LandingComponent = (props, state, params) =>
-    <Landing profile={fakeProfile} {...props}  stats={fakeStats} />
+    <Landing profile={fakeProfile} {...props}  stats={fakeStats} {...props} topics={this.state.topics}/>
 
     const GameOptionsComponent = (props, state, params) =>
-    <GameOptions profile={fakeProfile} {...props} stats={fakeStats} />
+    <GameOptions profile={fakeProfile} {...props} stats={fakeStats} {...props} topics={this.state.topics}/>
 
     const ProfileComponent = (props, state, params) =>
-    <Profile profile={fakeProfile} {...props} stats={fakeStats} />
-
-    const ApprovalComponent = (props, state, params) =>
-    <ApprovalPage profile={fakeProfile} stats={fakeStats} {...props} />
+    <Profile profile={fakeProfile} {...props} stats={fakeStats} {...props} topics={this.state.topics}/>
 
     return (
       <BrowserRouter>

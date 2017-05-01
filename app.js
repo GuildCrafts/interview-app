@@ -10,6 +10,8 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from './webpack.config'
 import questions from './src/server/routes/questions'
 import users from './src/server/routes/users'
+import topics from './src/server/routes/topics'
+import interviews from './src/server/routes/interviews'
 
 const compiler = webpack(webpackConfig)
 const app = express()
@@ -45,7 +47,9 @@ app.use(express.static(__dirname + '/src/browser/main.js'));
 authInitialize(app)
 
 app.use('/api/users', users)
+app.use('/api/interviews', interviews)
 app.use('/api/questions', questions)
+app.use('/api/topics', topics)
 
 
 /* GET home page. */
@@ -55,7 +59,7 @@ app.get('*', function(req, res, next) {
 
 // Heroku bydefault set an ENV variable called PORT=443
 //  so that you can access your site with https default port.
-// Falback port will be 8080; basically for pre-production test in localhost
+// Fallback port will be 8080; basically for pre-production test in localhost
 // You will use $ npm run prod for this
 
 app.listen(process.env.PORT || 3000);

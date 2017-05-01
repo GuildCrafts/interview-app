@@ -3,10 +3,10 @@ import utilities from './utilities'
 
 const create = attributes =>
   utilities.create('users', attributes)
-  .then(user => user)
+  .then(users => users[0])
 
-const findbyGithub = ( data ) =>
-  utilities.findAllWhere('users', 'github_handle', data)
+const findbyGithub = ( githubHandle ) =>
+  utilities.findAllWhere('users', 'github_handle', githubHandle)
   .then(users => users[0])
 
 const findbyName = ( data ) =>
@@ -38,7 +38,7 @@ const deletebyID = ( data ) =>
   .then(user => user)
 
 
-export {
+module.exports = {
   create,
   findbyGithub,
   findbyName,

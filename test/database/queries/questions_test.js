@@ -58,7 +58,6 @@ describe('Question Tests', () => {
     })
   })
 
-
   describe('find by Level', () => {
     it('should find a question by the level', () => {
       return question.create( newQuestion[1] )

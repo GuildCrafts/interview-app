@@ -6,22 +6,76 @@ import StatBox from '../../atoms/stat-box/index'
 import AddInput from '../prompt-input/index'
 import Form from '../../molecules/form/index'
 import Requests from '../../common/requests'
-import inputModules from '../../common/question-form-template'
 
 require('../../../../../public/stylesheets/uikit.min.css')
 
+const inputModules = [
+  {
+    "type"       : "Input",
+    "placeholder": "Enter your question",
+    "prompt"     : "Question",
+    "tag"        : "question"
+  },
+  {
+    "type"       : "Input",
+    "placeholder": "Answer it thoroughly",
+    "prompt"     : "Answer",
+    "tag"        : "answer"
+  },
+  {
+    "type"            : "Select",
+    "prompt"          : "Game Mode",
+    "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
+    "tag"             : "game_mode",
+    "isOptionRequired": true
+  },
+  {
+    "type"   : "Checkbox",
+    "options": [],
+    "prompt" : "Topics",
+    "tag"    : "topics"
+  },
+  {
+    "type"   : "Radio",
+    "options": ["Beginner", "Intermediate", "Advanced", "Jedi"],
+    "prompt" : "Difficulty Level",
+    "tag"    : "level"
+  },
+  {
+    "type"            : "Select",
+    "prompt"          : "Points",
+    "options"         : ['1', '2', '3', '4', '5'],
+    "tag"             : "points",
+    "isOptionRequired": true
+  },
+  {
+    "type"            : "Hint",
+    "prompt"          : "Hints",
+    "tag"             : "hints",
+    "placeholder"     : "Write a helpfull hint",
+  }
+]
 
 export default class NewQuestion extends Component {
   constructor() {
     super()
     this.state = {
-      form: inputModules,
+      form: inputModules
     }
   }
 
-  submitQuestion(formData, event) {
+  componentDidMount(){
+    Requests.get('/api/topics/')
+    .then(response => {
+      let currentState = this.state
+      currentState.form[3].options = response
+      this.setState(currentState)
+    })
+  }
+
+  handleSubmit(formData, event) {
     event.preventDefault()
-    Requests.post('api/questions', formData)
+    Requests.post('/api/questions/', formData)
     .then( response => response.json() )
   }
 
@@ -30,9 +84,9 @@ export default class NewQuestion extends Component {
     return (
       <div id="modal-example" data-uk-modal>
         <div className="uk-modal-dialog uk-modal-body">
-          <h2 className="uk-modal-title uk-text-center">New Question Form</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <Form inputModules={inputModules} onSubmitHandler={this.submitQuestion} />
+          <h2 className="uk-modal-title uk-text-center">New Question</h2>
+            <p>When writing your question, please make sure that it is clearly stated, and that the answer is not ambigious. The more accurate the answer, the better learning experience. If you are unsure if your question (or one that is similar) has already been submitted, please checkout the approval page to browse all questions. Thanks for contributing!</p>
+          <Form inputModules={this.state.form} onSubmit={this.handleSubmit.bind(this)} key='NewQuestionForm'/>
         </div>
       </div>
     )

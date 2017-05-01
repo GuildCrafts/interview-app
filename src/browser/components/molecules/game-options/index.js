@@ -3,47 +3,47 @@ import {uniq, flatMap, take, shuffle} from 'lodash'
 
 import Form from '../../molecules/form/index'
 import Game from '../../pages/game/index'
-import Request from '../../common/requests'
 import inputModules from '../../common/game-options-template'
 
+const inputModules = [
+  {
+    "type"    : "Select",
+    "prompt"  : "Difficulty",
+    "options" : ["any","beginner","intermediate"],
+    "tag"     : "difficulty",
+    "isOptionRequired": true
+  },
+  {
+    "type"    : "Checkbox",
+    "prompt"  : "Topic",
+    "options" : [],
+    "tag"     : "topic",
+    "isOptionRequired": true
+  },
+  {
+    "type"    : "Select",
+    "prompt"  : "Game Mode",
+    "options" : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
+    "tag"     : "game_mode",
+    "isOptionRequired": true
+  }
+]
 
 export default class GameOptions extends Component {
   constructor(props) {
     super(props)
-    this.state = {isForm: true, questions: {}}
-    this.getQuestions = this.getQuestions.bind(this)
-    this.filterQuestions = this.filterQuestions.bind(this)
+    this.state = {form: inputModules}
+    this.state.form[1].options = ['any'].concat(this.props.topics)
   }
 
-  componentDidMount() {
-    Request.getDatabaseQuestions('/api/questions/').then(questions => {
-      return questions
-    })
-    .then(question => {
-      this.setState(Object.assign(this.state, {questions: question}))
-    })
-  }
-
-  getQuestions(filters) {
-    const filteredQuestions = this.filterQuestions(this.state.questions, filters.topic, filters.level)
-    this.setState(prevState => ({
-      isForm: false,
-      questions: filteredQuestions
-    }))
-  }
-
-  filterQuestions(questions, topic, difficulty) {
-    let q = shuffle(questions)
-    if(topic === 'any' && difficulty === 'any') {
-      return take(q, 7)
-    } else if( topic === 'any') {
-      return q.filter(question => question.difficulty === difficulty)
-    } else if (difficulty === 'any') {
-      return q.filter(question => question.topics.includes(topic))
-    } else {
-      return q.filter(question => question.level === difficulty && question.topics === topic)
-    }
-  }
+  // componentDidMount(){
+  //   Requests.get('/api/topics/')
+  //   .then(response => {
+  //     let currentState = this.state
+  //     currentState.form[1].options = ['any'].concat(response)
+  //     this.setState(currentState)
+  //   })
+  // }
 
   // handleChange( tag, data ){
   //   this.setState( {[tag]: data} )
@@ -55,7 +55,7 @@ export default class GameOptions extends Component {
     const gameModes = this.props.gameModes || []
     let correctElement
     if (this.state.isForm) {
-      correctElement = <Form inputModules={inputModules} onSubmit={this.getQuestions.bind(this)} />
+      correctElement = <Form inputModules={inputModules} onSubmit={this.getQuestions.bind(this)} key='gameOptionForm'/>
     }
     else if (!this.state.isForm) {
       correctElement = <Game questions={this.state.questions} />

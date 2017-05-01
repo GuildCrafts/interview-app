@@ -23,6 +23,5 @@ describe('<Routes />', () => {
       return pathMap;
     }, {})
     expect(pathMap['/'].toString()).to.equal(Landing.toString())
-    console.log('the function for the landing component', pathMap['/'].toString())
   })
 })
