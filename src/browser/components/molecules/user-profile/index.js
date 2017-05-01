@@ -10,7 +10,7 @@ export default class UserProfile extends Component {
     return (
       <div>
         <img src="MurphyHeadshot.jpg" alt="Nope" />
-        <h3>{user.profileName.value}</h3>
+        <h3>{user.name}</h3>
         <p>Joined on: {"04/09/2017"}</p>
         <p>Experience: {"Ultra Advanced"}</p>
         <p>Interviews Completed: {25}</p>

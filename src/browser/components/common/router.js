@@ -21,12 +21,10 @@ export default class Routes extends Component {
     .then(([user, topics]) => {
       this.setState(Object.assign(this.state, {user: user, topics: topics}))
     })
-
   }
 
   render() {
     const realProfileName = this.state.user.name
-
     const fakeProfile = {
       name: realProfileName,
       topic: {value: "JavaScript"},
@@ -52,7 +50,7 @@ export default class Routes extends Component {
         <div>
           <Route exact path='/' component={LandingComponent} />
           <Route path='/:topic/:difficulty' component={LandingComponent} />
-          <Route path='/approval' component={ApprovalPage} />
+          <Route path='/approval' component={ApprovalComponent} />
           <Route path='/profile' component={ProfileComponent} />
         </div>
       </BrowserRouter>

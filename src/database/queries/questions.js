@@ -82,6 +82,10 @@ const getAllTopics = () => {
   .then( results => results.map(result => result.topics))
 }
 
+const findAllQuestions = ( data ) =>
+  utilities.findAll('questions', data)
+  .then(question => question)
+
 const updatebyID = ( id, attributes ) =>
   utilities.update( 'questions', 'id', id, attributes)
 
@@ -122,6 +126,7 @@ export {
   findbyTopic,
   findbyID,
   findbyLevel,
+  findAllQuestions,
   updatebyID,
   updatebyLevel,
   deleteByQuestion,

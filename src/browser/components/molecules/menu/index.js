@@ -20,7 +20,7 @@ export default class Menu extends Component {
         <div className="uk-offcanvas-bar uk-flex uk-flex-column">
           <ul className="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
             <li className="uk-active">
-              <a href="#">Start New Interview</a>
+              <a href="/">Start New Interview</a>
               <ul className="uk-nav-sub">
                 <li><a href="/approval">Approve Questions</a></li>
                 <li>
@@ -28,7 +28,7 @@ export default class Menu extends Component {
                   <NewQuestion />
                 </li>
                 <li className="uk-nav-divider"></li>
-                <li><a href="#">Profile</a></li>
+                <li><a href="/profile">Profile</a></li>
                 <li><a href="#">Log Out</a></li>
               </ul>
             </li>

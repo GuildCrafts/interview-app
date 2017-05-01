@@ -1,24 +1,57 @@
 import React, {Component} from 'react';
 import flex from 'react-uikit-flex'
 
-import Scorecard from '../../molecules/scorecard/index'
-import questions from '../../../../../data/questions.json'
-import Header from '../../molecules/header/index'
+// import questions from '../../../../../data/questions.json'
 import FormSelect from '../../atoms/form-select/index'
+import Request from '../../common/requests'
+import Form from '../../molecules/form/index'
+import Layout from '../layout/index'
+import inputModules from '../../common/approval-form-template'
+
 require('../../../../../public/stylesheets/uikit.min.css')
 
 export default class ApprovalPage extends Component {
-  constructor() {
-    super()
-    this.state = {questions}
-    this.state.filter = "All"
+  constructor(props) {
+    super(props)
+    this.state = {questions: [], id: 0, filter: "All", triggerState: true}
+    this.populateForm = this.populateForm.bind(this)
   }
 
-  onClick(index){
-    let questArr = this.state.questions
-    let place = index
-    questArr.splice(this.refs[index], 1)
-    this.setState({questions: questArr})
+  componentDidMount(){
+    Request.getDatabaseQuestions('/api/questions/approval').then(questions => {
+      this.setState(Object.assign(this.state, {questions: questions}))
+    })
+  }
+
+  onClickDelete(index){
+    const deleteConfirm = confirm("Are you sure you want to delete this question?")
+    if (deleteConfirm) {
+      let questArr = this.state.questions
+      questArr.splice(this.refs[index], 1)
+      this.setState({questions: questArr})
+      Request.deleteQuestion('/api/questions/approval/:id').then(question => {
+        return question
+      })
+    }
+    else console.log('All love to MurphyCat')
+  }
+
+  populateForm(index) {
+    inputModules[0].value = this.state.questions[index].question
+    inputModules[1].value = this.state.questions[index].answer
+    inputModules[2].chooseSelect = this.state.questions[index].game_mode
+    inputModules[3].checked = this.state.questions[index].topics
+    inputModules[4].checked = this.state.questions[index].level
+    inputModules[5].chooseSelect = this.state.questions[index].points
+    this.setState(prevState => {
+      triggerState: !prevState
+      id: index
+    })
+  }
+
+  submitQuestionEdits(formData) {
+    Request.put('/api/questions/approval' + "/" + this.state.id, formData)
+    .then(console.log)
   }
 
   handleChange(property, event) {
@@ -34,83 +67,39 @@ export default class ApprovalPage extends Component {
       this.state.questions.map((question, index) => {
         let approvalState = this.state.filter
         if(approvalState === question.approval || approvalState === 'All') {
-
-          index = "question" + index
           return (
-            <div key = {index}>
-              <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" data-uk-toggle="target:#modal-example">{question.question}</button>
-                <div id="modal-example" data-uk-modal>
-                  <div className="uk-modal-dialog uk-modal-body">
-                    <h2 className="uk-modal-title uk-text-center">Approve Question</h2>
-                    <p>laborum.</p>
-                    <form method="put" action="/edit" className="uk-form-horizontal uk-margin-large">
-                      <div className="uk-margin">
-                        <label className="uk-form-label" htmlFor="form-horizontal-text">Questions:</label>
-                        <div className="uk-form-controls">
-                          <input className="uk-input" id="form-horizontal-text" type="text" defaultValue={question.question} />
-                        </div>
-                      </div>
-                      <div className="uk-margin">
-                        <label className="uk-form-label" htmlFor="form-horizontal-text">Answer:</label>
-                        <div className="uk-form-controls">
-                          <input className="uk-input" id="form-horizontal-text" type="text" defaultValue={question.answer} />
-                        </div>
-                      </div>
-                      <div className="uk-margin">
-                        <label className="uk-form-label" htmlFor="form-horizontal-select">Topic:</label>
-                        <div className="uk-form-controls">
-                          <select className="uk-select" id="form-horizontal-select">
-                            <option>core-javascript</option>
-                            <option>functional-programming</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="uk-margin">
-                        <div className="uk-form-label">Difficulty Level:</div>
-                        <div className="uk-form-controls uk-form-controls-text">
-                          <label><input className="uk-radio" type="radio" name="radio1" /> Beginner</label><br></br>
-                          <label><input className="uk-radio" type="radio" name="radio1" /> Intermediate</label><br></br>
-                          <label><input className="uk-radio" type="radio" name="radio1" /> Advanced</label><br></br>
-                          <label><input className="uk-radio" type="radio" name="radio1" /> Jedi</label>
-                        </div>
-                      </div>
-                    <p className="uk-text-right">
-                      <button className="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                      <button className="uk-button uk-button-primary" type="submit">Save Edits</button>
-                    </p>
-                  </form>
-                  </div>
-                </div>
-                <button className="uk-button-small uk-button-danger" onClick={this.onClick.bind(this, index)} ref={index} type="button">Delete this question</button>
+            <div>
+              <div key={index} >
+                <button className="uk-button-small uk-button-danger" onClick={this.onClickDelete.bind(this, index)} ref={index} type="button" >Delete this question</button>
+                <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.populateForm.bind(this, index)} >{question.question}</button>
+              </div>
             </div>
           )
         }
       })
     )
   }
+
   render() {
-    const fakeStats = {
-      experience: {value: 100, heading: "Experience"},
-      difficulty: {value: "Beginner", heading: "Difficulty"}
-    }
-
-    const fakeProfile = {
-      profileName: {value: "Murphy"},
-      topic: {value: "JavaScript"},
-      gameMode: {value: "Speaking"}
-    }
-
     const filterArray = ['All', 'Approved', 'Pending']
-
     let content = this.renderQuestions()
     return (
-      <div>Click to edit the following questions:
-        // Drop down input
-        <div><Header stats={fakeStats} profile={fakeProfile}/></div>
-        <br></br>
-        <FormSelect options={filterArray} label='Filter' onChange={this.handleChange.bind(this, 'filter')}/>
-        <br></br>
-        {content}
+      <div className="uk-container" >
+        <Layout profile={this.props.profile} stats={this.props.stats}>
+            <div className="uk-grid-match uk-child-width-1-2 uk-padding" data-uk-grid>
+              <div className="uk-card uk-card-default uk-card-body">
+                Click to edit the following questions:
+                <br></br>
+                <FormSelect options={filterArray} label='Filter' onChange={this.handleChange.bind(this, 'filter')}/>
+                <br></br>
+                {content}
+              </div>
+              <br></br>
+              <div className="uk-card uk-card-default uk-card-body">
+                <Form inputModules={inputModules} onSubmit={this.submitQuestionEdits} />
+              </div>
+            </div>
+        </Layout>
       </div>
     )
   }

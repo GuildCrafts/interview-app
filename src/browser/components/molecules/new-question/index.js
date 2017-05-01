@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import flex from 'react-uikit-flex'
+
 import ProfileBox from '../../atoms/profile-box/index'
 import StatBox from '../../atoms/stat-box/index'
 import AddInput from '../prompt-input/index'
 import Form from '../../molecules/form/index'
 import Requests from '../../common/requests'
-
 
 require('../../../../../public/stylesheets/uikit.min.css')
 
@@ -56,7 +56,6 @@ const inputModules = [
   }
 ]
 
-
 export default class NewQuestion extends Component {
   constructor() {
     super()
@@ -75,11 +74,13 @@ export default class NewQuestion extends Component {
   }
 
   handleSubmit(formData, event) {
+    event.preventDefault()
     Requests.post('/api/questions/', formData)
     .then( response => response.json() )
   }
 
   render() {
+
     return (
       <div id="modal-example" data-uk-modal>
         <div className="uk-modal-dialog uk-modal-body">

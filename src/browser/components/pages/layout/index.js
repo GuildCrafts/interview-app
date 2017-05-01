@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import ProfileBox from '../../atoms/profile-box/index'
-import Header from '../../molecules/header/index'
 
+import Header from '../../molecules/header/index'
 
 
 export default class Layout extends Component {

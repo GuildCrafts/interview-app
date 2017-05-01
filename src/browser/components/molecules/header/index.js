@@ -3,9 +3,6 @@ import flex from 'react-uikit-flex'
 
 import ProfileBox from '../../atoms/profile-box/index'
 import StatBox from '../../atoms/stat-box/index'
-import AddInput from '../prompt-input/index'
-import Form from '../../molecules/form/index'
-import Requests from '../../common/requests'
 import Menu from '../../molecules/menu/index'
 
 require('../../../../../public/stylesheets/uikit.min.css')

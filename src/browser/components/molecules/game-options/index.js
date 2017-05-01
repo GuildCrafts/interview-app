@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
-import FormSelect from '../../atoms/form-select/index'
+import {uniq, flatMap, take, shuffle} from 'lodash'
+
 import Form from '../../molecules/form/index'
-import Requests from '../../common/requests'
+import Game from '../../pages/game/index'
+import inputModules from '../../common/game-options-template'
 
 const inputModules = [
   {
@@ -43,16 +45,26 @@ export default class GameOptions extends Component {
   //   })
   // }
 
+  // handleChange( tag, data ){
+  //   this.setState( {[tag]: data} )
+  // }
+
   render() {
     const topics = this.props.topics || []
     const difficulty = this.props.difficulty || []
     const gameModes = this.props.gameModes || []
-
+    let correctElement
+    if (this.state.isForm) {
+      correctElement = <Form inputModules={inputModules} onSubmit={this.getQuestions.bind(this)} key='gameOptionForm'/>
+    }
+    else if (!this.state.isForm) {
+      correctElement = <Game questions={this.state.questions} />
+    }
     return (
       <div>
-        <h2>Time to mock interview</h2>
+        <h2>Mock Interview</h2>
         <h4>Select your options</h4>
-          <Form inputModules={this.state.form} onSubmit={this.props.onSubmit} key='gameOptionForm'/>
+        {correctElement}
       </div>
     )
   }

@@ -7,37 +7,6 @@ import FormSelect from '../../atoms/form-select/index'
 import FormInput from '../../atoms/form-input/index'
 import FormHints from '../../atoms/form-hints/index'
 
-// Implementation:
-/*
-
-const inputModules = [
-  {
-    "type"       : "Input",
-    "placeholder": "What is the meaning of life, the universe, and everything?",
-    "prompt"     : "What Is Your Question?"
-  },
-  {
-    "type"            : "Select",
-    "options"         : ["1","262","42","9"],
-    "prompt"          : "What Is The Answer?",
-    "isOptionRequired": false
-  },
-  {
-    "type"   : "Checkbox",
-    "options": ["Core-JavaScript","Functional-Programming"],
-    "prompt" : "Topic"
-  },
-  {
-    "type"   : "Radio",
-    "options": ["Beginner", "Intermediate", "Advanced", "Jedi"],
-    "prompt" : "Difficulty Levels"
-  }
-]
-
-<Form inputModules={inputModules} />
-
-*/
-
 export default class Form extends Component{
   constructor(props){
     super(props)
@@ -74,11 +43,14 @@ export default class Form extends Component{
   }
 
   initTextInput(inputModule) {
-    let domElement = (<FormInput
-      prompt={inputModule.prompt}
-      placeholder={inputModule.placeholder}
-      tag={inputModule.tag}
-      onChange={this.updateInput.bind(this)}/>
+    let domElement = (
+      <FormInput
+        prompt={inputModule.prompt}
+        placeholder={inputModule.placeholder}
+        tag={inputModule.tag}
+        value={inputModule.value}
+        onChange={this.updateInput.bind(this)}
+      />
     )
 
     let currentState = this.state
@@ -88,11 +60,13 @@ export default class Form extends Component{
   }
 
   initHints(inputModule) {
-    let domElement = (<FormHints
-      prompt={inputModule.prompt}
-      placeholder={inputModule.placeholder}
-      tag={inputModule.tag}
-      onChange={this.updateInput.bind(this)}/>
+    let domElement = (
+      <FormHints
+        prompt={inputModule.prompt}
+        placeholder={inputModule.placeholder}
+        tag={inputModule.tag}
+        onChange={this.updateInput.bind(this)}
+      />
     )
 
     let currentState = this.state
@@ -102,11 +76,15 @@ export default class Form extends Component{
   }
 
   initCheckbox(inputModule) {
-    let domElement = (<FormCheckbox
-      prompt={inputModule.prompt}
-      options={inputModule.options}
-      tag={inputModule.tag}
-      onChange={this.updateInput.bind(this)}/>)
+    let domElement = (
+      <FormCheckbox
+        prompt={inputModule.prompt}
+        options={inputModule.options}
+        tag={inputModule.tag}
+        checked={inputModule.checked}
+        onChange={this.updateInput.bind(this)}
+      />
+    )
 
     let currentState = this.state
     currentState.input[inputModule.tag] = []
@@ -115,12 +93,15 @@ export default class Form extends Component{
   }
 
   initRadio(inputModule) {
-    let domElement = (<FormRadio
-      prompt={inputModule.prompt}
-      options={inputModule.options}
-      tag={inputModule.tag}
-      onChange={this.updateInput.bind(this)}
-      />)
+    let domElement = (
+      <FormRadio
+        prompt={inputModule.prompt}
+        options={inputModule.options}
+        tag={inputModule.tag}
+        checked={inputModule.checked}
+        onChange={this.updateInput.bind(this)}
+      />
+    )
 
     let currentState = this.state
     currentState.input[inputModule.tag] = null
@@ -131,13 +112,16 @@ export default class Form extends Component{
   initSelect(inputModule) {
     let domElement = (
       <FormSelect
-      prompt={inputModule.prompt}
-      options={inputModule.options}
-      isOptionRequired={inputModule.isOptionRequired}
-      onChange={this.updateInput.bind(this) }
-      tag={inputModule.tag}
-      passId={inputModule.id}
-      />)
+        prompt={inputModule.prompt}
+        options={inputModule.options}
+        isOptionRequired={inputModule.isOptionRequired}
+        onChange={this.updateInput.bind(this) }
+        tag={inputModule.tag}
+        passId={inputModule.id}
+        chooseSelect={inputModule.chooseSelect}
+      />
+    )
+
     let currentState = this.state
     currentState.input[inputModule.tag] = inputModule.options[0]
     this.setState( currentState )
@@ -149,7 +133,7 @@ export default class Form extends Component{
     this.props.onSubmit(this.state.input)
   }
 
-
+//<button className="uk-button uk-button-primary" type="submit" onClick={this.props.onSubmitHandler.bind(this, this.state.input)}>Save</button>
   render(){
     return(
       <div>

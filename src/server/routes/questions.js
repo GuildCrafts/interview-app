@@ -8,27 +8,32 @@ router.get('/', (request, response) => {
   const {difficulty, topics} = request.query
   console.log(request.query)
   utilities.findAll('questions')
+  .then( questions => { response.json(questions) })
+  .catch( err => console.log('err', err) )
+})
+
+router.get('/approval', (request, response) => {
+  questions.findAllQuestions()
   .then( questions => {
-    if(difficulty !== 'any') {
-      questions = questions.filter( questions => !questions.difficulty )
-    }
-    if(topics !== 'any') {
-      questions = questions.filter( questions => !questions.topics )
-    }
-    response.json(questions)
+    response.send(questions)
   })
+})
+
+router.delete('/approval', (request, response) => {
+  const { id } = request.params
+  questions.deleteByID( id )
+  .then( () => response.json( { 'message': 'deleted' } ) )
   .catch( err => console.log('err', err) )
 })
 
 router.post('/', (request, response) => {
   const attributes  = request.body
-  console.log(attributes)
   questions.create( attributes )
   .then( (question) => response.json( question ) )
   .catch( err => response.status(400).json({error: err.message, params: attributes}) )
 })
 
-router.put('/:id', (request, response) => {
+router.put('/approval/:id', (request, response) => {
   const { id } = request.params
   const attributes = request.body
   questions.updatebyID( id, attributes )
