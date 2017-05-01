@@ -20,10 +20,8 @@ describe('<Routes />', () => {
     const pathMap = wrapper.find(Route).reduce((pathMap, route) => {
       const routeProps = route.props()
       pathMap[routeProps.path] = routeProps.component
-      // console.log('path map::', pathMap)
       return pathMap;
     }, {})
     expect(pathMap['/'].toString()).to.equal(Landing.toString())
-    console.log('the function for the landing component', pathMap['/'].toString())
   })
 })

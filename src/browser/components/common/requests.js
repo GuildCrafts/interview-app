@@ -1,13 +1,18 @@
+
+
 const post = (url, body) => {
+  let headers = new Headers()
+  headers.append('Content-Type', 'application/JSON')
    return fetch(url, {
      method:'POST',
+     headers: headers,
      mode: 'cors',
      body: JSON.stringify(body),
      credentials: 'same-origin'
    })
  }
 
- const get = (url, params={}) => {
+ const get = (url) => {
    return fetch(url, {
      method:'GET',
      header: 'Content-Type, application/JSON',

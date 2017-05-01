@@ -4,6 +4,7 @@ import ProfileBox from '../../atoms/profile-box/index'
 import StatBox from '../../atoms/stat-box/index'
 import AddInput from '../prompt-input/index'
 import Form from '../../molecules/form/index'
+import Requests from '../../common/requests'
 
 
 require('../../../../../public/stylesheets/uikit.min.css')
@@ -30,7 +31,7 @@ const inputModules = [
   },
   {
     "type"   : "Checkbox",
-    "options": ["Core-JavaScript","Functional-Programming"],
+    "options": [],
     "prompt" : "Topics",
     "tag"    : "topics"
   },
@@ -60,22 +61,31 @@ export default class NewQuestion extends Component {
   constructor() {
     super()
     this.state = {
-      form: inputModules,
+      form: inputModules
     }
   }
 
-  handleSubmit( data ){
-    //you can put the submit route here
-    console.log(data)
+  componentDidMount(){
+    Requests.get('/api/topics/')
+    .then(response => {
+      let currentState = this.state
+      currentState.form[3].options = response
+      this.setState(currentState)
+    })
+  }
+
+  handleSubmit(formData, event) {
+    Requests.post('/api/questions/', formData)
+    .then( response => response.json() )
   }
 
   render() {
     return (
       <div id="modal-example" data-uk-modal>
         <div className="uk-modal-dialog uk-modal-body">
-          <h2 className="uk-modal-title uk-text-center">New Question Form</h2>
+          <h2 className="uk-modal-title uk-text-center">New Question</h2>
             <p>When writing your question, please make sure that it is clearly stated, and that the answer is not ambigious. The more accurate the answer, the better learning experience. If you are unsure if your question (or one that is similar) has already been submitted, please checkout the approval page to browse all questions. Thanks for contributing!</p>
-          <Form inputModules={this.state.form} onSubmit={this.handleSubmit.bind(this)}/>
+          <Form inputModules={this.state.form} onSubmit={this.handleSubmit.bind(this)} key='NewQuestionForm'/>
         </div>
       </div>
     )
