@@ -51,4 +51,4 @@ const deleteQuestion = (url, id) => {
   })
 }
 
-export default {get, getUserName, getDatabaseQuestions, post, put, deleteQuestion}
+export default {get, getDatabaseQuestions, post, put, deleteQuestion}

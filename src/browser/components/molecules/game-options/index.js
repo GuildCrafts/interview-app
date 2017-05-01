@@ -3,7 +3,6 @@ import {uniq, flatMap, take, shuffle} from 'lodash'
 
 import Form from '../../molecules/form/index'
 import Game from '../../pages/game/index'
-import inputModules from '../../common/game-options-template'
 
 const inputModules = [
   {

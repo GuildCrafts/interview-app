@@ -37,13 +37,17 @@ export default class Routes extends Component {
     }
 
     const LandingComponent = (props, state, params) =>
-    <Landing profile={fakeProfile} {...props}  stats={fakeStats} {...props} topics={this.state.topics}/>
+    <Landing profile={fakeProfile} stats={fakeStats} {...props} topics={this.state.topics}/>
 
     const GameOptionsComponent = (props, state, params) =>
-    <GameOptions profile={fakeProfile} {...props} stats={fakeStats} {...props} topics={this.state.topics}/>
+    <GameOptions profile={fakeProfile} stats={fakeStats} {...props} topics={this.state.topics}/>
 
     const ProfileComponent = (props, state, params) =>
-    <Profile profile={fakeProfile} {...props} stats={fakeStats} {...props} topics={this.state.topics}/>
+    <Profile profile={fakeProfile} stats={fakeStats} {...props} topics={this.state.topics}/>
+
+    const ApprovalComponent = (props, state, params) =>
+    <ApprovalPage profile={fakeProfile} stats={fakeStats} {...props} topics={this.state.topics}/>
+
 
     return (
       <BrowserRouter>
