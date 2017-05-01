@@ -23,7 +23,6 @@ export default class NewQuestion extends Component {
     event.preventDefault()
     Requests.post('api/questions', formData)
     .then( response => response.json() )
-    .then( question => console.log('question', question) )
   }
 
   render() {

@@ -43,7 +43,6 @@ export default class ApprovalPage extends Component {
     inputModules[3].checked = this.state.questions[index].topics
     inputModules[4].checked = this.state.questions[index].level
     inputModules[5].chooseSelect = this.state.questions[index].points
-    console.log('index of question>>>>', index)
     this.setState(prevState => {
       triggerState: !prevState
       id: index
@@ -51,8 +50,6 @@ export default class ApprovalPage extends Component {
   }
 
   submitQuestionEdits(formData) {
-    console.log('the inputModules in APPROVAL component', inputModules)
-
     Request.put('/api/questions/approval' + "/" + this.state.id, formData)
     .then(console.log)
   }

@@ -130,7 +130,6 @@ export default class Form extends Component{
 
   handleSubmit(){
     //pass NewQuestionOutput(this.state.input) into the route
-    console.log('FORM component state::::', this.state)
     this.props.onSubmit(this.state.input)
   }
 

@@ -24,7 +24,6 @@ export default class FormCheckbox extends Component {
   }
 
   changeHandler(event){
-    console.log("This.State====>", this.state, event.target.value);
     this.setState({options: event.target.value})
     let currentState = this.state
     currentState[event.target.id] = event.target.checked
@@ -33,7 +32,6 @@ export default class FormCheckbox extends Component {
   }
 
   render() {
-    console.log('rerendering::');
     const checklist = this.state.options.map( (option, index) => {
       const optionLabel = ' '+option
       return (
@@ -51,7 +49,6 @@ export default class FormCheckbox extends Component {
         if (this.props.checked === this.state.options[i]) {
           const optionLabel = ' '+this.state.options[i]
           const option = this.state.options[i]
-          console.log('option::', option);
           checklist[i] = (
             <div key={i} className="uk-form-controls uk-form-controls-text">
               <label>
