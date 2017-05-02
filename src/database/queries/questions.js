@@ -49,6 +49,20 @@ const findbyID = ( data ) => {
   })
 }
 
+const findAllQuestions = () => {
+  return knex
+  .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics')
+  .from('questions')
+  .leftJoin('questionTopics','questions.id','questionTopics.question_id')
+  .leftJoin('topics','questionTopics.topic_id','topics.id')
+  .leftJoin('hints','questions.id','hints.question_id')
+  .then( results => {
+    console.log('findAllQuestions::', results);
+    return hintTopicMiddleWare(results)
+  })
+}
+
+
 
 const findbyTopic = ( topics ) => {
   return knex
@@ -81,29 +95,29 @@ const getAllTopics = () => {
   .from('topics')
   .then( results => results.map(result => result.topics))
 }
+//
+// const findAllQuestions = ( data ) =>
+//   utilities.findAll('questions', data)
+//   .then(question => question)
 
-const findAllQuestions = ( data ) =>
-  utilities.findAll('questions', data)
-  .then(question => question)
+// const updatebyID = ( id, attributes ) =>
+//   utilities.update( 'questions', 'id', id, attributes)
+//
+// //do we need this?
+// const updatebyLevel = ( data, attributes ) =>
+//   utilities.update( 'questions', 'level', data, attributes)
+//
+// const deleteByQuestion = ( data, attributes ) =>
+//   utilities.delete( 'questions', 'question', data, attributes)
+//
+//
+// const deleteByID = ( data, attributes ) =>
+//   utilities.delete( 'questions', 'id', data, attributes)
 
-const updatebyID = ( id, attributes ) =>
-  utilities.update( 'questions', 'id', id, attributes)
 
-//do we need this?
-const updatebyLevel = ( data, attributes ) =>
-  utilities.update( 'questions', 'level', data, attributes)
-
-const deleteByQuestion = ( data, attributes ) =>
-  utilities.delete( 'questions', 'question', data, attributes)
-
-
-const deleteByID = ( data, attributes ) =>
-  utilities.delete( 'questions', 'id', data, attributes)
 
 function hintTopicMiddleWare(array){
-
- var newObj = array.reduce(function(obj,question){
-
+  var newObj = array.reduce(function(obj,question){
     if(obj[question.id]){
       if(!obj[question.id].topics.includes(question.topics)){
         obj[question.id].topics.push(question.topics)
@@ -118,7 +132,7 @@ function hintTopicMiddleWare(array){
     }
     return obj
   },{})
-  return newObj
+  return Object.values(newObj)
 }
 
 export {
@@ -127,9 +141,5 @@ export {
   findbyID,
   findbyLevel,
   findAllQuestions,
-  updatebyID,
-  updatebyLevel,
-  deleteByQuestion,
-  deleteByID,
   getAllTopics
 }

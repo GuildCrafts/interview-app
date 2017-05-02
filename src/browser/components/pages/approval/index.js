@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import flex from 'react-uikit-flex'
 
 // import questions from '../../../../../data/questions.json'
@@ -102,6 +102,7 @@ export default class ApprovalPage extends Component {
     })
   }
 
+// NEEDS WORK!
   submitQuestionEdits(formData) {
     Request.put('/api/questions/approval' + "/" + this.state.id, formData)
     .then(console.log)

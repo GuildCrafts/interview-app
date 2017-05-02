@@ -3,17 +3,18 @@ import {uniq, flatMap, take, shuffle} from 'lodash'
 
 import Form from '../../molecules/form/index'
 import Game from '../../pages/game/index'
+import Request from '../../common/requests'
 
 const inputModules = [
   {
     "type"    : "Select",
     "prompt"  : "Difficulty",
     "options" : ["any","beginner","intermediate"],
-    "tag"     : "difficulty",
+    "tag"     : "level",
     "isOptionRequired": true
   },
   {
-    "type"    : "Checkbox",
+    "type"    : "Select",
     "prompt"  : "Topic",
     "options" : [],
     "tag"     : "topic",
@@ -31,22 +32,42 @@ const inputModules = [
 export default class GameOptions extends Component {
   constructor(props) {
     super(props)
-    this.state = {form: inputModules}
+    this.state = {form: inputModules, isForm: true, questions: {}}
+    this.getQuestions = this.getQuestions.bind(this)
+    this.filterQuestions = this.filterQuestions.bind(this)
     this.state.form[1].options = ['any'].concat(this.props.topics)
   }
 
-  // componentDidMount(){
-  //   Requests.get('/api/topics/')
-  //   .then(response => {
-  //     let currentState = this.state
-  //     currentState.form[1].options = ['any'].concat(response)
-  //     this.setState(currentState)
-  //   })
-  // }
+  componentDidMount() {
+      Request.getDatabaseQuestions('/api/questions/').then(questions => {
+        return questions
+      })
+      .then(questions => {
+        console.log('questions::', questions);
+        this.setState(Object.assign(this.state, {questions: questions}))
+      })
+    }
 
-  // handleChange( tag, data ){
-  //   this.setState( {[tag]: data} )
-  // }
+  getQuestions(filters) {
+      const filteredQuestions = this.filterQuestions(this.state.questions, filters.topic, filters.level)
+      this.setState(prevState => ({
+        isForm: false,
+        questions: filteredQuestions
+      }))
+    }
+
+    filterQuestions(questions, topic, level) {
+      let q = shuffle(questions)
+      if(topic === 'any' && level === 'any') {
+        return take(q, 7)
+      } else if( topic === 'any') {
+        return q.filter(question => question.level === level)
+      } else if (level === 'any') {
+        return q.filter(question => question.topics.includes(topic))
+      } else {
+        return q.filter(question => question.level === level && question.topics === topic)
+      }
+    }
 
   render() {
     const topics = this.props.topics || []

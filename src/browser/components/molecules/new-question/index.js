@@ -73,8 +73,9 @@ export default class NewQuestion extends Component {
     })
   }
 
-  handleSubmit(formData, event) {
-    event.preventDefault()
+  handleSubmit(formData) {
+    // console.log(event);
+    // event.preventDefault()
     Requests.post('/api/questions/', formData)
     .then( response => response.json() )
   }

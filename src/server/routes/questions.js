@@ -7,7 +7,7 @@ const router = express.Router()
 router.get('/', (request, response) => {
   const {difficulty, topics} = request.query
   console.log(request.query)
-  utilities.findAll('questions')
+  questions.findAllQuestions('questions')
   .then( questions => { response.json(questions) })
   .catch( err => console.log('err', err) )
 })
@@ -28,6 +28,7 @@ router.delete('/approval', (request, response) => {
 
 router.post('/', (request, response) => {
   const attributes  = request.body
+  console.log("attributes:::", attributes);
   questions.create( attributes )
   .then( (question) => response.json( question ) )
   .catch( err => response.status(400).json({error: err.message, params: attributes}) )
