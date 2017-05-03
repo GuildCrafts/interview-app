@@ -1,5 +1,5 @@
 import knex from '../db.js'
-import utilities from './utilities'
+// import utilities from './utilities'
 
 const create = ( question ) => {
   return knex.transaction(function (trx){
@@ -9,6 +9,7 @@ const create = ( question ) => {
               approval : false,
               level    : question.level,
               answer   : question.answer,
+              game_mode: question.game_mode,
               points   : question.points}, 'id')
     .then( questionID => {
       return knex('hints')
@@ -29,6 +30,56 @@ const create = ( question ) => {
           .insert( topicIDs.map( topicID => {
             return { 'topic_id': topicID.id,'question_id':questionID[0]}
           }))
+        })
+      })
+    })
+    .then(trx.commit)
+    .catch(trx.rollback)
+  })
+}
+
+//needs edit queries
+const updatebyID = ( question ) => {
+  return knex.transaction(function (trx){
+    return knex('questions')
+    .where("id", question.id)
+    .transacting(trx)
+    .update(
+      {
+        approval : false,
+        question : question.question,
+        level    : question.level,
+        answer   : question.answer,
+        game_mode: question.game_mode,
+        points   : question.points
+      },
+    'id')
+    .then( questionID => {
+      return knex('hints')
+      .transacting(trx)
+      .update( question.hints.map( hint => {
+        return { 'text': hint, 'question_id': questionID[0]}
+      }))
+      .then(() => {
+        return knex.select('id')
+        .from('topics')
+        .whereIn('name', question.topics)
+        .then( topicIDs => {
+          if(topicIDs.length != question.topics.length){
+            return Promise.reject(new Error('topic not found'))
+          }
+          return knex.select('questions_id')
+          .from('questionTopics')
+          .whereIn('questions_id', questionID)
+          .transacting(trx)
+          .delete( )
+          .then(() => {
+            return knex('questionTopics')
+            .transacting(trx)
+            .update( topicIDs.map( topicID => {
+              return { 'topic_id': topicID.id, 'question_id':questionID[0]}
+            }))
+          })
         })
       })
     })
@@ -95,8 +146,6 @@ const getAllTopics = () => {
   .then( results => results.map(result => result.topics))
 }
 
-//needs edit queries
-
 
 
 
@@ -125,5 +174,6 @@ export {
   findbyID,
   findbyLevel,
   findAllQuestions,
-  getAllTopics
+  getAllTopics,
+  updatebyID
 }

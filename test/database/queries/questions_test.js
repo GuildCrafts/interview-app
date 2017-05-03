@@ -2,30 +2,34 @@ import chai, { expect } from 'chai'
 import * as question from '../../../src/database/queries/questions'
 
 describe('Question Tests', () => {
+
   const newQuestion = [
     {
       question: "What is the number that represents the meaning of life",
-      topics: ["existentialism", "midlife-crisis"],
-      level: "10",
+      topics: ["core-javascript", "functional-programming"],
+      level: "Beginner",
       answer: "42",
+      game_mode: "Questions and Answers",
       hints: ["Hitchhiking", "Galaxy"],
-      points: 12
+      points: 1
     },
     {
       question: "How much wood could a woodchuck chuck if a woodchuck could chuck wood",
-      topics: ["woodchuckin", "pepperoni"],
-      level: "9",
+      topics: ["core-javascript"],
+      level: "Jedi",
       answer: "a lot",
+      game_mode: "Debugging",
       hints: ["Wisconsin", "Wood"],
-      points: 20
+      points: 2
     },
     {
       question: "What is the most inefficient algorithm",
-      topics: ["Don't let Shereef see this", "MachineLearning"],
-      level: "0",
+      topics: ["functional-programming"],
+      level: "Intermediate",
       answer: "THE ALGORITHM",
+      game_mode: "Debugging",
       hints: ["BubbleSort", "LearnersGuild", "#LGPROBLEMS"],
-      points: 1
+      points: 3
     }
   ]
 
@@ -33,20 +37,33 @@ describe('Question Tests', () => {
     expect(question).to.be.a('object')
   })
 
-  describe('create a Q', () => {
+  describe.only('create a Q', () => {
     it('should create a Q, not a queue', () => {
       return question.create( newQuestion[0] )
         .then( question => {
           expect(question[0].question).to.equal('What is the number that represents the meaning of life')
-          expect(question[0].topics).to.eql(["existentialism", "midlife-crisis"])
-          expect(question[0].points).to.eql(12)
+          expect(question[0].topics).to.eql(["core-javascript", "functional-programming"])
+          expect(question[0].points).to.eql(1)
         })
+    })
+  })
+
+  describe.only('update by ID', () => {
+    it('should update a question by the ID', () => {
+      return question.create( newQuestion[2] )
+      .then( () => {
+        return question.updatebyID( '2', {level: '1000'} )
+        .then( question => {
+          expect(question[0].level).to.equal('1000')
+        })
+      })
     })
   })
 
   describe('find by topic', () => {
     it('should find a question by the topic', () => {
       return Promise.all([question.create( newQuestion[1] ), question.create( newQuestion[0])])
+
         .then( () => {
           return question.findbyTopic(["woodchuckin", "existentialism"])
           .then( question => {
@@ -77,18 +94,6 @@ describe('Question Tests', () => {
           return question.findbyID( 1 )
           .then( question => {
             expect(question[0].topics[0]).to.equal("existentialism")
-          })
-        })
-    })
-  })
-
-  describe('update by ID', () => {
-    it('should update a question by the ID', () => {
-      return question.create( newQuestion[2] )
-        .then( () => {
-          return question.updatebyID( '2', {level: '1000'} )
-          .then( question => {
-            expect(question[0].level).to.equal('1000')
           })
         })
     })

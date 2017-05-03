@@ -1,7 +1,7 @@
 import React from 'react'
 import { expect } from 'chai'
 import chai from 'chai'
-import { chaiEnzyme }  from 'chai-enzyme'
+// import { chaiEnzyme }  from 'chai-enzyme'
 import { shallow, mount } from 'enzyme'
 import { jsdom } from 'jsdom'
 
