@@ -1,5 +1,3 @@
-
-
 const post = (url, body) => {
   let headers = new Headers()
   headers.append('Content-Type', 'application/JSON')

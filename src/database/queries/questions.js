@@ -57,7 +57,6 @@ const findAllQuestions = () => {
   .leftJoin('topics','questionTopics.topic_id','topics.id')
   .leftJoin('hints','questions.id','hints.question_id')
   .then( results => {
-    console.log('findAllQuestions::', results);
     return hintTopicMiddleWare(results)
   })
 }

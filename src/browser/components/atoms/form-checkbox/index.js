@@ -3,63 +3,63 @@ import React,{Component} from 'react'
 export default class FormCheckbox extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      options: this.props.options
-    }
-    props.options.forEach( option => {
-      this.state[option] = false
+    let checkedOptionObject = this.updateCheckedOptions(this.props.checked || [])
+    this.state = {checked: checkedOptionObject}
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let newCheckedOptions = this.updateCheckedOptions(nextProps.checked)
+    this.setState({
+      checked: newCheckedOptions
     })
   }
 
-    componentWillReceiveProps(nextProps) {
-      this.setState({
-        options: nextProps.options
-      })
-    }
-
-  selectChecked(){
-    return Object.keys(this.state).filter( option => {
-      return this.state[option]
-    })
+  updateCheckedOptions(checkedOptions) {
+    if(!checkedOptions) return {}
+    return checkedOptions.reduce(function(acc, checkedOption) {
+      acc[checkedOption] = true
+      return acc
+    },
+     {})
   }
 
   changeHandler(event){
-    this.setState({options: event.target.value})
-    let currentState = this.state
-    currentState[event.target.id] = event.target.checked
-    this.setState(currentState)
-    this.props.onChange( this.props.tag, this.selectChecked() )
+    let currentCheckedState = this.state.checked
+    currentCheckedState[event.target.id] = !currentCheckedState[event.target.id]
+
+    this.setState({checked: currentCheckedState})
+    this.props.onChange( this.props.tag, Object.keys(currentCheckedState).filter(topic => currentCheckedState[topic]))
+    console.log('inside changeHandler', this.state.checked);
   }
 
   render() {
-    const checklist = this.state.options.map( (option, index) => {
+    const checklist = this.props.options.map( (option, index) => {
       const optionLabel = ' '+option
-      return (
-        <div key = {index} className="uk-form-controls uk-form-controls-text">
-          <label>
-            <input className="uk-checkbox" id={option} type="checkbox" name={this.props.tag} onChange={this.changeHandler.bind(this)}/>
-            {optionLabel}
-          </label>
-        </div>
-      )
-    })
-
-    if (this.props.checked !== "") {
-      for (let i = 0; i < checklist.length; i++) {
-        if (this.props.checked === this.state.options[i]) {
-          const optionLabel = ' '+this.state.options[i]
-          const option = this.state.options[i]
-          checklist[i] = (
-            <div key={i} className="uk-form-controls uk-form-controls-text">
-              <label>
-                <input className="uk-checkbox" id={option} type="checkbox" name={this.props.tag} onChange={this.changeHandler.bind(this)} checked={this.state[option]}/>
-                {optionLabel}
-              </label>
-            </div>
-          )
-        }
+      const currentOption = this.props.options[index]
+      if (this.state.checked && ! this.state.checked[currentOption]) {
+        return (
+          <div key = {index} className="uk-form-controls uk-form-controls-text">
+            <label>
+              <input ref={option} key={`checkbox-${option}`} className="uk-checkbox"
+                 id={option} type="checkbox" name={this.props.tag}
+                 onChange={this.changeHandler.bind(this)} checked={false}/>
+              {optionLabel}
+            </label>
+          </div>
+        )
+      } else {
+        return (
+          <div key = {index} className="uk-form-controls uk-form-controls-text">
+            <label>
+              <input ref={option} key={`checkbox-${option}`} className="uk-checkbox"
+                 id={option} type="checkbox" name={this.props.tag}
+                 onChange={this.changeHandler.bind(this)} checked={true}/>
+              {optionLabel}
+            </label>
+          </div>
+        )
       }
-    }
+    })
 
     return (
       <div className="uk-margin">

@@ -34,10 +34,10 @@ const inputModules = [
   },
   {
     "type"   : "Checkbox",
-    "options": ["Core JavaScript", "SQL", "Functional Programming", "Requirements", "Testing", "Technical Design", "Object Oriented Programming" ],
+    "options": [],
     "prompt" : "Topics",
     "tag"    : "topics",
-    "checked": ""
+    "checked": []
   },
   {
     "type"   : "Radio",
@@ -68,7 +68,10 @@ export default class ApprovalPage extends Component {
     super(props)
     this.state = {questions: [], id: 0, filter: "All", triggerState: true}
     this.populateForm = this.populateForm.bind(this)
+    // this.inputModules = inputModules
+    // this.inputModules[3].options = this.props.topics
   }
+
 
   componentDidMount(){
     Request.getDatabaseQuestions('/api/questions/approval').then(questions => {
@@ -90,6 +93,8 @@ export default class ApprovalPage extends Component {
   }
 
   populateForm(index) {
+    console.log('populate state:::', this.state.checked)
+    inputModules[3].options = this.props.topics
     inputModules[0].value = this.state.questions[index].question
     inputModules[1].value = this.state.questions[index].answer
     inputModules[2].chooseSelect = this.state.questions[index].game_mode
@@ -109,6 +114,7 @@ export default class ApprovalPage extends Component {
   }
 
   handleChange(property, event) {
+    console.log("Changed state:::", this.state.checked);
     let targetValue = event.target.value
     if(targetValue === '') {
       targetValue = 'All'
@@ -122,8 +128,8 @@ export default class ApprovalPage extends Component {
         let approvalState = this.state.filter
         if(approvalState === question.approval || approvalState === 'All') {
           return (
-            <div>
-              <div key={index} >
+            <div key={`question-${index}`}>
+              <div>
                 <button className="uk-button-small uk-button-danger" onClick={this.onClickDelete.bind(this, index)} ref={index} type="button" >Delete this question</button>
                 <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.populateForm.bind(this, index)} >{question.question}</button>
               </div>
