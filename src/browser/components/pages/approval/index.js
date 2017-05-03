@@ -66,7 +66,7 @@ const inputModules = [
 export default class ApprovalPage extends Component {
   constructor(props) {
     super(props)
-    this.state = {questions: [], id: 0, filter: "All", triggerState: true}
+    this.state = {questions: [], id: 0, filter: "All", triggerState: true, currentQuestion: null}
     this.populateForm = this.populateForm.bind(this)
   }
 
@@ -102,8 +102,9 @@ export default class ApprovalPage extends Component {
       triggerState: !prevState
       id: index
     })
+  }
 
-  setCurrentQuestion(index){
+    setCurrentQuestion(index){
     this.setState({currentQuestion: this.state.questions[index]})
   }
 

@@ -14,11 +14,7 @@ export default class Form extends Component{
       input: this.props.initialValue || {},
       inputModules: props.inputModules
     }
-    console.log(this.props.initialValue)
-  }
-
-  buildJSX() {
-    const form = this.state.inputModules.map( (inputModule, index) => {
+    const form = props.inputModules.map( (inputModule, index) => {
       return {'Input': this.initTextInput.bind(this, inputModule, index),
         'Checkbox': this.initCheckbox.bind(this, inputModule, index),
         'Radio': this.initRadio.bind(this, inputModule, index),
@@ -26,25 +22,17 @@ export default class Form extends Component{
         'Hint': this.initHints.bind(this, inputModule, index)
       }[inputModule.type]()
     })
-    this.setState({form: form})
+    this.state.form = form
   }
 
-  componentDidMount(){
-    this.buildJSX()
-  }
-
-  componentWillReceiveProps(){
-    console.log('form currentQuestion props',this.props.initialValue)
-    this.setState({input: this.props.initialValue})
-    this.buildJSX()
+  componentWillReceiveProps(nextProps){
+    this.setState(Object.assign(this.state, {input: nextProps.initialValue}))
   }
 
   updateInput( tag, data ){
     let currentState = this.state
     currentState.input[tag] = data
     this.setState( currentState )
-    console.log('form input',this.state.input)
-    console.log('form initialValue',this.props.initialValue)
   }
 
   initTextInput(inputModule, index) {
@@ -59,9 +47,9 @@ export default class Form extends Component{
       />
     )
 
-    let currentState = this.state
-    currentState.input[inputModule.tag] = ""
-    this.setState( currentState )
+    // let currentState = this.state
+    // currentState.input[inputModule.tag] = ""
+    // this.setState( currentState )
     return domElement
   }
 
@@ -76,9 +64,9 @@ export default class Form extends Component{
       />
     )
 
-    let currentState = this.state
-    currentState.input[inputModule.tag] = []
-    this.setState( currentState )
+    // let currentState = this.state
+    // currentState.input[inputModule.tag] = []
+    // this.setState( currentState )
     return domElement
   }
 
@@ -94,9 +82,9 @@ export default class Form extends Component{
       />
     )
 
-    let currentState = this.state
-    currentState.input[inputModule.tag] = []
-    this.setState( currentState )
+    // let currentState = this.state
+    // currentState.input[inputModule.tag] = []
+    // this.setState( currentState )
     return domElement
   }
 
@@ -112,9 +100,9 @@ export default class Form extends Component{
       />
     )
 
-    let currentState = this.state
-    currentState.input[inputModule.tag] = null
-    this.setState( currentState )
+    // let currentState = this.state
+    // currentState.input[inputModule.tag] = null
+    // this.setState( currentState )
     return domElement
   }
 
@@ -132,9 +120,9 @@ export default class Form extends Component{
       />
     )
 
-    let currentState = this.state
-    currentState.input[inputModule.tag] = inputModule.options[0]
-    this.setState( currentState )
+    // let currentState = this.state
+    // currentState.input[inputModule.tag] = inputModule.options[0]
+    // this.setState( currentState )
     return domElement
   }
 
