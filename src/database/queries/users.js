@@ -1,7 +1,7 @@
 import knex from '../db.js'
 import utilities from './utilities'
 
-const create = attributes =>
+const create = ( attributes ) =>
   utilities.create('users', attributes)
   .then(users => users[0])
 

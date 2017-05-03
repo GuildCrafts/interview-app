@@ -1,6 +1,7 @@
 import knex from '../db.js'
 
 const utilities = {
+  
   create: (table, attributes) => {
     return knex
       .table(table)

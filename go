@@ -13,13 +13,14 @@
     dbname=interviewdb-${env}
     dropdb ${dbname}
     createdb ${dbname}
-    NODE_ENV=${env} npm run migrate:rollback
     NODE_ENV=${env} npm run migrate
   }
 
   function test {
+    NODE_ENV=test PORT=3001
     reset_db test
-    NODE_ENV=test PORT=3001 npm test
+    npm run seed
+    npm test
   }
 
   function init {
