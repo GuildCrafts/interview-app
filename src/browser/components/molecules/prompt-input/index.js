@@ -11,7 +11,7 @@ export default class AddInput extends Component {
 
   render() {
     return (
-      <div>
+        <div className="add-input">
         <button className="uk-button uk-button-default" onClick={this.addInput}>
           Add a Hint
         </button>
