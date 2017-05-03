@@ -17,7 +17,7 @@ export default class Routes extends Component {
   }
 
   componentDidMount() {
-    Promise.all([Requests.get('/api/users/current_user'),Requests.get('/api/topics/')])
+    Promise.all([Requests.get('/api/users/current_user'), Requests.get('/api/topics/')])
     .then(([user, topics]) => {
       this.setState(Object.assign(this.state, {user: user, topics: topics}))
     })
@@ -38,9 +38,6 @@ export default class Routes extends Component {
 
     const LandingComponent = (props, state, params) =>
     <Landing profile={fakeProfile} stats={fakeStats} {...props} topics={this.state.topics}/>
-
-    const GameOptionsComponent = (props, state, params) =>
-    <GameOptions profile={fakeProfile} stats={fakeStats} {...props} topics={this.state.topics}/>
 
     const ProfileComponent = (props, state, params) =>
     <Profile profile={fakeProfile} stats={fakeStats} {...props} topics={this.state.topics}/>

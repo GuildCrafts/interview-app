@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import Layout from '../layout/index'
 import GameOptions from '../../molecules/game-options/index'
 
+
 require('../../../../../public/stylesheets/uikit.min.css')
 
 export default class Landing extends Component {
@@ -15,7 +16,7 @@ export default class Landing extends Component {
     return (
       <div className="uk-container">
         <Layout profile={this.props.profile} stats={this.props.stats}>
-          <GameOptions />
+          <GameOptions topics={this.props.topics}/>
         </Layout>
       </div>
     )

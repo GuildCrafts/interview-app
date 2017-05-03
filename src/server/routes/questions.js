@@ -6,8 +6,7 @@ const router = express.Router()
 
 router.get('/', (request, response) => {
   const {difficulty, topics} = request.query
-  console.log(request.query)
-  utilities.findAll('questions')
+  questions.findAllQuestions('questions')
   .then( questions => { response.json(questions) })
   .catch( err => console.log('err', err) )
 })

@@ -6,15 +6,16 @@ import Requests from '../../common/requests.js'
 require('../../../../../public/stylesheets/uikit.min.css')
 
 export default class Game extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {currentQuestionPosition: 0,
                   answered: [],
                   skipped: [],
                   showAnswer: false,
-                  questions: []}
+                  questions: props.questions}
   }
 
+  //Needs reasessment
   componentDidMount(){
     const {difficulty,topics} = this.props
     const topicsQueryString = topics.reduce( ( queryString, topic ) => {

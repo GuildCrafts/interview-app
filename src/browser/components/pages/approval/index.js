@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import flex from 'react-uikit-flex'
 
 // import questions from '../../../../../data/questions.json'
@@ -34,10 +34,10 @@ const inputModules = [
   },
   {
     "type"   : "Checkbox",
-    "options": ["Core JavaScript", "SQL", "Functional Programming", "Requirements", "Testing", "Technical Design", "Object Oriented Programming" ],
+    "options": [],
     "prompt" : "Topics",
     "tag"    : "topics",
-    "checked": ""
+    "checked": []
   },
   {
     "type"   : "Radio",
@@ -70,6 +70,7 @@ export default class ApprovalPage extends Component {
     this.populateForm = this.populateForm.bind(this)
   }
 
+
   componentDidMount(){
     Request.getDatabaseQuestions('/api/questions/approval').then(questions => {
       this.setState(Object.assign(this.state, {questions: questions}))
@@ -90,6 +91,7 @@ export default class ApprovalPage extends Component {
   }
 
   populateForm(index) {
+    inputModules[3].options = this.props.topics
     inputModules[0].value = this.state.questions[index].question
     inputModules[1].value = this.state.questions[index].answer
     inputModules[2].chooseSelect = this.state.questions[index].game_mode
@@ -102,9 +104,9 @@ export default class ApprovalPage extends Component {
     })
   }
 
+// NEEDS WORK!
   submitQuestionEdits(formData) {
     Request.put('/api/questions/approval' + "/" + this.state.id, formData)
-    .then(console.log)
   }
 
   handleChange(property, event) {
@@ -121,8 +123,8 @@ export default class ApprovalPage extends Component {
         let approvalState = this.state.filter
         if(approvalState === question.approval || approvalState === 'All') {
           return (
-            <div>
-              <div key={index} >
+            <div key={`question-${index}`}>
+              <div>
                 <button className="uk-button-small uk-button-danger" onClick={this.onClickDelete.bind(this, index)} ref={index} type="button" >Delete this question</button>
                 <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.populateForm.bind(this, index)} >{question.question}</button>
               </div>
