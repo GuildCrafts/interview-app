@@ -67,7 +67,8 @@ export default class ApprovalPage extends Component {
   constructor(props) {
     super(props)
     this.state = {questions: [], id: 0, filter: "All", triggerState: true, currentQuestion: null}
-    this.populateForm = this.populateForm.bind(this)
+    this.inputModules = inputModules
+    this.inputModules[3].options = this.props.topics
   }
 
 
@@ -88,20 +89,6 @@ export default class ApprovalPage extends Component {
       })
     }
     else console.log('All love to MurphyCat')
-  }
-
-  populateForm(index) {
-    inputModules[3].options = this.props.topics
-    inputModules[0].value = this.state.questions[index].question
-    inputModules[1].value = this.state.questions[index].answer
-    inputModules[2].chooseSelect = this.state.questions[index].game_mode
-    inputModules[3].checked = this.state.questions[index].topics
-    inputModules[4].checked = this.state.questions[index].level
-    inputModules[5].chooseSelect = this.state.questions[index].points
-    this.setState(prevState => {
-      triggerState: !prevState
-      id: index
-    })
   }
 
     setCurrentQuestion(index){
@@ -155,7 +142,7 @@ export default class ApprovalPage extends Component {
               </div>
               <br></br>
               <div className="uk-card uk-card-default uk-card-body">
-                <Form inputModules={inputModules} onSubmit={this.submitQuestionEdits} initialValue={this.state.currentQuestion} />
+                <Form inputModules={this.inputModules} onSubmit={this.submitQuestionEdits} initialValue={this.state.currentQuestion} />
               </div>
             </div>
         </Layout>
