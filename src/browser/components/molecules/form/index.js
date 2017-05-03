@@ -28,6 +28,10 @@ export default class Form extends Component{
     this.setState({form: form})
   }
 
+  componentDidMount(){
+    this.buildJSX()
+  }
+
   componentWillReceiveProps(){
     this.buildJSX()
   }
@@ -139,6 +143,7 @@ export default class Form extends Component{
         <form className="uk-form-horizontal uk-margin-large">
           {this.state.form}
         </form>
+
         <p className="uk-text-right">
           <button onClick = {this.handleSubmit.bind(this)} className="uk-button uk-button-primary uk-modal-close" type="submit">Submit</button>
         </p>
