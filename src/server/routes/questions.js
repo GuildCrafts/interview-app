@@ -27,7 +27,6 @@ router.delete('/approval', (request, response) => {
 
 router.post('/', (request, response) => {
   const attributes  = request.body
-  console.log("attributes:::", attributes);
   questions.create( attributes )
   .then( (question) => response.json( question ) )
   .catch( err => response.status(400).json({error: err.message, params: attributes}) )

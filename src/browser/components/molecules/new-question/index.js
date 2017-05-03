@@ -75,7 +75,6 @@ export default class NewQuestion extends Component {
 
   handleSubmit(formData) {
     event.preventDefault()
-    console.log("New Q Form Data ====>", formData)
     Requests.post('/api/questions/', formData)
     .then( response => response.json() )
   }

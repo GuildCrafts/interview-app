@@ -94,24 +94,9 @@ const getAllTopics = () => {
   .from('topics')
   .then( results => results.map(result => result.topics))
 }
-//
-// const findAllQuestions = ( data ) =>
-//   utilities.findAll('questions', data)
-//   .then(question => question)
 
-// const updatebyID = ( id, attributes ) =>
-//   utilities.update( 'questions', 'id', id, attributes)
-//
-// //do we need this?
-// const updatebyLevel = ( data, attributes ) =>
-//   utilities.update( 'questions', 'level', data, attributes)
-//
-// const deleteByQuestion = ( data, attributes ) =>
-//   utilities.delete( 'questions', 'question', data, attributes)
-//
-//
-// const deleteByID = ( data, attributes ) =>
-//   utilities.delete( 'questions', 'id', data, attributes)
+//needs edit queries
+
 
 
 

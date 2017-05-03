@@ -15,16 +15,17 @@ export default class Game extends Component {
                   questions: props.questions}
   }
 
-  // componentDidMount(){
-  //   const {difficulty,topics} = this.props
-  //   const topicsQueryString = topics.reduce( ( queryString, topic ) => {
-  //     return queryString + `&topics=${topic}`
-  //   },'')
-  //   Requests.get(`/api/questions?difficulty=${difficulty}&${topicsQueryString}`)
-  //   .then( questions => {
-  //     this.setState(Object.assign(this.state, {questions}))
-  //   })
-  // }
+  //Needs reasessment
+  componentDidMount(){
+    const {difficulty,topics} = this.props
+    const topicsQueryString = topics.reduce( ( queryString, topic ) => {
+      return queryString + `&topics=${topic}`
+    },'')
+    Requests.get(`/api/questions?difficulty=${difficulty}&${topicsQueryString}`)
+    .then( questions => {
+      this.setState(Object.assign(this.state, {questions}))
+    })
+  }
 
   incrementQuestionState(property) {
     let questions = this.state[property]
@@ -81,7 +82,6 @@ export default class Game extends Component {
 
   render() {
     const questions = this.props.questions
-    console.log("this.props.questions =====>", this.props.questions);
     const {currentQuestionPosition} = this.state
     const question = questions[currentQuestionPosition]
 

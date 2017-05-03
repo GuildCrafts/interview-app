@@ -43,7 +43,6 @@ export default class GameOptions extends Component {
         return questions
       })
       .then(questions => {
-        console.log('questions::', questions);
         this.setState(Object.assign(this.state, {questions: questions}))
       })
     }

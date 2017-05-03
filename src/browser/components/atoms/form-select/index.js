@@ -16,7 +16,6 @@ export default class FormSelect extends Component {
 
   changeHandler(event){
     this.props.onChange( this.props.tag, event.target.value )
-    console.log('select state',this.state);
   }
 
   render() {

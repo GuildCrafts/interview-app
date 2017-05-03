@@ -130,7 +130,6 @@ export default class Form extends Component{
   }
 
   handleSubmit(){
-    console.log("This.state.input", this.state.input)
     this.props.onSubmit(this.state.input)
   }
 

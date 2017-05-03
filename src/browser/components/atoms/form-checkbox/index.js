@@ -29,7 +29,6 @@ export default class FormCheckbox extends Component {
 
     this.setState({checked: currentCheckedState})
     this.props.onChange( this.props.tag, Object.keys(currentCheckedState).filter(topic => currentCheckedState[topic]))
-    console.log('inside changeHandler', this.state.checked);
   }
 
   render() {

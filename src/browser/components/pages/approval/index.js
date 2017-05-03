@@ -91,7 +91,6 @@ export default class ApprovalPage extends Component {
   }
 
   populateForm(index) {
-    console.log('populate state:::', this.state.checked)
     inputModules[3].options = this.props.topics
     inputModules[0].value = this.state.questions[index].question
     inputModules[1].value = this.state.questions[index].answer
@@ -108,11 +107,9 @@ export default class ApprovalPage extends Component {
 // NEEDS WORK!
   submitQuestionEdits(formData) {
     Request.put('/api/questions/approval' + "/" + this.state.id, formData)
-    .then(console.log)
   }
 
   handleChange(property, event) {
-    console.log("Changed state:::", this.state.checked);
     let targetValue = event.target.value
     if(targetValue === '') {
       targetValue = 'All'
