@@ -68,8 +68,6 @@ export default class ApprovalPage extends Component {
     super(props)
     this.state = {questions: [], id: 0, filter: "All", triggerState: true}
     this.populateForm = this.populateForm.bind(this)
-    // this.inputModules = inputModules
-    // this.inputModules[3].options = this.props.topics
   }
 
 
