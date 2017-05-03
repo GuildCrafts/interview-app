@@ -11,9 +11,10 @@ export default class Form extends Component{
   constructor(props){
     super(props)
     this.state = {
-      input: {},
+      input: this.props.initialValue || {},
       inputModules: props.inputModules
     }
+    console.log(this.props.initialValue)
   }
 
   buildJSX() {
@@ -33,6 +34,8 @@ export default class Form extends Component{
   }
 
   componentWillReceiveProps(){
+    console.log('form currentQuestion props',this.props.initialValue)
+    this.setState({input: this.props.initialValue})
     this.buildJSX()
   }
 
@@ -40,6 +43,8 @@ export default class Form extends Component{
     let currentState = this.state
     currentState.input[tag] = data
     this.setState( currentState )
+    console.log('form input',this.state.input)
+    console.log('form initialValue',this.props.initialValue)
   }
 
   initTextInput(inputModule, index) {
@@ -145,7 +150,7 @@ export default class Form extends Component{
         </form>
 
         <p className="uk-text-right">
-          <button onClick = {this.handleSubmit.bind(this)} className="uk-button uk-button-primary uk-modal-close" type="submit">Submit</button>
+          <button onClick={this.handleSubmit.bind(this)} className="uk-button uk-button-primary uk-modal-close" type="submit">Submit</button>
         </p>
       </div>
     )

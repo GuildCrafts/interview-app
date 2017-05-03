@@ -102,6 +102,9 @@ export default class ApprovalPage extends Component {
       triggerState: !prevState
       id: index
     })
+
+  setCurrentQuestion(index){
+    this.setState({currentQuestion: this.state.questions[index]})
   }
 
 // NEEDS WORK!
@@ -126,7 +129,7 @@ export default class ApprovalPage extends Component {
             <div key={`question-${index}`}>
               <div>
                 <button className="uk-button-small uk-button-danger" onClick={this.onClickDelete.bind(this, index)} ref={index} type="button" >Delete this question</button>
-                <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.populateForm.bind(this, index)} >{question.question}</button>
+                <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.setCurrentQuestion.bind(this, index)} >{question.question}</button>
               </div>
             </div>
           )
@@ -151,7 +154,7 @@ export default class ApprovalPage extends Component {
               </div>
               <br></br>
               <div className="uk-card uk-card-default uk-card-body">
-                <Form inputModules={inputModules} onSubmit={this.submitQuestionEdits} />
+                <Form inputModules={inputModules} onSubmit={this.submitQuestionEdits} initialValue={this.state.currentQuestion} />
               </div>
             </div>
         </Layout>
