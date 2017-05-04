@@ -11,56 +11,40 @@ export default class Form extends Component{
   constructor(props){
     super(props)
     this.state = {
-      input: {},
+      input: Object.assign({}, this.props.initialValue) || {},
       inputModules: props.inputModules
     }
   }
 
-  buildJSX() {
-    const form = this.state.inputModules.map( (inputModule, index) => {
-      return {'Input': this.initTextInput.bind(this, inputModule, index),
-        'Checkbox': this.initCheckbox.bind(this, inputModule, index),
-        'Radio': this.initRadio.bind(this, inputModule, index),
-        'Select': this.initSelect.bind(this, inputModule, index),
-        'Hint': this.initHints.bind(this, inputModule, index)
-      }[inputModule.type]()
-    })
-    this.setState({form: form})
-  }
-
-  componentDidMount(){
-    this.buildJSX()
-  }
-
-  componentWillReceiveProps(){
-    this.buildJSX()
+  componentWillReceiveProps(nextProps){
+    const nextInitialValue = nextProps.initialValue || {}
+    const questionClone = JSON.parse(JSON.stringify( nextInitialValue ))
+    this.setState({input: questionClone || {}})
   }
 
   updateInput( tag, data ){
     let currentState = this.state
     currentState.input[tag] = data
-    this.setState( currentState )
+    this.setState(currentState)
   }
 
   initTextInput(inputModule, index) {
+    let value = this.state.input[inputModule.tag] || ""
     let domElement = (
       <FormInput
         key={`form-element-${index}`}
         prompt={inputModule.prompt}
         placeholder={inputModule.placeholder}
         tag={inputModule.tag}
-        value={inputModule.value}
+        value={value}
         onChange={this.updateInput.bind(this)}
       />
     )
-
-    let currentState = this.state
-    currentState.input[inputModule.tag] = ""
-    this.setState( currentState )
     return domElement
   }
 
   initHints(inputModule, index) {
+    let hints = this.state.input[inputModule.tag] || []
     let domElement = (
       <FormHints
         key={`form-element-${index}`}
@@ -68,52 +52,44 @@ export default class Form extends Component{
         placeholder={inputModule.placeholder}
         tag={inputModule.tag}
         onChange={this.updateInput.bind(this)}
+        hints={hints}
       />
     )
-
-    let currentState = this.state
-    currentState.input[inputModule.tag] = []
-    this.setState( currentState )
     return domElement
   }
 
   initCheckbox(inputModule, index) {
+    let checked = this.state.input[inputModule.tag] || ""
     let domElement = (
       <FormCheckbox
         key={`form-element-${index}`}
         prompt={inputModule.prompt}
         options={inputModule.options}
         tag={inputModule.tag}
-        checked={inputModule.checked}
+        checked={checked}
         onChange={this.updateInput.bind(this)}
       />
     )
-
-    let currentState = this.state
-    currentState.input[inputModule.tag] = []
-    this.setState( currentState )
     return domElement
   }
 
   initRadio(inputModule, index) {
+    let checked = this.state.input[inputModule.tag] || ""
     let domElement = (
       <FormRadio
         key={`form-element-${index}`}
         prompt={inputModule.prompt}
         options={inputModule.options}
         tag={inputModule.tag}
-        checked={inputModule.checked}
+        checked={checked}
         onChange={this.updateInput.bind(this)}
       />
     )
-
-    let currentState = this.state
-    currentState.input[inputModule.tag] = null
-    this.setState( currentState )
     return domElement
   }
 
   initSelect(inputModule, index) {
+    let chooseSelect = this.state.input[inputModule.tag] || ""
     let domElement = (
       <FormSelect
         key={`form-element-${index}`}
@@ -123,13 +99,9 @@ export default class Form extends Component{
         onChange={this.updateInput.bind(this) }
         tag={inputModule.tag}
         passId={inputModule.id}
-        chooseSelect={inputModule.chooseSelect}
+        chooseSelect={chooseSelect}
       />
     )
-
-    let currentState = this.state
-    currentState.input[inputModule.tag] = inputModule.options[0]
-    this.setState( currentState )
     return domElement
   }
 
@@ -138,14 +110,23 @@ export default class Form extends Component{
   }
 
   render(){
+    const jsx = this.props.inputModules.map( (inputModule, index) => {
+      return {'Input': this.initTextInput.bind(this, inputModule, index),
+      'Checkbox': this.initCheckbox.bind(this, inputModule, index),
+      'Radio': this.initRadio.bind(this, inputModule, index),
+      'Select': this.initSelect.bind(this, inputModule, index),
+      'Hint': this.initHints.bind(this, inputModule, index)
+      }[inputModule.type]()
+    })
+
     return(
       <div>
         <form className="uk-form-horizontal uk-margin-large">
-          {this.state.form}
+          {jsx}
         </form>
 
         <p className="uk-text-right">
-          <button onClick = {this.handleSubmit.bind(this)} className="uk-button uk-button-primary uk-modal-close" type="submit">Submit</button>
+          <button onClick={this.handleSubmit.bind(this)} className="uk-button uk-button-primary uk-modal-close" type="submit">Submit</button>
         </p>
       </div>
     )
