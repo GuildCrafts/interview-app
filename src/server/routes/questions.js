@@ -34,7 +34,10 @@ router.post('/', (request, response) => {
 
 router.put('/approval/:id', (request, response) => {
   const { id } = request.params
+  console.log("Routes: request.params:::::", request.params)
+  console.log("Routes: request.body::::", request.body)
   const attributes = request.body
+  console.log("Routes: parsed body::::", JSON.parse(attributes))
   questions.updatebyID( id, attributes )
   .then( questions => response.json(questions[0]) )
   .catch( err => console.log('err', err) )

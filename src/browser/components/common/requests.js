@@ -33,6 +33,8 @@ const post = (url, body) => {
  }
 
 const put = (url, body) => {
+  console.log("body", body)
+  console.log("string body", JSON.stringify(body))
   return fetch(url, {
     method: 'PUT',
     mode: 'cors',
