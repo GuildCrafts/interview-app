@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import flex from 'react-uikit-flex'
+import { Link } from 'react-router'
 
 import Scorecard from '../../molecules/scorecard/index'
 import Requests from '../../common/requests.js'
