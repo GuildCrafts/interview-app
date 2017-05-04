@@ -89,7 +89,6 @@ export default class ApprovalPage extends Component {
         return question
       })
     }
-    else console.log('All love to MurphyCat')
   }
 
   setCurrentQuestion(index){
@@ -98,8 +97,7 @@ export default class ApprovalPage extends Component {
 
 // NEEDS WORK!
   submitQuestionEdits(formData) {
-    console.log('submitQuestionEdits Approval page');
-    Request.put('/api/questions/approval' + "/" + this.state.id, formData)
+    Request.put('/api/questions/approval' + "/" + formData.id, formData)
   }
 
   handleChange(property, event) {
@@ -129,7 +127,6 @@ export default class ApprovalPage extends Component {
   }
 
   render() {
-    console.log('rerendering Approval page', this.state);
     const filterArray = ['All', 'Approved', 'Pending']
     let content = this.renderQuestions()
     return (
