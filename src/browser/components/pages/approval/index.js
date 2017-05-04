@@ -106,7 +106,7 @@ export default class ApprovalPage extends Component {
 
 // NEEDS WORK!
   submitQuestionEdits(formData) {
-    Request.put('/api/questions/approval' + "/" + this.state.id, formData)
+    Request.put('/api/questions/approval/:1', formData)
   }
 
   handleChange(property, event) {

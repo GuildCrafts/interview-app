@@ -17,10 +17,9 @@
   }
 
   function test {
-    NODE_ENV=test PORT=3001
     reset_db test
-    npm run seed
-    npm test
+    NODE_ENV=test npm run seed
+    NODE_ENV=test PORT=3001 npm test
   }
 
   function init {
