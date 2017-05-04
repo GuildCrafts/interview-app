@@ -1,35 +1,24 @@
 import React,{Component} from 'react'
 
 export default class FormCheckbox extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {checked: props.checked}
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      checked: nextProps.checked
-    })
-  }
 
   changeHandler(event){
-    this.props.onChange( this.props.tag, this.updateChecked(event.target.id) )
+    this.props.onChange( this.props.tag, this.updateChecked( event.target.id) )
   }
 
   updateChecked( clicked ){
-    if(this.state.checked.includes( clicked )){
-      return this.state.checked.filter( option => option != clicked)
+    if(this.props.checked.includes( clicked )){
+      return this.props.checked.filter( option => option != clicked)
     }else{
-      return this.state.checked.concat([clicked])
+      return this.props.checked.concat([clicked])
     }
   }
 
   render() {
-    console.log('checkbox checked',this.state.checked)
     const checklist = this.props.options.map( (option, index) => {
       const optionLabel = ' '+option
       const currentOption = this.props.options[index]
-      if (this.state.checked.includes(currentOption)) {
+      if (this.props.checked.includes(currentOption)) {
         return (
           <div key = {index} className="uk-form-controls uk-form-controls-text">
             <label>

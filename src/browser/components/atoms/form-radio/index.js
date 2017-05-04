@@ -2,17 +2,6 @@ import React,{Component} from 'react'
 
 export default class FormRadio extends Component {
 
-  constructor(props){
-    super(props)
-    this.state = {checked: null}
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      checked: nextProps.checked
-    })
-  }
-
   changeHandler(event){
     return this.props.onChange( this.props.tag, event.target.value )
   }
@@ -20,9 +9,9 @@ export default class FormRadio extends Component {
   render() {
     const radio = this.props.options.map( (option, index) => {
       const optionLabel = ' '+option
-      if(this.state.checked === option){
+      if(this.props.checked === option){
         return (
-          <div key = {index} className="uk-form-controls uk-form-controls-text">
+          <div key={index} className="uk-form-controls uk-form-controls-text">
             <label>
               <input className="uk-radio" type="radio" name={this.props.tag} value={option} checked onChange={this.changeHandler.bind(this)}/>
               {optionLabel}
@@ -31,7 +20,7 @@ export default class FormRadio extends Component {
         )
       }else{
         return (
-          <div key = {index} className="uk-form-controls uk-form-controls-text">
+          <div key={index} className="uk-form-controls uk-form-controls-text">
             <label>
               <input className="uk-radio" type="radio" name={this.props.tag} value={option} onChange={this.changeHandler.bind(this)}/>
               {optionLabel}

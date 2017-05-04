@@ -1,41 +1,38 @@
 import React,{Component} from 'react'
 
 export default class FormHints extends Component {
-  constructor(props) {
-    super()
-    this.state = {
-      hints: 0,
-      form: [],
-      input: {}
-    }
-  }
 
-  changeHandler(event){
-    let currentState = this.state
-    currentState.input[event.target.id] = event.target.value
-    this.setState(currentState)
-    this.props.onChange( this.props.tag, Object.values(this.state.input) )
+  changeHandler(index, event){
+    let hints = this.props.hints
+    hints[index] = event.target.value
+    this.props.onChange( this.props.tag, hints )
   }
 
   addHint(){
-    let currentState = this.state
-    let key = "hint"+currentState.hints++
-    currentState.form.push(
-      <div key={key} className="uk-margin">
-        <div className="uk-form-controls">
-          <input className="uk-input form-horizontal-text" type="text" id={key} placeholder={this.props.placeholder} onChange={this.changeHandler.bind(this)} />
-        </div>
-      </div>
-    )
-    this.setState(currentState)
+    let hints = this.props.hints
+    hints.push('')
+    this.props.onChange( this.props.tag, hints )
   }
 
   render() {
     const prompt = this.props.prompt
+    const content = this.props.hints.map( (hint, index) => {
+      return(
+        <div className="uk-margin" key={index}>
+          <div className="uk-form-controls">
+            <input className="uk-input form-horizontal-text" type="text" id={index}
+              placeholder={this.props.placeholder}
+              onChange={this.changeHandler.bind(this, index)}
+              value={this.props.hints[index]}/>
+          </div>
+        </div>
+      )
+    })
+
     return (
       <div className="uk-margin">
         <label className="uk-form-label" htmlFor="form-horizontal-select">{prompt}</label>
-          {this.state.form}
+          {content}
           <button onClick = {this.addHint.bind(this)} className="uk-button uk-button-default" type="button">Add Hint</button>
       </div>
     )
