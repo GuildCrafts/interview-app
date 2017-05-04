@@ -16,7 +16,8 @@ const inputModules = [
     "prompt"     : "Question",
     "tag"        : "question",
     "value"      : ""
-  },
+  }
+  ,
   {
     "type"       : "Input",
     "placeholder": "Answer it thoroughly",
@@ -91,12 +92,13 @@ export default class ApprovalPage extends Component {
     else console.log('All love to MurphyCat')
   }
 
-    setCurrentQuestion(index){
+  setCurrentQuestion(index){
     this.setState({currentQuestion: this.state.questions[index]})
   }
 
 // NEEDS WORK!
   submitQuestionEdits(formData) {
+    console.log('submitQuestionEdits Approval page');
     Request.put('/api/questions/approval' + "/" + this.state.id, formData)
   }
 
@@ -127,6 +129,7 @@ export default class ApprovalPage extends Component {
   }
 
   render() {
+    console.log('rerendering Approval page', this.state);
     const filterArray = ['All', 'Approved', 'Pending']
     let content = this.renderQuestions()
     return (

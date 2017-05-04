@@ -24,7 +24,9 @@ export default class FormInput extends Component {
       <div key={this.props.prompt} className="uk-margin">
         <label className="uk-form-label" htmlFor="form-horizontal-text">{this.props.prompt}</label>
         <div className="uk-form-controls">
-          <input value={this.state.inputState} className="uk-input form-horizontal-text" type="text" id={this.props.prompt} placeholder={this.props.placeholder} onChange={this.changeHandler.bind(this)} />
+          <input value={this.state.inputState} className="uk-input form-horizontal-text"
+          type="text" id={this.props.prompt} placeholder={this.props.placeholder}
+           onChange={this.changeHandler.bind(this)} />
         </div>
       </div>
     )

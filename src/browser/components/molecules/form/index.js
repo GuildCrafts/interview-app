@@ -10,20 +10,25 @@ import FormHints from '../../atoms/form-hints/index'
 export default class Form extends Component{
   constructor(props){
     super(props)
+    console.log('Form this.props::', this.props);
     this.state = {
-      input: this.props.initialValue || {},
+      input: Object.assign({}, this.props.initialValue) || {},
       inputModules: props.inputModules
     }
   }
 
   componentWillReceiveProps(nextProps){
-    this.setState(Object.assign(this.state, {input: nextProps.initialValue}))
+    // console.log('Form componentWillReceiveProps')
+    let nextInitialValue = nextProps.initialValue || {}
+    // console.log('next initial', nextInitialValue);
+    let questionClone = JSON.parse(JSON.stringify( nextInitialValue ))
+    this.setState({input: questionClone || {}})
+      // Object.assign(this.state, {}))
   }
 
   updateInput( tag, data ){
-    let currentState = this.state
-    currentState.input[tag] = data
-    this.setState( currentState )
+    this.state.input[tag] = data
+    this.setState(this.state)
   }
 
   initTextInput(inputModule, index) {
@@ -101,11 +106,12 @@ export default class Form extends Component{
   }
 
   handleSubmit(){
+    console.log('entered handleSubmit in Form');
     this.props.onSubmit(this.state.input)
   }
 
   render(){
-    console.log('form input',this.state.input)
+    console.log('rerendering form component',this.props.initialValue, this.state.input)
     const jsx = this.props.inputModules.map( (inputModule, index) => {
       return {'Input': this.initTextInput.bind(this, inputModule, index),
       'Checkbox': this.initCheckbox.bind(this, inputModule, index),
