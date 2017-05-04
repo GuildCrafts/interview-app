@@ -14,13 +14,13 @@ describe('Question Tests', () => {
       points: 1
     },
     {
-      question: "How much wood could a woodchuck chuck if a woodchuck could chuck wood",
-      topics: ["core-javascript"],
-      level: "Jedi",
-      answer: "a lot",
+      question: "What is the most inefficient algorithm",
+      topics: ["functional-programming"],
+      level: "Intermediate",
+      answer: "THE ALGORITHM",
       game_mode: "Debugging",
-      hints: ["Wisconsin", "Wood"],
-      points: 2
+      hints: ["BubbleSort", "LearnersGuild", "#LGPROBLEMS"],
+      points: 3
     },
     {
       question: "What is the most inefficient algorithm",
@@ -41,6 +41,7 @@ describe('Question Tests', () => {
     it('should create a Q, not a queue', () => {
       return question.create( newQuestion[0] )
         .then( question => {
+          console.log("question[0]", question[0]);
           expect(question[0].question).to.equal('What is the number that represents the meaning of life')
           expect(question[0].topics).to.eql(["core-javascript", "functional-programming"])
           expect(question[0].points).to.eql(1)

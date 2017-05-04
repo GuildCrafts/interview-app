@@ -36,6 +36,7 @@ const create = ( question ) => {
     .then(trx.commit)
     .catch(trx.rollback)
   })
+  .then(questions => questions[0])
 }
 
 //needs edit queries
