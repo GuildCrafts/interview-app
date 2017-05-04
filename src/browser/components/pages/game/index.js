@@ -80,12 +80,61 @@ export default class Game extends Component {
   }
 
 
+  randomizeHint(question) {
+    console.log("Array of question hints", question.hints)
+    const hintsArray = question.hints
+    let min = 0
+    let max = hintsArray.length - 1
+    let hintIndex
+
+    console.log("Array of question hints length", hintsArray.length)
+
+    if (hintsArray.length > 1) {
+      min = Math.ceil(min)
+      max = Math.floor(max)
+      hintIndex = Math.floor(Math.random() * (max - min + 1)) + min
+    } else {
+      hintIndex = 0
+    }
+
+    console.log("random hintIndex", hintIndex)
+
+    const hint = question.hints[hintIndex]
+
+    console.log("random hint::", hint)
+  }
+
+  hintButton(question) {
+    let randomHint
+    let hint = this.randomizeHint(question)
+    return (
+      <div>
+        <button className="uk-button uk-button-default" onClick={this.randomizeHint.bind(this)} data-uk-toggle="target: #my-id" type="button">Random Hint!</button>
+        <div id="my-id" hidden>
+          {hint}
+        </div>
+      </div>
+    )
+  }
+  /*
+  Create random number generator for the index number of hints array (min = 0, max = array.length)
+  When hint button is clicked, random is triggered
+  When questions increments, hint toggles hidden
+  */
+
+
   render() {
     const questions = this.props.questions
     const {currentQuestionPosition} = this.state
     const question = questions[currentQuestionPosition]
 
-    let content
+    let content, hints
+
+    if(currentQuestionPosition === questions.length) {
+      hints = ""
+    } else (
+      hints = this.hintButton(question)
+    )
 
     if(currentQuestionPosition === questions.length) {
       content = this.allQuestionsCompletedJSX()
@@ -98,12 +147,10 @@ export default class Game extends Component {
         <Scorecard answered={this.state.answered} skipped={this.state.skipped} questions={this.props.questions} />
         <progress className="uk-progress" value={currentQuestionPosition + 1} max={questions.length}></progress>
         {content}
-
         <div className="uk-container-center uk-margin uk-width-1-1">
           <textarea className="uk-textarea" placeholder="Submit your interview notes here..."></textarea>
         </div>
-        <button className="uk-button uk-button-default" data-uk-toggle="target: #my-id" type="button">HINT!</button>
-        <p id="my-id" hidden>Silly</p>
+        {hints}
       </div>
     )
   }
