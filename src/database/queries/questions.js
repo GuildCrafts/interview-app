@@ -11,11 +11,12 @@ const create = ( question ) => {
               answer   : question.answer,
               game_mode: question.game_mode,
               points   : question.points}, 'id')
-    .then( questionID => {
+    .returning('*')
+    .then( createdQuestion => {
       return knex('hints')
       .transacting(trx)
       .insert( (question.hints || []).map( hint => {
-        return { 'text': hint, 'question_id': questionID[0]}
+        return { 'text': hint, 'question_id': createdQuestion.id}
       }))
       .then(() => {
         return knex.select('id')
@@ -28,15 +29,21 @@ const create = ( question ) => {
           return knex('questionTopics')
           .transacting(trx)
           .insert( topicIDs.map( topicID => {
-            return { 'topic_id': topicID.id,'question_id':questionID[0]}
+            return { 'topic_id': topicID.id,'question_id':createdQuestion.id}
           }))
+        })
+        .then( () => {
+          return createdQuestion
         })
       })
     })
     .then(trx.commit)
     .catch(trx.rollback)
   })
-  .then(questions => questions[0])
+  .then(questions => {
+    console.log("Query Question", questions)
+    return questions[0]
+  })
 }
 
 const updatebyID = ( question ) => {
@@ -105,7 +112,7 @@ const findbyID = ( data ) => {
   .innerJoin('questionTopics','questions.id','questionTopics.question_id')
   .innerJoin('topics','questionTopics.topic_id','topics.id')
   .innerJoin('hints','questions.id','hints.question_id').then( results => {
-    return hintTopicMiddleWare(results)
+    return hintTopicMiddleWare(results)[0]
   })
 }
 

@@ -37,15 +37,19 @@ describe('Question Tests', () => {
     expect(question).to.be.a('object')
   })
 
-  describe.only('create a Q', () => {
-    it('should create a Q, not a queue', () => {
+  describe.only('create a new question', () => {
+    it('should create a new question', () => {
       return question.create( newQuestion[0] )
-        .then( question => {
-          console.log("question[0]", question[0]);
-          expect(question[0].question).to.equal('What is the number that represents the meaning of life')
-          expect(question[0].topics).to.eql(["core-javascript", "functional-programming"])
-          expect(question[0].points).to.eql(1)
+        .then(createdQuestion => {
+          console.log("createdQuestion", createdQuestion)
+          return question.findbyID(createdQuestion.id)
+          .then (foundQuestion => {
+            console.log("foundQuestion", foundQuestion)
+            expect(foundQuestion.question).to.equal('What is the number that represents the meaning of life')
+            expect(foundQuestion.topics).to.eql(["core-javascript", "functional-programming"])
+            expect(foundQuestion.points).to.eql(1)
         })
+      })
     })
   })
 
@@ -53,9 +57,9 @@ describe('Question Tests', () => {
     it('should update a question by the ID', () => {
       return question.create( newQuestion[2] )
       .then( () => {
-        return question.updatebyID( '2', {level: '1000'} )
+        return question.updatebyID( '2', {level: 'Beginner'} )
         .then( question => {
-          expect(question[0].level).to.equal('1000')
+          expect(question[0].level).to.equal('Beginner')
         })
       })
     })
@@ -94,7 +98,7 @@ describe('Question Tests', () => {
         .then( () => {
           return question.findbyID( 1 )
           .then( question => {
-            expect(question[0].topics[0]).to.equal("existentialism")
+            expect(question.topics[0]).to.equal("existentialism")
           })
         })
     })
