@@ -1,10 +1,34 @@
 import React, {Component} from 'react';
 import flex from 'react-uikit-flex'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 import Scorecard from '../../molecules/scorecard/index'
 import Requests from '../../common/requests.js'
 require('../../../../../public/stylesheets/uikit.min.css')
+
+const inputModules = [
+  {
+    "type"    : "Select",
+    "prompt"  : "Difficulty",
+    "options" : ["any","beginner","intermediate"],
+    "tag"     : "level",
+    "isOptionRequired": true
+  },
+  {
+    "type"    : "Select",
+    "prompt"  : "Topic",
+    "options" : [],
+    "tag"     : "topic",
+    "isOptionRequired": true
+  },
+  {
+    "type"    : "Select",
+    "prompt"  : "Game Mode",
+    "options" : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
+    "tag"     : "game_mode",
+    "isOptionRequired": true
+  }
+]
 
 export default class Game extends Component {
   constructor(props) {
@@ -14,18 +38,6 @@ export default class Game extends Component {
                   skipped: [],
                   showAnswer: false,
                   questions: props.questions}
-  }
-
-  //Needs reasessment
-  componentDidMount(){
-    const {difficulty,topics} = this.props
-    const topicsQueryString = topics.reduce( ( queryString, topic ) => {
-      return queryString + `&topics=${topic}`
-    },'')
-    Requests.get(`/api/questions?difficulty=${difficulty}&${topicsQueryString}`)
-    .then( questions => {
-      this.setState(Object.assign(this.state, {questions}))
-    })
   }
 
   incrementQuestionState(property) {
@@ -45,6 +57,11 @@ export default class Game extends Component {
 
   toggleProperty(property) {
     this.setState({[property]: !this.state[property]})
+  }
+
+  endGame() {
+    Requests.post('/api/interviews/', this.state)
+    location.reload()
   }
 
   questionJSX(question) {
@@ -73,11 +90,15 @@ export default class Game extends Component {
   allQuestionsCompletedJSX() {
     return (
       <div>
-        <button className="uk-button-secondary uk-button uk-width-1-1">
+        <button className="uk-button-secondary uk-button uk-width-1-1" onClick={this.endGame.bind(this)}>
           Finish Interview and Submit Notes!
         </button>
       </div>
     )
+  }
+
+  updateFeedback( event ){
+    this.setState({feedback: event.target.value})
   }
 
 
@@ -101,7 +122,7 @@ export default class Game extends Component {
         {content}
 
         <div className="uk-container-center uk-margin uk-width-1-1">
-          <textarea className="uk-textarea" placeholder="Submit your interview notes here..."></textarea>
+          <textarea className="uk-textarea" placeholder="Submit your interview notes here..." onChange={this.updateFeedback.bind(this)}></textarea>
         </div>
         <button className="uk-button uk-button-default" data-uk-toggle="target: #my-id" type="button">HINT!</button>
         <p id="my-id" hidden>Silly</p>

@@ -39,28 +39,24 @@ export default class GameOptions extends Component {
   }
 
   componentDidMount() {
-      Request.get('/api/questions/').then(questions => {
+      Request.getDatabaseQuestions('/api/questions/').then(questions => {
         return questions
       })
       .then(questions => {
-        console.log('questions',questions)
         this.setState(Object.assign(this.state, {questions: questions}))
       })
     }
 
   getQuestions(filters) {
-    console.log('filters',filters)
     const filteredQuestions = this.filterQuestions(this.state.questions, filters.topic, filters.level)
     this.setState(prevState => ({
       isForm: false,
       questions: filteredQuestions
     }))
-    console.log('filteredQuestions',filteredQuestions)
   }
 
   filterQuestions(questions, topic, level) {
     let q = shuffle(questions)
-    console.log('q',q);
     if(topic === 'any' && level === 'any') {
       return take(q, 7)
     } else if( topic === 'any') {
