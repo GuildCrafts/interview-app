@@ -82,6 +82,7 @@ describe('Question Tests', () => {
     })
   })
 
+//Test all columns of the database
   describe('update by ID', () => {
     it('should update a question by the ID', () => {
       return question.create( newQuestion[2] )

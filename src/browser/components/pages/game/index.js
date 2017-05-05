@@ -47,7 +47,6 @@ export default class Game extends Component {
                    currentQuestionPosition: this.state.currentQuestionPosition + 1})
   }
 
-
   answerJSX(question) {
     if (this.state.showAnswer) {
       return (<div className="uk-placeholder" id="answer-container">{question.answer}</div>)
@@ -97,17 +96,39 @@ export default class Game extends Component {
     )
   }
 
+  hintButton(question) {
+    const hints = question.hints.map( hint => {
+      return (
+        <p>{hint}</p>
+      )
+    })
+
+    return (
+      <div>
+        <button className="uk-button uk-button-default" type="button" data-uk-toggle="target: #toggle-animation-multiple; animation:  uk-animation-slide-left, uk-animation-slide-bottom queued: true; duration: 500">Show Hints!</button>
+        <div id="toggle-animation-multiple" className="uk-card uk-card-default uk-card-body uk-margin-small" hidden>
+          {hints}
+        </div>
+      </div>
+    )
+  }
+
   updateFeedback( event ){
     this.setState({feedback: event.target.value})
   }
-
 
   render() {
     const questions = this.props.questions
     const {currentQuestionPosition} = this.state
     const question = questions[currentQuestionPosition]
 
-    let content
+    let content, hints
+
+    if(currentQuestionPosition === questions.length) {
+      hints = ""
+    } else (
+      hints = this.hintButton(question)
+    )
 
     if(currentQuestionPosition === questions.length) {
       content = this.allQuestionsCompletedJSX()
@@ -120,12 +141,10 @@ export default class Game extends Component {
         <Scorecard answered={this.state.answered} skipped={this.state.skipped} questions={this.props.questions} />
         <progress className="uk-progress" value={currentQuestionPosition + 1} max={questions.length}></progress>
         {content}
-
         <div className="uk-container-center uk-margin uk-width-1-1">
           <textarea className="uk-textarea" placeholder="Submit your interview notes here..." onChange={this.updateFeedback.bind(this)}></textarea>
         </div>
-        <button className="uk-button uk-button-default" data-uk-toggle="target: #my-id" type="button">HINT!</button>
-        <p id="my-id" hidden>Silly</p>
+        {hints}
       </div>
     )
   }
