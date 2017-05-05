@@ -82,10 +82,11 @@ export default class ApprovalPage extends Component {
   onClickDelete(index){
     const deleteConfirm = confirm("Are you sure you want to delete this question?")
     if (deleteConfirm) {
+      let question = this.state.questions[index]
       let questArr = this.state.questions
       questArr.splice(this.refs[index], 1)
       this.setState({questions: questArr})
-      Request.deleteQuestion('/api/questions/approval/:id').then(question => {
+      Request.deleteQuestion(`/api/questions/approval/${question.id}`).then(question => {
         return question
       })
     }
@@ -97,7 +98,9 @@ export default class ApprovalPage extends Component {
 
 // NEEDS WORK!
   submitQuestionEdits(formData) {
-    Request.put('/api/questions/approval/:' + formData.id, formData)
+    Request.put(`/api/questions/approval/${formData.id}`, formData).then(question => {
+      return question
+      })
   }
 
   handleChange(property, event) {

@@ -14,7 +14,7 @@ const create = ( question ) => {
     .then( questionID => {
       return knex('hints')
       .transacting(trx)
-      .insert( question.hints.map( hint => {
+      .insert( (question.hints || []).map( hint => {
         return { 'text': hint, 'question_id': questionID[0]}
       }))
       .then(() => {
@@ -39,53 +39,64 @@ const create = ( question ) => {
   .then(questions => questions[0])
 }
 
-//needs edit queries
 const updatebyID = ( question ) => {
-  return knex.transaction(function (trx){
+  return knex.transaction(function(trx) {
     return knex('questions')
     .where("id", question.id)
-    .transacting(trx)
-    .update(
-      {
-        approval : false,
-        question : question.question,
-        level    : question.level,
-        answer   : question.answer,
-        game_mode: question.game_mode,
-        points   : question.points
-      },
-    'id')
-    .then( questionID => {
-      return knex('hints')
-      .transacting(trx)
-      .update( question.hints.map( hint => {
-        return { 'text': hint, 'question_id': questionID[0]}
-      }))
+    .then(() => {
+      return knex.select('id')
+      .from('questionTopics')
+      .where('question_id', question.id)
+      .then(questionTopics => {
+        return knex('questionTopics')
+        .transacting(trx)
+        .delete('questionTopics')
+        .whereIn('id', questionTopics.map(questionTopic => questionTopic.id))
+      })
+      .then(() => {
+        return knex.select('id')
+        .from('hints')
+        .whereIn('question_id', question.id)
+        .then(hints => {
+          return knex('hints')
+          .transacting(trx)
+          .delete('hints')
+          .whereIn('id', hints.map(hint => hint.id))
+        })
+      })
+      .then(() => {
+        knex('questions')
+        .transacting(trx)
+        .update({
+            question : question.question,
+            level    : question.level,
+            answer   : question.answer,
+            game_mode: question.game_mode,
+            points   : question.points},
+        'id')
+      })
       .then(() => {
         return knex.select('id')
         .from('topics')
         .whereIn('name', question.topics)
-        .then( topicIDs => {
-          if(topicIDs.length != question.topics.length){
-            return Promise.reject(new Error('topic not found'))
-          }
-          return knex.select('questions_id')
-          .from('questionTopics')
-          .whereIn('questions_id', questionID)
+        .then( topics => {
+          return knex('questionTopics')
           .transacting(trx)
-          .delete( )
-          .then(() => {
-            return knex('questionTopics')
-            .transacting(trx)
-            .update( topicIDs.map( topicID => {
-              return { 'topic_id': topicID.id, 'question_id':questionID[0]}
-            }))
-          })
+          .insert( topics.map( topic => {
+            return { question_id: question.id, topic_id: topic.id}
+          }))
         })
       })
+      .then(() => {
+        return knex('hints')
+        .transacting(trx)
+        .insert( (question.hints || []).map( hint => {
+          return { 'text': hint, 'question_id': question.id}
+        }))
+      })
+      .then(trx.commit)
+      .catch(trx.rollback)
     })
-    .then(trx.commit)
-    .catch(trx.rollback)
   })
 }
 
