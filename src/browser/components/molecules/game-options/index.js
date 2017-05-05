@@ -39,7 +39,7 @@ export default class GameOptions extends Component {
   }
 
   componentDidMount() {
-      Request.getDatabaseQuestions('/api/questions/').then(questions => {
+      Request.get('/api/questions/').then(questions => {
         return questions
       })
       .then(questions => {

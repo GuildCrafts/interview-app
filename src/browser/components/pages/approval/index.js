@@ -72,9 +72,8 @@ export default class ApprovalPage extends Component {
     this.inputModules[3].options = this.props.topics
   }
 
-
   componentDidMount(){
-    Request.getDatabaseQuestions('/api/questions/approval').then(questions => {
+    Request.get('/api/questions/approval').then(questions => {
       this.setState(Object.assign(this.state, {questions: questions}))
     })
   }

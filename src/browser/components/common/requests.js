@@ -21,17 +21,6 @@ const post = (url, body) => {
    })
  }
 
- const getDatabaseQuestions = (url, params={}) => {
-   return fetch(url, {
-     method:'GET',
-     headers: {'Content-Type': 'text/plain'},
-     mode: 'cors',
-     credentials: 'same-origin'
-   }).then(result => {
-     return result.json()
-   })
- }
-
 const put = (url, body) => {
   return fetch(url, {
     method: 'PUT',
@@ -49,4 +38,4 @@ const deleteQuestion = (url, id) => {
   })
 }
 
-export default {get, getDatabaseQuestions, post, put, deleteQuestion}
+export default {get, post, put, deleteQuestion}
