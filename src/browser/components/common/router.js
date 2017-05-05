@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom'
 import Landing from '../../components/Pages/Landing/index'
 import Layout from '../common/router'
 import Header from '../molecules/header/index'
+import Game from '../pages/game/index'
 import ApprovalPage from '../pages/approval/index'
 import Profile from '../pages/profile/index'
 import Requests from './requests'
@@ -51,6 +52,7 @@ export default class Routes extends Component {
         <div>
           <Route exact path='/' component={LandingComponent} />
           <Route path='/:topic/:difficulty' component={LandingComponent} />
+          <Route path='/game' component={Game} />
           <Route path='/approval' component={ApprovalComponent} />
           <Route path='/profile' component={ProfileComponent} />
         </div>
