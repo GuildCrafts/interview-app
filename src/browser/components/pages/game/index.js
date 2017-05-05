@@ -17,7 +17,7 @@ export default class Game extends Component {
 
   //Needs reasessment
   componentDidMount(){
-    const {difficulty,topics} = this.props
+    const {difficulty, topics} = this.props
     const topicsQueryString = topics.reduce( ( queryString, topic ) => {
       return queryString + `&topics=${topic}`
     },'')
@@ -33,7 +33,6 @@ export default class Game extends Component {
     this.setState({[property]: questions,
                    currentQuestionPosition: this.state.currentQuestionPosition + 1})
   }
-
 
   answerJSX(question) {
     if (this.state.showAnswer) {
@@ -79,49 +78,22 @@ export default class Game extends Component {
     )
   }
 
-
-  randomizeHint(question) {
-    console.log("Array of question hints", question.hints)
-    const hintsArray = question.hints
-    let min = 0
-    let max = hintsArray.length - 1
-    let hintIndex
-
-    console.log("Array of question hints length", hintsArray.length)
-
-    if (hintsArray.length > 1) {
-      min = Math.ceil(min)
-      max = Math.floor(max)
-      hintIndex = Math.floor(Math.random() * (max - min + 1)) + min
-    } else {
-      hintIndex = 0
-    }
-
-    console.log("random hintIndex", hintIndex)
-
-    const hint = question.hints[hintIndex]
-
-    console.log("random hint::", hint)
-  }
-
   hintButton(question) {
-    let randomHint
-    let hint = this.randomizeHint(question)
+    const hints = question.hints.map( hint => {
+      return (
+        <p>{hint}</p>
+      )
+    })
+
     return (
       <div>
-        <button className="uk-button uk-button-default" onClick={this.randomizeHint.bind(this)} data-uk-toggle="target: #my-id" type="button">Random Hint!</button>
-        <div id="my-id" hidden>
-          {hint}
+        <button className="uk-button uk-button-default" type="button" data-uk-toggle="target: #toggle-animation-multiple; animation:  uk-animation-slide-left, uk-animation-slide-bottom queued: true; duration: 500">Show Hints!</button>
+        <div id="toggle-animation-multiple" className="uk-card uk-card-default uk-card-body uk-margin-small" hidden>
+          {hints}
         </div>
       </div>
     )
   }
-  /*
-  Create random number generator for the index number of hints array (min = 0, max = array.length)
-  When hint button is clicked, random is triggered
-  When questions increments, hint toggles hidden
-  */
-
 
   render() {
     const questions = this.props.questions
