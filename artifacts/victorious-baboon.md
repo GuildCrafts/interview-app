@@ -6,9 +6,9 @@ Hannah and Rhonda
 Create Update query and fixing minor bugs
 
 ## Project Specs
-- [ ] [Issue #143:](https://github.com/GuildCrafts/interview-app/issues/143) Create "Update" query for questions
-- [ ] [Issue #140:](https://github.com/GuildCrafts/interview-app/issues/140) Refactor the 'request.js' file
-- [ ] [Issue #117:](https://github.com/GuildCrafts/interview-app/issues/117) Hint button at end of interview
+- [x] [Issue #143:](https://github.com/GuildCrafts/interview-app/issues/143) Create "Update" query for questions
+- [x] [Issue #140:](https://github.com/GuildCrafts/interview-app/issues/140) Refactor the 'request.js' file
+- [x] [Issue #117:](https://github.com/GuildCrafts/interview-app/issues/117) Hint button at end of interview
 
 ## Quality
 * Making sure all tests pass.
