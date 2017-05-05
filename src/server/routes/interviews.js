@@ -8,6 +8,7 @@ router.post('/', (request, response) => {
   const attributes = request.body
   interviews.create(attributes, request.user.handle)
   .then( () => response.json({message: 'Successfully created interview'}))
+  .then( response => console.log('interview route run', response))
   .catch( err => response.json({error: err.message}))
 })
 

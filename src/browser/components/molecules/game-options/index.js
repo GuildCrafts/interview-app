@@ -48,33 +48,36 @@ export default class GameOptions extends Component {
     }
 
   getQuestions(filters) {
-      const filteredQuestions = this.filterQuestions(this.state.questions, filters.topic, filters.level)
-      this.setState(prevState => ({
-        isForm: false,
-        questions: filteredQuestions
-      }))
-    }
+    const filteredQuestions = this.filterQuestions(this.state.questions, filters.topic, filters.level)
+    this.setState(prevState => ({
+      isForm: false,
+      questions: filteredQuestions
+    }))
+  }
 
-    filterQuestions(questions, topic, level) {
-      let q = shuffle(questions)
-      if(topic === 'any' && level === 'any') {
-        return take(q, 7)
-      } else if( topic === 'any') {
-        return q.filter(question => question.level === level)
-      } else if (level === 'any') {
-        return q.filter(question => question.topics.includes(topic))
-      } else {
-        return q.filter(question => question.level === level && question.topics === topic)
-      }
+  filterQuestions(questions, topic, level) {
+    let q = shuffle(questions)
+    if(topic === 'any' && level === 'any') {
+      return take(q, 7)
+    } else if( topic === 'any') {
+      return q.filter(question => question.level === level)
+    } else if (level === 'any') {
+      return q.filter(question => question.topics.includes(topic))
+    } else {
+      return q.filter(question => question.level === level && question.topics === topic)
     }
+  }
 
   render() {
     const topics = this.props.topics || []
-    const difficulty = this.props.difficulty || []
+    const level = this.props.level || []
     const gameModes = this.props.gameModes || []
     let correctElement
     if (this.state.isForm) {
-      correctElement = <Form inputModules={inputModules} onSubmit={this.getQuestions.bind(this)} key='gameOptionForm'/>
+      correctElement = <Form inputModules={inputModules}
+                          onSubmit={this.getQuestions.bind(this)}
+                          initialValue={{topic: 'any', level: 'any', game_mode: 'Questions & Answers'}}
+                          key='gameOptionForm'/>
     }
     else if (!this.state.isForm) {
       correctElement = <Game questions={this.state.questions} />
