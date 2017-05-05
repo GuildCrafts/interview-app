@@ -41,17 +41,14 @@ const create = ( question ) => {
 
 const updatebyID = ( question ) => {
   return knex.transaction(function(trx) {
-    return knex('questions')
-    .where("id", question.id)
-    .then(() => {
       return knex.select('id')
       .from('questionTopics')
       .where('question_id', question.id)
-      .then(questionTopics => {
+      .then(topicsOfQuestion => {
         return knex('questionTopics')
         .transacting(trx)
         .delete('questionTopics')
-        .whereIn('id', questionTopics.map(questionTopic => questionTopic.id))
+        .whereIn('id', topicsOfQuestion.map(topicsOfQuestion => topicsOfQuestion.id))
       })
       .then(() => {
         return knex.select('id')
@@ -65,7 +62,8 @@ const updatebyID = ( question ) => {
         })
       })
       .then(() => {
-        knex('questions')
+        return knex('questions')
+        .where("id", question.id)
         .transacting(trx)
         .update({
             question : question.question,
@@ -96,7 +94,6 @@ const updatebyID = ( question ) => {
       })
       .then(trx.commit)
       .catch(trx.rollback)
-    })
   })
 }
 
