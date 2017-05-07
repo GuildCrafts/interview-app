@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter, Route, Link } from 'react-router-dom'
 
-import Landing from '../../components/Pages/Landing/index'
+import Landing from '../pages/landing/index'
 import Layout from '../common/router'
 import Header from '../molecules/header/index'
 import Game from '../pages/game/index'
