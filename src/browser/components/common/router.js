@@ -13,7 +13,7 @@ import Requests from './requests'
 export default class Routes extends Component {
   constructor(props) {
     super(props)
-    this.state = {user: {dummy: true},
+    this.state = {user: {},
                   topics: []}
   }
 
