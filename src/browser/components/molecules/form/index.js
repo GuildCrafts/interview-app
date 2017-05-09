@@ -33,9 +33,7 @@ export default class Form extends Component{
     let domElement = (
       <FormInput
         key={`form-element-${index}`}
-        prompt={inputModule.prompt}
-        placeholder={inputModule.placeholder}
-        tag={inputModule.tag}
+        {...inputModule}
         value={value}
         onChange={this.updateInput.bind(this)}
       />
@@ -48,11 +46,9 @@ export default class Form extends Component{
     let domElement = (
       <FormHints
         key={`form-element-${index}`}
-        prompt={inputModule.prompt}
-        placeholder={inputModule.placeholder}
-        tag={inputModule.tag}
         onChange={this.updateInput.bind(this)}
         hints={hints}
+        {...inputModule}
       />
     )
     return domElement
@@ -63,9 +59,7 @@ export default class Form extends Component{
     let domElement = (
       <FormCheckbox
         key={`form-element-${index}`}
-        prompt={inputModule.prompt}
-        options={inputModule.options}
-        tag={inputModule.tag}
+        {...inputModule}
         checked={checked}
         onChange={this.updateInput.bind(this)}
       />
@@ -78,10 +72,8 @@ export default class Form extends Component{
     let domElement = (
       <FormRadio
         key={`form-element-${index}`}
-        prompt={inputModule.prompt}
-        options={inputModule.options}
-        tag={inputModule.tag}
         checked={checked}
+        {...inputModule}
         onChange={this.updateInput.bind(this)}
       />
     )
@@ -93,13 +85,9 @@ export default class Form extends Component{
     let domElement = (
       <FormSelect
         key={`form-element-${index}`}
-        prompt={inputModule.prompt}
-        options={inputModule.options}
-        isOptionRequired={inputModule.isOptionRequired}
         onChange={this.updateInput.bind(this) }
-        tag={inputModule.tag}
-        passId={inputModule.id}
         chooseSelect={chooseSelect}
+        {...inputModule}
       />
     )
     return domElement

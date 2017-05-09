@@ -6,7 +6,7 @@ import chaiHttp from 'chai-http'
 let should = chai.should()
 chai.use(chaiHttp)
 
-describe.only('api/questions', () => {
+describe('api/questions', () => {
   it('Should respond with a status code of 200 and get all the questions', (done) => {
     chai.request(app)
     .get('/api/questions/')
@@ -22,8 +22,8 @@ describe.only('api/questions', () => {
     //create the question
     .post('/api/questions/')
     .send({
-      'question': 'Who is Murphy?',
-      'answer': 'your mom'
+      question: 'Who is Murphy?',
+      answer: 'your mom'
     })
     //read the question
     .then((newQuestionRes) => {

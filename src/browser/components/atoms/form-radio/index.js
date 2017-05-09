@@ -32,7 +32,7 @@ export default class FormRadio extends Component {
 
     return (
       <div className="uk-margin">
-        <div className="uk-form-label">{this.props.prompt}</div>
+        <div className="uk-form-label">{this.props.label}</div>
         {radio}
       </div>
     )

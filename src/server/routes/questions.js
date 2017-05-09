@@ -27,6 +27,12 @@ router.delete('/approval', (request, response) => {
 
 router.post('/', (request, response) => {
   const attributes  = request.body
+  if (!attributes.hints) {
+    attributes.hints = []
+  } else if(!attributes.topics) {
+    attributes.topics = []
+  }
+  //TODO need to findOrCreate Topics if they don't exist;
   questions.create( attributes )
   .then( (question) => response.json( question ) )
   .catch( err => response.status(400).json({error: err.message, params: attributes}) )

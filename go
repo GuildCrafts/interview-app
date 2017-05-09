@@ -14,7 +14,7 @@
     dbname=interviewdb-${env}
     dropdb ${dbname}
     createdb ${dbname}
-    migrate_db env
+    migrate_db $env
   }
 
   function migrate_db {

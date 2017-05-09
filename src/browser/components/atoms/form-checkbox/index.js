@@ -45,7 +45,7 @@ export default class FormCheckbox extends Component {
 
     return (
       <div className="uk-margin">
-        <label className="uk-form-label" htmlFor="form-horizontal-select">{this.props.prompt}</label>
+        <label className="uk-form-label" htmlFor="form-horizontal-select">{this.props.label}</label>
           {checklist}
       </div>
     )

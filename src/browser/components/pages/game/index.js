@@ -9,21 +9,21 @@ require('../../../../../public/stylesheets/uikit.min.css')
 const inputModules = [
   {
     "type"    : "Select",
-    "prompt"  : "Difficulty",
+    "label "  : "Difficulty",
     "options" : ["any","beginner","intermediate"],
     "tag"     : "level",
     "isOptionRequired": true
   },
   {
     "type"    : "Select",
-    "prompt"  : "Topic",
+    "label"  : "Topic",
     "options" : [],
     "tag"     : "topic",
     "isOptionRequired": true
   },
   {
     "type"    : "Select",
-    "prompt"  : "Game Mode",
+    "label"  : "Game Mode",
     "options" : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
     "tag"     : "game_mode",
     "isOptionRequired": true
