@@ -3,6 +3,7 @@
   function help {
     echo "Usage"
     echo "./go init ........................... Installs all dependencies and makes interview-app ready for development"
+    echo "./go migrate_db [development|test] .. Migrates the database according to environment argument"
     echo "./go reset_db [development|test] .... Drops and creates database according to environment argument"
     echo "./go start .......................... Starts the server in dev mode"
     echo "./go test ........................... Runs reset_db test, then runs test scripts"
@@ -13,7 +14,11 @@
     dbname=interviewdb-${env}
     dropdb ${dbname}
     createdb ${dbname}
-    NODE_ENV=${env} npm run migrate:rollback
+    migrate_db env
+  }
+
+  function migrate_db {
+    env=${1:-test}
     NODE_ENV=${env} npm run migrate
   }
 
@@ -113,6 +118,8 @@
 
   case $1 in
     init) init $@
+    ;;
+    migrate_db) shift; migrate_db $@
     ;;
     reset_db) shift; reset_db $@
     ;;

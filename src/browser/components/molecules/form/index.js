@@ -59,7 +59,7 @@ export default class Form extends Component{
   }
 
   initCheckbox(inputModule, index) {
-    let checked = this.state.input[inputModule.tag] || ""
+    let checked = this.state.input[inputModule.tag] || []
     let domElement = (
       <FormCheckbox
         key={`form-element-${index}`}
