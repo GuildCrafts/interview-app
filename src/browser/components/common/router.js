@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter, Route, Link } from 'react-router-dom'
 
+
 import Landing from '../pages/landing/index'
 import Layout from '../common/router'
 import Header from '../molecules/header/index'
@@ -38,7 +39,8 @@ export default class Routes extends Component {
     }
 
     const LandingComponent = (props, state, params) =>
-    <Landing profile={fakeProfile} stats={fakeStats} {...props} topics={this.state.topics}/>
+    <Landing profile={fakeProfile} stats={fakeStats} {...props}
+      topics={this.state.topics} />
 
     const ProfileComponent = (props, state, params) =>
     <Profile profile={fakeProfile} stats={fakeStats} {...props} topics={this.state.topics}/>

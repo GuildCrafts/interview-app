@@ -15,7 +15,7 @@ export default class Landing extends Component {
   render() {
     return (
       <div className="uk-container">
-        <Layout profile={this.props.profile} stats={this.props.stats}>
+        <Layout {...this.props} >
           <GameOptions topics={this.props.topics}/>
         </Layout>
       </div>

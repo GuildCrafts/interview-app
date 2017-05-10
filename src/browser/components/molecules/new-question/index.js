@@ -56,6 +56,7 @@ export default class NewQuestion extends Component {
     this.state = {
       form: inputModules
     }
+    this.successNotification = this.successNotification.bind(this)
   }
 
   componentDidMount(){
@@ -70,17 +71,25 @@ export default class NewQuestion extends Component {
   handleSubmit(formData) {
     event.preventDefault()
     Requests.post('/api/questions/', formData)
-    .then( response => response.json() )
+    .then( response => {
+      this.successNotification()
+      return response.json()
+    })
+  }
+
+  successNotification() {
+    this.props.addNotification('Created the question successfully.')
   }
 
   render() {
-
     return (
       <div id="modal-example" data-uk-modal>
         <div className="uk-modal-dialog uk-modal-body">
           <h2 className="uk-modal-title uk-text-center">New Question</h2>
             <p>When writing your question, please make sure that it is clearly stated, and that the answer is not ambigious. The more accurate the answer, the better learning experience. If you are unsure if your question (or one that is similar) has already been submitted, please checkout the approval page to browse all questions. Thanks for contributing!</p>
-          <Form inputModules={this.state.form} onSubmit={this.handleSubmit.bind(this)} key='NewQuestionForm'/>
+          <Form inputModules={this.state.form}
+                onSubmit={this.handleSubmit.bind(this)}
+                key='NewQuestionForm' />
         </div>
       </div>
     )

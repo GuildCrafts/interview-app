@@ -9,12 +9,7 @@ import NewQuestion from '../../molecules/new-question/index'
 require('../../../../../public/stylesheets/uikit.min.css')
 
 export default class Menu extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
-
     return (
       <div id="offcanvas-nav-primary" data-uk-offcanvas="overlay: false">
         <div className="uk-offcanvas-bar uk-flex uk-flex-column">
@@ -25,7 +20,7 @@ export default class Menu extends Component {
                 <li><a href="/approval">Approve Questions</a></li>
                 <li>
                   <button className="uk-button uk-button-default uk-margin-small-right" type="button" data-uk-toggle="target: #modal-example">Create Question</button>
-                  <NewQuestion />
+                  <NewQuestion {...this.props} />
                 </li>
                 <li className="uk-nav-divider"></li>
                 <li><a href="/profile">Profile</a></li>

@@ -18,7 +18,7 @@ export default class Header extends Component {
         <nav className="uk-navbar">
           <div className="uk-offcanvas-content">
             <button className="uk-button uk-button-default uk-margin-top uk-margin-small-right" type="button" data-uk-toggle="target: #offcanvas-nav-primary">Menu</button>
-            <Menu />
+            <Menu {...this.props} />
           </div>
           <ul className="uk-navbar-right">
             <ProfileBox profile={this.props.profile.name}/>
