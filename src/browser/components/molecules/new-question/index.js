@@ -71,14 +71,19 @@ export default class NewQuestion extends Component {
   handleSubmit(formData) {
     event.preventDefault()
     Requests.post('/api/questions/', formData)
-    .then( response => {
-      this.successNotification()
-      return response.json()
+    .then( response =>
+      response.json()
+    ).then(body => {
+      if(body.error) {
+        this.successNotification(body.error, 'error')
+      } else {
+        this.successNotification('Created the question successfully.')
+      }
     })
   }
 
-  successNotification() {
-    this.props.addNotification('Created the question successfully.')
+  successNotification(message, level='success') {
+    this.props.addNotification(message, level)
   }
 
   render() {
