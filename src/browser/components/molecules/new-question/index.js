@@ -11,7 +11,7 @@ require('../../../../../public/stylesheets/uikit.min.css')
 
 const inputModules = [
   {
-    "type"       : "Input",
+    "type"       : "TextArea",
     "placeholder": "Enter your question",
     "label"     : "Question",
     "tag"        : "question"
