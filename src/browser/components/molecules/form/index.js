@@ -5,6 +5,7 @@ import FormCheckbox from '../../atoms/form-checkbox'
 import FormRadio from '../../atoms/form-radio/index'
 import FormSelect from '../../atoms/form-select/index'
 import FormInput from '../../atoms/form-input/index'
+import FormTextArea from '../../atoms/form-textarea/index'
 import FormHints from '../../atoms/form-hints/index'
 
 export default class Form extends Component{
@@ -40,6 +41,20 @@ export default class Form extends Component{
     )
     return domElement
   }
+
+  initTextArea(inputModule, index) {
+    let value = this.state.input[inputModule.tag] || ""
+    let domElement = (
+        <FormTextArea
+      key={`form-element-${index}`}
+      {...inputModule}
+      value={value}
+      onChange={this.updateInput.bind(this)}
+        />
+    )
+    return domElement
+  }
+
 
   initHints(inputModule, index) {
     let hints = this.state.input[inputModule.tag] || []
@@ -100,11 +115,12 @@ export default class Form extends Component{
   render(){
     const jsx = this.props.inputModules.map( (inputModule, index) => {
       return {'Input': this.initTextInput.bind(this, inputModule, index),
-      'Checkbox': this.initCheckbox.bind(this, inputModule, index),
-      'Radio': this.initRadio.bind(this, inputModule, index),
-      'Select': this.initSelect.bind(this, inputModule, index),
-      'Hint': this.initHints.bind(this, inputModule, index)
-      }[inputModule.type]()
+              'TextArea': this.initTextArea.bind(this, inputModule, index),
+              'Checkbox': this.initCheckbox.bind(this, inputModule, index),
+              'Radio': this.initRadio.bind(this, inputModule, index),
+              'Select': this.initSelect.bind(this, inputModule, index),
+              'Hint': this.initHints.bind(this, inputModule, index)
+             }[inputModule.type]()
     })
 
     return(

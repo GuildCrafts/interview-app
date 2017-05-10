@@ -17,7 +17,7 @@ const inputModules = [
     "tag"        : "question"
   },
   {
-    "type"       : "Input",
+    "type"       : "TextArea",
     "placeholder": "Answer it thoroughly",
     "label"     : "Answer",
     "tag"        : "answer"
