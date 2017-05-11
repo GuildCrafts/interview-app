@@ -2,20 +2,20 @@ const inputModules = [
   {
     "type"       : "Input",
     "placeholder": "Enter your question",
-    "prompt"     : "Question",
+    "label"     : "Question",
     "tag"        : "question",
     "value"      : ""
   },
   {
     "type"       : "Input",
     "placeholder": "Answer it thoroughly",
-    "prompt"     : "Answer",
+    "label"     : "Answer",
     "tag"        : "answer",
     "value"      : ""
   },
   {
     "type"            : "Select",
-    "prompt"          : "Game Mode",
+    "label"          : "Game Mode",
     "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
     "tag"             : "game_mode",
     "isOptionRequired": true,
@@ -24,20 +24,20 @@ const inputModules = [
   {
     "type"   : "Checkbox",
     "options": ["Core JavaScript", "SQL", "Functional Programming", "Requirements", "Testing", "Technical Design", "Object Oriented Programming" ],
-    "prompt" : "Topics",
+    "label" : "Topics",
     "tag"    : "topics",
     "checked": ""
   },
   {
     "type"   : "Radio",
     "options": ["Beginner", "Intermediate", "Advanced", "Jedi"],
-    "prompt" : "Difficulty Level",
+    "label" : "Difficulty Level",
     "tag"    : "level",
     "checked": ""
   },
   {
     "type"            : "Select",
-    "prompt"          : "Points",
+    "label"          : "Points",
     "options"         : [1, 2, 3, 4, 5],
     "tag"             : "points",
     "isOptionRequired": true,
@@ -45,7 +45,7 @@ const inputModules = [
   },
   {
     "type"            : "Hint",
-    "prompt"          : "Hints",
+    "label"          : "Hints",
     "tag"             : "hints",
     "placeholder"     : "Write a helpfull hint"
   }

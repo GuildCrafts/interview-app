@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 export default class Scorecard extends Component {
   render() {
-    const {questions, answered, skipped} = this.props
+    const { questions, answered, skipped } = this.props
     return (
       <div className="uk-grid">
 

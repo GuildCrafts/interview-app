@@ -11,23 +11,23 @@ require('../../../../../public/stylesheets/uikit.min.css')
 
 const inputModules = [
   {
-    "type"       : "Input",
+    "type"       : "TextArea",
     "placeholder": "Enter your question",
-    "prompt"     : "Question",
+    "label"     : "Question",
     "tag"        : "question",
     "value"      : ""
   }
   ,
   {
-    "type"       : "Input",
+    "type"       : "TextArea",
     "placeholder": "Answer it thoroughly",
-    "prompt"     : "Answer",
+    "label"     : "Answer",
     "tag"        : "answer",
     "value"      : ""
   },
   {
     "type"            : "Select",
-    "prompt"          : "Game Mode",
+    "label"          : "Game Mode",
     "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
     "tag"             : "game_mode",
     "isOptionRequired": true,
@@ -36,28 +36,20 @@ const inputModules = [
   {
     "type"   : "Checkbox",
     "options": [],
-    "prompt" : "Topics",
+    "label" : "Topics",
     "tag"    : "topics",
     "checked": []
   },
   {
     "type"   : "Radio",
     "options": ["Beginner", "Intermediate", "Advanced", "Jedi"],
-    "prompt" : "Difficulty Level",
+    "label" : "Difficulty Level",
     "tag"    : "level",
     "checked": ""
   },
   {
-    "type"            : "Select",
-    "prompt"          : "Points",
-    "options"         : [1, 2, 3, 4, 5],
-    "tag"             : "points",
-    "isOptionRequired": true,
-    "chooseSelect"    : ""
-  },
-  {
     "type"            : "Hint",
-    "prompt"          : "Hints",
+    "label"          : "Hints",
     "tag"             : "hints",
     "placeholder"     : "Write a helpfull hint"
   }
@@ -72,9 +64,8 @@ export default class ApprovalPage extends Component {
     this.inputModules[3].options = this.props.topics
   }
 
-
   componentDidMount(){
-    Request.getDatabaseQuestions('/api/questions/approval').then(questions => {
+    Request.get('/api/questions/approval').then(questions => {
       this.setState(Object.assign(this.state, {questions: questions}))
     })
   }

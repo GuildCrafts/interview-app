@@ -14,11 +14,14 @@ export default class FormSelect extends Component {
       }
     })
 
+    let promptOption = this.props.showPrompt ? <option value="">Please Select</option> : null
+
     return (
       <div className="uk-margin">
-        <label className="uk-form-label" htmlFor="form-horizontal-select">{this.props.prompt}</label>
+        <label className="uk-form-label" htmlFor="form-horizontal-select">{this.props.label}</label>
         <div className="uk-form-controls">
-          <select id={this.props.prompt} className="uk-select form-horizontal-select" onChange={this.changeHandler.bind(this)}>
+          <select id={this.props.label} className="uk-select form-horizontal-select" onChange={this.changeHandler.bind(this)}>
+            {promptOption}
             {options}
           </select>
         </div>

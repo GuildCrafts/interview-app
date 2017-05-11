@@ -2,9 +2,11 @@ import React, {Component} from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter, Route, Link } from 'react-router-dom'
 
-import Landing from '../../components/Pages/Landing/index'
+
+import Landing from '../pages/landing/index'
 import Layout from '../common/router'
 import Header from '../molecules/header/index'
+import Game from '../pages/game/index'
 import ApprovalPage from '../pages/approval/index'
 import Profile from '../pages/profile/index'
 import Requests from './requests'
@@ -12,7 +14,7 @@ import Requests from './requests'
 export default class Routes extends Component {
   constructor(props) {
     super(props)
-    this.state = {user: {dummy: true},
+    this.state = {user: {},
                   topics: []}
   }
 
@@ -37,7 +39,8 @@ export default class Routes extends Component {
     }
 
     const LandingComponent = (props, state, params) =>
-    <Landing profile={fakeProfile} stats={fakeStats} {...props} topics={this.state.topics}/>
+    <Landing profile={fakeProfile} stats={fakeStats} {...props}
+      topics={this.state.topics} />
 
     const ProfileComponent = (props, state, params) =>
     <Profile profile={fakeProfile} stats={fakeStats} {...props} topics={this.state.topics}/>
@@ -51,6 +54,7 @@ export default class Routes extends Component {
         <div>
           <Route exact path='/' component={LandingComponent} />
           <Route path='/:topic/:difficulty' component={LandingComponent} />
+          <Route path='/game' component={Game} />
           <Route path='/approval' component={ApprovalComponent} />
           <Route path='/profile' component={ProfileComponent} />
         </div>

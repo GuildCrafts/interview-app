@@ -15,7 +15,7 @@ export default class FormHints extends Component {
   }
 
   render() {
-    const prompt = this.props.prompt
+    const label = this.props.label
     const content = this.props.hints.map( (hint, index) => {
       return(
         <div className="uk-margin" key={index}>
@@ -31,7 +31,7 @@ export default class FormHints extends Component {
 
     return (
       <div className="uk-margin">
-        <label className="uk-form-label" htmlFor="form-horizontal-select">{prompt}</label>
+        <label className="uk-form-label" htmlFor="form-horizontal-select">{label}</label>
           {content}
           <button onClick = {this.addHint.bind(this)} className="uk-button uk-button-default" type="button">Add Hint</button>
       </div>

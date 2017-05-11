@@ -2,18 +2,18 @@ const inputModules = [
   {
     "type"       : "Input",
     "placeholder": "Enter your question",
-    "prompt"     : "Question",
+    "label"     : "Question",
     "tag"        : "question"
   },
   {
     "type"       : "Input",
     "placeholder": "Answer it thoroughly",
-    "prompt"     : "Answer",
+    "label"     : "Answer",
     "tag"        : "answer"
   },
   {
     "type"            : "Select",
-    "prompt"          : "Game Mode",
+    "label"          : "Game Mode",
     "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
     "tag"             : "game_mode",
     "isOptionRequired": true
@@ -21,25 +21,25 @@ const inputModules = [
   {
     "type"   : "Checkbox",
     "options": ["Core-JavaScript","Functional-Programming"],
-    "prompt" : "Topics",
+    "label" : "Topics",
     "tag"    : "topics"
   },
   {
     "type"   : "Radio",
     "options": ["Beginner", "Intermediate", "Advanced", "Jedi"],
-    "prompt" : "Difficulty Level",
+    "label" : "Difficulty Level",
     "tag"    : "level"
   },
   {
     "type"            : "Select",
-    "prompt"          : "Points",
+    "label"          : "Points",
     "options"         : ['1', '2', '3', '4', '5'],
     "tag"             : "points",
     "isOptionRequired": true
   },
   {
     "type"            : "Hint",
-    "prompt"          : "Hints",
+    "label"          : "Hints",
     "tag"             : "hints",
     "placeholder"     : "Write a helpfull hint",
   }

@@ -1,9 +1,34 @@
 import React, {Component} from 'react';
 import flex from 'react-uikit-flex'
+import { Link } from 'react-router-dom'
 
 import Scorecard from '../../molecules/scorecard/index'
 import Requests from '../../common/requests.js'
 require('../../../../../public/stylesheets/uikit.min.css')
+
+const inputModules = [
+  {
+    "type"    : "Select",
+    "label "  : "Difficulty",
+    "options" : ["any","beginner","intermediate"],
+    "tag"     : "level",
+    "isOptionRequired": true
+  },
+  {
+    "type"    : "Select",
+    "label"  : "Topic",
+    "options" : [],
+    "tag"     : "topic",
+    "isOptionRequired": true
+  },
+  {
+    "type"    : "Select",
+    "label"  : "Game Mode",
+    "options" : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
+    "tag"     : "game_mode",
+    "isOptionRequired": true
+  }
+]
 
 export default class Game extends Component {
   constructor(props) {
@@ -15,25 +40,12 @@ export default class Game extends Component {
                   questions: props.questions}
   }
 
-  //Needs reasessment
-  componentDidMount(){
-    const {difficulty,topics} = this.props
-    const topicsQueryString = topics.reduce( ( queryString, topic ) => {
-      return queryString + `&topics=${topic}`
-    },'')
-    Requests.get(`/api/questions?difficulty=${difficulty}&${topicsQueryString}`)
-    .then( questions => {
-      this.setState(Object.assign(this.state, {questions}))
-    })
-  }
-
   incrementQuestionState(property) {
     let questions = this.state[property]
     questions.push(this.state.currentQuestionPosition)
     this.setState({[property]: questions,
                    currentQuestionPosition: this.state.currentQuestionPosition + 1})
   }
-
 
   answerJSX(question) {
     if (this.state.showAnswer) {
@@ -44,6 +56,11 @@ export default class Game extends Component {
 
   toggleProperty(property) {
     this.setState({[property]: !this.state[property]})
+  }
+
+  endGame() {
+    Requests.post('/api/interviews/', this.state)
+    location.reload()
   }
 
   questionJSX(question) {
@@ -72,20 +89,46 @@ export default class Game extends Component {
   allQuestionsCompletedJSX() {
     return (
       <div>
-        <button className="uk-button-secondary uk-button uk-width-1-1">
+        <button className="uk-button-secondary uk-button uk-width-1-1" onClick={this.endGame.bind(this)}>
           Finish Interview and Submit Notes!
         </button>
       </div>
     )
   }
 
+  hintButton(question) {
+    const hints = question.hints.map( hint => {
+      return (
+        <p>{hint}</p>
+      )
+    })
+
+    return (
+      <div>
+        <button className="uk-button uk-button-default" type="button" data-uk-toggle="target: #toggle-animation-multiple; animation:  uk-animation-slide-left, uk-animation-slide-bottom queued: true; duration: 500">Show Hints!</button>
+        <div id="toggle-animation-multiple" className="uk-card uk-card-default uk-card-body uk-margin-small" hidden>
+          {hints}
+        </div>
+      </div>
+    )
+  }
+
+  updateFeedback( event ){
+    this.setState({feedback: event.target.value})
+  }
 
   render() {
     const questions = this.props.questions
     const {currentQuestionPosition} = this.state
     const question = questions[currentQuestionPosition]
 
-    let content
+    let content, hints
+
+    if(currentQuestionPosition === questions.length) {
+      hints = ""
+    } else (
+      hints = this.hintButton(question)
+    )
 
     if(currentQuestionPosition === questions.length) {
       content = this.allQuestionsCompletedJSX()
@@ -96,14 +139,12 @@ export default class Game extends Component {
     return (
       <div>
         <Scorecard answered={this.state.answered} skipped={this.state.skipped} questions={this.props.questions} />
-        <progress className="uk-progress" value={currentQuestionPosition + 1} max={questions.length}></progress>
+        <progress className="uk-progress" value={currentQuestionPosition} max={questions.length}></progress>
         {content}
-
         <div className="uk-container-center uk-margin uk-width-1-1">
-          <textarea className="uk-textarea" placeholder="Submit your interview notes here..."></textarea>
+          <textarea className="uk-textarea" placeholder="Submit your interview notes here..." onChange={this.updateFeedback.bind(this)}></textarea>
         </div>
-        <button className="uk-button uk-button-default" data-uk-toggle="target: #my-id" type="button">HINT!</button>
-        <p id="my-id" hidden>Silly</p>
+        {hints}
       </div>
     )
   }

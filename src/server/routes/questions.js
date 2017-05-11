@@ -11,13 +11,6 @@ router.get('/', (request, response) => {
   .catch( err => console.log('err', err) )
 })
 
-router.post('/', (request, response) => {
-  const attributes  = request.body
-  questions.create( attributes )
-  .then( (question) => response.json( question ) )
-  .catch( err => { console.log(err.message); console.error(err); response.status(400).json({error: err.message, params: attributes}) })
-})
-
 router.get('/approval', (request, response) => {
   questions.findAllQuestions()
   .then( questions => {
@@ -30,6 +23,19 @@ router.delete('/approval/:id', (request, response) => {
   questions.deleteByID( id )
   .then( () => response.json( { 'message': 'deleted' } ) )
   .catch( err => console.log('err', err) )
+})
+
+router.post('/', (request, response) => {
+  const attributes  = request.body
+  if (!attributes.hints) {
+    attributes.hints = []
+  } else if(!attributes.topics) {
+    attributes.topics = []
+  }
+  //TODO need to findOrCreate Topics if they don't exist;
+  questions.create( attributes )
+  .then( (question) => response.json( question ) )
+  .catch( err => response.status(400).json({error: 'Could not create the question.', errorMsg: err.message, params: attributes}) )
 })
 
 router.put('/approval/:id', (request, response) => {

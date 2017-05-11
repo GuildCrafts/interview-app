@@ -22,8 +22,8 @@ describe('api/questions', () => {
     //create the question
     .post('/api/questions/')
     .send({
-      'question': 'Who is Murphy?',
-      'answer': 'your mom'
+      question: 'Who is Murphy?',
+      answer: 'your mom'
     })
     //read the question
     .then((newQuestionRes) => {

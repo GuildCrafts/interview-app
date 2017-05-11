@@ -39,12 +39,14 @@ if(getEnv() === 'development') {
 }
 
 
+authInitialize(app)
+
 app.use(express.static(__dirname + '/public/javascripts/'));
 app.use(express.static(__dirname + '/public/dist/'));
 app.use(express.static(__dirname + '/public/images/'));
 app.use(express.static(__dirname + '/src/browser/main.js'));
 
-authInitialize(app)
+
 
 app.use('/api/users', users)
 app.use('/api/interviews', interviews)

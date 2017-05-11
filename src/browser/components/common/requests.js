@@ -20,16 +20,6 @@ const post = (url, body) => {
    })
  }
 
- const getDatabaseQuestions = (url) => {
-   return fetch(url, {
-     method:'GET',
-     mode: 'cors',
-     credentials: 'same-origin'
-   }).then(result => {
-     return result.json()
-   })
- }
-
 const put = (url, body) => {
   let headers = new Headers()
   headers.append('Content-Type', 'application/JSON')
@@ -50,4 +40,4 @@ const deleteQuestion = (url, id) => {
   })
 }
 
-export default {get, getDatabaseQuestions, post, put, deleteQuestion}
+export default {get, post, put, deleteQuestion}
