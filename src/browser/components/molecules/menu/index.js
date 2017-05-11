@@ -15,7 +15,7 @@ export default class Menu extends Component {
         <div className="uk-offcanvas-bar uk-flex uk-flex-column">
           <ul className="uk-nav uk-nav-primary uk-nav-center uk-margin-auto-vertical">
             <li className="uk-active">
-              <Link to="/">Start New Interview</Link>
+              <a href="/">Start New Interview</a>
               <ul className="uk-nav-sub">
                 <li>
                   <button className="uk-button uk-button-default uk-margin-small-right" type="button" data-uk-toggle="target: #modal-example">Create Question</button>
