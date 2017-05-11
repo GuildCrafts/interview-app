@@ -75,10 +75,13 @@ export default class GameOptions extends Component {
     const gameModes = this.props.gameModes || []
     let correctElement
     if (this.state.isForm) {
-      correctElement = <Form inputModules={inputModules}
-                          onSubmit={this.getQuestions.bind(this)}
-                          initialValue={{topic: 'any', level: 'any', game_mode: 'Questions & Answers'}}
-                          key='gameOptionForm'/>
+      correctElement = <div>
+        <h4>Select your options</h4>
+        <Form inputModules={inputModules}
+              onSubmit={this.getQuestions.bind(this)}
+              initialValue={{topic: 'any', level: 'any', game_mode: 'Questions & Answers'}}
+              key='gameOptionForm'/>
+        </div>
     }
     else if (!this.state.isForm) {
       correctElement = <Game questions={this.state.questions} />
@@ -86,7 +89,6 @@ export default class GameOptions extends Component {
     return (
       <div>
         <h2>Mock Interview</h2>
-        <h4>Select your options</h4>
         {correctElement}
       </div>
     )

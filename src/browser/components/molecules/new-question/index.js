@@ -75,7 +75,7 @@ export default class NewQuestion extends Component {
       response.json()
     ).then(body => {
       if(body.error) {
-        this.successNotification(body.error, 'error')
+        this.successNotification(body.error + ' ' + body.errorMsg, 'error')
       } else {
         this.successNotification('Created the question successfully.')
       }
