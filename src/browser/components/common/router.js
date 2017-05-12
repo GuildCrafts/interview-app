@@ -15,13 +15,15 @@ export default class Routes extends Component {
   constructor(props) {
     super(props)
     this.state = {user: {},
-                  topics: []}
+                  topics: [],
+                  topicsWithQuestions: []}
   }
 
   componentDidMount() {
-    Promise.all([Requests.get('/api/users/current_user'), Requests.get('/api/topics/')])
-    .then(([user, topics]) => {
-      this.setState(Object.assign(this.state, {user: user, topics: topics}))
+    Promise.all([Requests.get('/api/users/current_user'), Requests.get('/api/topics/'), Requests.get('/api/topics/with-questions')])
+    .then(([user, topics, topicsWithQuestions]) => {
+      console.log(user, topics, topicsWithQuestions)
+      this.setState(Object.assign(this.state, {user: user, topics: topics, topicsWithQuestions: topicsWithQuestions}))
     })
   }
 
@@ -40,7 +42,7 @@ export default class Routes extends Component {
 
     const LandingComponent = (props, state, params) =>
     <Landing profile={fakeProfile} stats={fakeStats} {...props}
-      topics={this.state.topics} />
+      topics={this.state.topicsWithQuestions} />
 
     const ProfileComponent = (props, state, params) =>
     <Profile profile={fakeProfile} stats={fakeStats} {...props} topics={this.state.topics}/>

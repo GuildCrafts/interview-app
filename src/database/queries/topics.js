@@ -9,14 +9,13 @@ const all = () => {
 }
 
 const withQuestions = () => {
-  console.log('query::', knex.select('distinct(topics.name) as name')
-              .from('topics')
-              .innerJoin('questionTopics', 'topics.id', 'questionTopics.topic_id')
-              .orderBy('name').toString());
-  return knex
-  .select('distinct(topics.name) as name')
-  .from('topics')
+  let approvedQuestionIds = knex('questions').where('approval', true).select('id')
+
+  return knex('topics')
+  .distinct('name')
+  .select()
   .innerJoin('questionTopics', 'topics.id', 'questionTopics.topic_id')
+  .where('question_id', 'in', approvedQuestionIds)
   .orderBy('name')
   .then( topics => topics.map(topic => topic.name));
 }
