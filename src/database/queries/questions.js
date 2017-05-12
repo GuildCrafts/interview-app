@@ -61,7 +61,18 @@ const findAllQuestions = () => {
   })
 }
 
-
+const findApprovedQuestions = () => {
+  return knex
+    .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics')
+    .from('questions')
+    .where('approval', true)
+    .leftJoin('questionTopics','questions.id','questionTopics.question_id')
+    .leftJoin('topics','questionTopics.topic_id','topics.id')
+    .leftJoin('hints','questions.id','hints.question_id')
+    .then( results => {
+      return hintTopicMiddleWare(results)
+    })
+}
 
 const findbyTopic = ( topics ) => {
   return knex
@@ -125,5 +136,6 @@ export {
   findbyID,
   findbyLevel,
   findAllQuestions,
+  findApprovedQuestions,
   getAllTopics
 }
