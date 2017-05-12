@@ -22,7 +22,6 @@ export default class Routes extends Component {
   componentDidMount() {
     Promise.all([Requests.get('/api/users/current_user'), Requests.get('/api/topics/'), Requests.get('/api/topics/with-questions')])
     .then(([user, topics, topicsWithQuestions]) => {
-      console.log(user, topics, topicsWithQuestions)
       this.setState(Object.assign(this.state, {user: user, topics: topics, topicsWithQuestions: topicsWithQuestions}))
     })
   }
