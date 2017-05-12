@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import Scorecard from '../../molecules/scorecard/index'
 import Requests from '../../common/requests.js'
 require('../../../../../public/stylesheets/uikit.min.css')
+require('./style.css');
 
 const inputModules = [
   {
@@ -49,7 +50,7 @@ export default class Game extends Component {
 
   answerJSX(question) {
     if (this.state.showAnswer) {
-      return (<div className="uk-placeholder" id="answer-container">{question.answer}</div>)
+      return (<div className="uk-placeholder show-white-space" id="answer-container">{question.answer}</div>)
     }
     return null
   }
