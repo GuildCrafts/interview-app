@@ -5,6 +5,7 @@ const all = () => {
   return knex
     .select('topics.name as name')
     .from('topics')
+    .orderBy('name')
     .then( topics => topics.map(topic => topic.name))
 }
 
