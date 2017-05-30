@@ -42,7 +42,7 @@ describe('api/questions', () => {
       updatedQuestionRes.should.have.status(200);
       updatedQuestionRes.body.should.eql({
         id: updatedQuestionRes.body.id,
-        approval: null,
+        is_approved: null,
         question: 'Who is Murphy?',
         level: 'beginner',
         answer: 'your mom',

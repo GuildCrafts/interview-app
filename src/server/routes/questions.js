@@ -6,23 +6,21 @@ const router = express.Router()
 
 router.get('/', (request, response) => {
   const {difficulty, topics} = request.query
-  questions.findAllQuestions()
+  questions.findbyApproval(true)
   .then( questions => { response.json(questions) })
   .catch( err => console.log('err', err) )
 })
 
 router.get('/approved', (request, response) => {
-  const {difficulty, topics} = request.query
-  questions.findApprovedQuestions()
-    .then( questions => { response.json(questions) })
-    .catch( err => console.log('err', err) )
+  questions.findbyApproval(true)
+  .then( questions => { response.json(questions) })
+  .catch( err => console.log('err', err) )
 })
 
 router.get('/approval', (request, response) => {
-  questions.findAllQuestions()
-  .then( questions => {
-    response.send(questions)
-  })
+  questions.findbyApproval(false)
+  .then( questions => { response.json(questions) })
+  .catch( err => console.log('err', err) )
 })
 
 router.delete('/approval', (request, response) => {

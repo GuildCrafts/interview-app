@@ -59,7 +59,7 @@ const inputModules = [
 export default class ApprovalPage extends Component {
   constructor(props) {
     super(props)
-    this.state = {questions: [], id: 0, filter: "All", triggerState: true, currentQuestion: null}
+    this.state = {questions: [], id: 0, triggerState: true, currentQuestion: null}
     this.inputModules = inputModules
     this.inputModules[3].options = this.props.topics
   }
@@ -91,34 +91,22 @@ export default class ApprovalPage extends Component {
     Request.put('/api/questions/approval' + "/" + formData.id, formData)
   }
 
-  handleChange(property, event) {
-    let targetValue = event.target.value
-    if(targetValue === '') {
-      targetValue = 'All'
-    }
-    this.setState({[property]: targetValue});
-  }
-
   renderQuestions(){
     return (
       this.state.questions.map((question, index) => {
-        let approvalState = this.state.filter
-        if(approvalState === question.approval || approvalState === 'All') {
-          return (
-            <div key={`question-${index}`}>
-              <div>
-                <button className="uk-button-small uk-button-danger" onClick={this.onClickDelete.bind(this, index)} ref={index} type="button" >Delete this question</button>
-                <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.setCurrentQuestion.bind(this, index)} >{question.question}</button>
-              </div>
+        return (
+          <div key={`question-${index}`}>
+            <div>
+              <button className="uk-button-small uk-button-danger" onClick={this.onClickDelete.bind(this, index)} ref={index} type="button" >Delete this question</button>
+              <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.setCurrentQuestion.bind(this, index)} >{question.question}</button>
             </div>
-          )
-        }
+          </div>
+        )
       })
     )
   }
 
   render() {
-    const filterArray = ['All', 'Approved', 'Pending']
     let content = this.renderQuestions()
     return (
       <div className="uk-container" >
@@ -126,9 +114,6 @@ export default class ApprovalPage extends Component {
             <div className="uk-grid-match uk-child-width-1-2 uk-padding" data-uk-grid>
               <div className="uk-card uk-card-default uk-card-body">
                 Click to edit the following questions:
-                <br></br>
-                <FormSelect options={filterArray} label='Filter' onChange={this.handleChange.bind(this, 'filter')}/>
-                <br></br>
                 {content}
               </div>
               <br></br>
