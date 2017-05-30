@@ -20,7 +20,7 @@ To run your test and reset the test database:
 
 ### Reset your local development db
 ```bash
-   ./go reset_db
+   ./go reset_db development
 ```
 
 
