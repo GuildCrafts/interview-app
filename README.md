@@ -1,21 +1,30 @@
 # Interview App
 
-### Description
-Build an app that will tests learner's knowledge of programming by creating an interactive mock interview between two players.
-
-Build the data model and database that will include multiple game modes. It is recommended that you use a relational, open-source data store like PostgreSQL.
-
-When complete, you’ll have an API for working with multiple game modes with database persistence.
-
-The Solo Mode will be linked to the	[matrix](http://matrix.apps.learnersguild.org/), where individuals can self assess if they are competent in each section, before checking it off.
-
 ### Context
 Practicing mock interviews helps the Candidate develop skills for answering technical question during the interview process while lowering testing anxiety. It also helps the Interviewer gain perspective on desired qualities in candidates.
 
 ## Specifications
 Specifications and requirements will be assigned based on the items in backlog within the Development project (see the projects tab of the interview-app repository).
 
-### Setup instructions
+### Start development server
+Run this in a terminal window (setting `DISABLE_IDM` mocks out the IDM server)
+```bash
+    DISABLE_IDM=true ./go start
+```
+
+### Running tests
+To run your test and reset the test database:
+```bash
+ ./go test
+```
+
+### Reset your local development db
+```bash
+   ./go reset_db
+```
+
+
+### (Optional) Setup instructions for IDM for the brave
 If this is the first time you're setting up the Interview-App repo:
 
 1. Get the IDM repo from your team lead, and have move it to the same folder level that your interview-app resides (do not put IDM into the interview-app repo). In your terminal, navigate to the interview-app directory and enter the following command:
@@ -58,23 +67,6 @@ If this is the first time you're setting up the Interview-App repo:
 7. Follow steps 17-19 in the IDM `README` file
 <br></br>  
 
-If you've worked on this repo in the past, and you're working in the development environment:
-  - ./go start
-
-To run your test and reset the test database:
-  - ./go test
-
-To reset the database and run the migration:
-  - ./go reset_db
-
-For additional help and usage instructions:
-  - ./go help
-
-### Start development server
-Run this in a terminal window
-```bash
-    npm run start:dev
-```
 
 ### Guide to contributing questions
 - Fork the repo
