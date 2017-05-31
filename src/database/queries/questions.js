@@ -118,7 +118,7 @@ const findbyID = ( data ) => {
 
 const findAllQuestions = () => {
   return knex
-  .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics')
+  .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics','approval')
   .from('questions')
   .leftJoin('questionTopics','questions.id','questionTopics.question_id')
   .leftJoin('topics','questionTopics.topic_id','topics.id')
@@ -130,7 +130,7 @@ const findAllQuestions = () => {
 
 const findApprovedQuestions = () => {
   return knex
-    .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics')
+    .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics','approval')
     .from('questions')
     .where('approval', true)
     .leftJoin('questionTopics','questions.id','questionTopics.question_id')
@@ -143,7 +143,7 @@ const findApprovedQuestions = () => {
 
 const findbyTopic = ( topics ) => {
   return knex
-  .select('questions.id','question','answer','level','hints.text as hints','game_mode','points')
+  .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','approval')
   .from('topics')
   .whereIn( 'name', topics )
   .innerJoin('questionTopics','topics.id','questionTopics.topic_id')
@@ -156,7 +156,7 @@ const findbyTopic = ( topics ) => {
 
 const findbyLevel = ( data ) => {
   return knex
-  .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics')
+  .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics','is_approved')
   .from('questions')
   .whereIn( 'level', data)
   .innerJoin('questionTopics','questions.id','questionTopics.question_id')

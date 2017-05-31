@@ -5,6 +5,7 @@ import flex from 'react-uikit-flex'
 import FormSelect from '../../atoms/form-select/index'
 import Request from '../../common/requests'
 import Form from '../../molecules/form/index'
+import EditQuestion from '../../molecules/edit-question/index'
 import Layout from '../layout/index'
 
 require('../../../../../public/stylesheets/uikit.min.css')
@@ -25,14 +26,14 @@ const inputModules = [
     "tag"        : "answer",
     "value"      : ""
   },
-  {
-    "type"            : "Select",
-    "label"          : "Game Mode",
-    "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
-    "tag"             : "game_mode",
-    "isOptionRequired": true,
-    "chooseSelect"    : ""
-  },
+  // {
+  //   "type"            : "Select",
+  //   "label"          : "Game Mode",
+  //   "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
+  //   "tag"             : "game_mode",
+  //   "isOptionRequired": true,
+  //   "chooseSelect"    : ""
+  // },
   {
     "type"   : "Checkbox",
     "options": [],
@@ -42,7 +43,7 @@ const inputModules = [
   },
   {
     "type"   : "Radio",
-    "options": ["Beginner", "Intermediate", "Advanced", "Jedi"],
+    "options": ["beginner", "intermediate", "advanced", "jedi"],
     "label" : "Difficulty Level",
     "tag"    : "level",
     "checked": ""
@@ -52,22 +53,30 @@ const inputModules = [
     "label"          : "Hints",
     "tag"             : "hints",
     "placeholder"     : "Write a helpfull hint"
-  }
+  },
+  {
+    "type"   : "Radio",
+    "options": [true,false],
+    "label" : "Approved",
+    "tag"    : "approval",
+    "checked": []
+  },
 ]
 
 
 export default class ApprovalPage extends Component {
   constructor(props) {
     super(props)
-    this.state = {questions: [], id: 0, filter: "All", triggerState: true, currentQuestion: null}
     this.inputModules = inputModules
     this.inputModules[3].options = this.props.topics
+    this.state = {questions: [], id: 0, filter: "All", triggerState: true, currentQuestion: null, inputModules: this.inputModules}
   }
 
   componentDidMount(){
     Request.get('/api/questions/approval').then(questions => {
       this.setState(Object.assign(this.state, {questions: questions}))
     })
+
   }
 
   onClickDelete(index){
@@ -111,7 +120,7 @@ export default class ApprovalPage extends Component {
             <div key={`question-${index}`}>
               <div>
                 <button className="uk-button-small uk-button-danger" onClick={this.onClickDelete.bind(this, index)} ref={index} type="button" >Delete this question</button>
-                <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.setCurrentQuestion.bind(this, index)} >{question.question}</button>
+                <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.setCurrentQuestion.bind(this, index)} data-uk-toggle="target: #edit-question-modal" >{question.question}</button>
               </div>
             </div>
           )
@@ -126,19 +135,12 @@ export default class ApprovalPage extends Component {
     return (
       <div className="uk-container" >
         <Layout profile={this.props.profile} stats={this.props.stats}>
-            <div className="uk-grid-match uk-child-width-1-2 uk-padding" data-uk-grid>
-              <div className="uk-card uk-card-default uk-card-body">
-                Click to edit the following questions:
-                <br></br>
-                <FormSelect options={filterArray} label='Filter' onChange={this.handleChange.bind(this, 'filter')}/>
-                <br></br>
-                {content}
-              </div>
-              <br></br>
-              <div className="uk-card uk-card-default uk-card-body">
-                <Form inputModules={this.inputModules} onSubmit={this.submitQuestionEdits} initialValue={this.state.currentQuestion} />
-              </div>
-            </div>
+          Click to edit the following questions:
+          <br></br>
+          <FormSelect options={filterArray} label='Filter' onChange={this.handleChange.bind(this, 'filter')}/>
+          <br></br>
+          {content}
+          <EditQuestion inputModules={this.state.inputModules} initialValue={this.state.currentQuestion} />
         </Layout>
       </div>
     )

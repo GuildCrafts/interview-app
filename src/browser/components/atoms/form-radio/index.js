@@ -3,13 +3,13 @@ import React,{Component} from 'react'
 export default class FormRadio extends Component {
 
   changeHandler(event){
-    return this.props.onChange( this.props.tag, event.target.value )
+    this.props.onChange( this.props.tag, event.target.value )
   }
 
   render() {
     const radio = this.props.options.map( (option, index) => {
       const optionLabel = ' '+option
-      if(this.props.checked === option){
+      if(this.props.radioChecked === option){
         return (
           <div key={index} className="uk-form-controls uk-form-controls-text">
             <label>
@@ -20,7 +20,7 @@ export default class FormRadio extends Component {
         )
       }else{
         return (
-          <div key={index} className="uk-form-controls uk-form-controls-text">
+          <div key={this.props.parentKey,index} className="uk-form-controls uk-form-controls-text">
             <label>
               <input className="uk-radio" type="radio" name={this.props.tag} value={option} onChange={this.changeHandler.bind(this)}/>
               {optionLabel}
