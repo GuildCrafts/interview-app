@@ -84,7 +84,6 @@ export default class Form extends Component{
 
   initRadio(inputModule, index) {
     let checked = this.state.input[inputModule.tag]
-    console.log('init radio radioChecked', checked)
     let domElement = (
       <FormRadio
         key={`form-element-${this.props.parentKey}-${index}`}

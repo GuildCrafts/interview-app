@@ -14,7 +14,6 @@ export default class EditQuestion extends Component {
   }
 
   render(){
-    console.log(this.props)
     return(
       <div id="edit-question-modal" data-uk-modal>
         <div className="uk-modal-dialog uk-modal-body">

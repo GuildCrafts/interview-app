@@ -122,7 +122,6 @@ export default class ApprovalPage extends Component {
   }
 
   render() {
-    console.log('approval page props.topics',this.props.topics)
     const filterArray = ['All', 'Approved', 'Pending']
     let content = this.renderQuestions()
     return (

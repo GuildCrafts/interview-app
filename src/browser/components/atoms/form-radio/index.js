@@ -7,7 +7,6 @@ export default class FormRadio extends Component {
   }
 
   render() {
-    console.log('radio props',this.props)
     const radio = this.props.options.map( (option, index) => {
       const optionLabel = ' '+option
       if(this.props.radioChecked === option){
