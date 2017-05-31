@@ -1,5 +1,5 @@
 import knex from '../db.js'
-import utilities from './utilities'
+// import utilities from './utilities'
 
 const create = ( question ) => {
   return knex.transaction(function (trx){
@@ -9,12 +9,14 @@ const create = ( question ) => {
               approval : false,
               level    : question.level,
               answer   : question.answer,
+              game_mode: question.game_mode,
               points   : question.points}, 'id')
-    .then( questionID => {
+    .returning('*')
+    .then( createdQuestion => {
       return knex('hints')
       .transacting(trx)
-      .insert( question.hints.map( hint => {
-        return { 'text': hint, 'question_id': questionID[0]}
+      .insert( (question.hints || []).map( hint => {
+        return { 'text': hint, 'question_id': createdQuestion.id}
       }))
       .then(() => {
         return knex.select('id')
@@ -27,13 +29,78 @@ const create = ( question ) => {
           return knex('questionTopics')
           .transacting(trx)
           .insert( topicIDs.map( topicID => {
-            return { 'topic_id': topicID.id,'question_id':questionID[0]}
+            return { 'topic_id': topicID.id,'question_id':createdQuestion.id}
           }))
+        })
+        .then( () => {
+          return createdQuestion
         })
       })
     })
     .then(trx.commit)
     .catch(trx.rollback)
+  })
+  .then(questions => {
+    console.log("Query Question", questions)
+    return questions[0]
+  })
+}
+
+const updatebyID = ( question ) => {
+  return knex.transaction(function(trx) {
+      return knex.select('id')
+      .from('questionTopics')
+      .where('question_id', question.id)
+      .then(topicsOfQuestion => {
+        return knex('questionTopics')
+        .transacting(trx)
+        .delete('questionTopics')
+        .whereIn('id', topicsOfQuestion.map(topicsOfQuestion => topicsOfQuestion.id))
+      })
+      .then(() => {
+        return knex.select('id')
+        .from('hints')
+        .whereIn('question_id', question.id)
+        .then(hints => {
+          return knex('hints')
+          .transacting(trx)
+          .delete('hints')
+          .whereIn('id', hints.map(hint => hint.id))
+        })
+      })
+      .then(() => {
+        return knex('questions')
+        .where("id", question.id)
+        .transacting(trx)
+        .update({
+            question : question.question,
+            level    : question.level,
+            answer   : question.answer,
+            game_mode: question.game_mode,
+            points   : question.points},
+        'id')
+      })
+      .then(() => {
+        return knex.select('id')
+        .from('topics')
+        .whereIn('name', question.topics)
+        .then( topics => {
+          return knex('questionTopics')
+          .transacting(trx)
+          .insert( topics.map( topic => {
+            return { question_id: question.id, topic_id: topic.id}
+          }))
+        })
+      })
+      .then(() => {
+        return knex('hints')
+        .transacting(trx)
+        .insert( (question.hints || []).map( hint => {
+          return { 'text': hint, 'question_id': question.id}
+        }))
+      })
+      .then(trx.commit)
+      .catch(trx.rollback)
   })
 }
 
@@ -45,7 +112,7 @@ const findbyID = ( data ) => {
   .innerJoin('questionTopics','questions.id','questionTopics.question_id')
   .innerJoin('topics','questionTopics.topic_id','topics.id')
   .innerJoin('hints','questions.id','hints.question_id').then( results => {
-    return hintTopicMiddleWare(results)
+    return hintTopicMiddleWare(results)[0]
   })
 }
 
@@ -106,8 +173,6 @@ const getAllTopics = () => {
   .then( results => results.map(result => result.topics))
 }
 
-//needs edit queries
-
 
 
 
@@ -136,6 +201,7 @@ export {
   findbyID,
   findbyLevel,
   findAllQuestions,
-  findApprovedQuestions,
-  getAllTopics
+  getAllTopics,
+  updatebyID,
+  findApprovedQuestions
 }

@@ -25,7 +25,7 @@ router.get('/approval', (request, response) => {
   })
 })
 
-router.delete('/approval', (request, response) => {
+router.delete('/approval/:id', (request, response) => {
   const { id } = request.params
   questions.deleteByID( id )
   .then( () => response.json( { 'message': 'deleted' } ) )
@@ -46,10 +46,9 @@ router.post('/', (request, response) => {
 })
 
 router.put('/approval/:id', (request, response) => {
-  const { id } = request.params
   const attributes = request.body
-  questions.updatebyID( id, attributes )
-  .then( questions => response.json(questions[0]) )
+  questions.updatebyID( attributes )
+  .then( questions => response.json(questions) )
   .catch( err => console.log('err', err) )
 })
 
@@ -58,13 +57,6 @@ router.get('/:id', (request, response) => {
   const attributes = request.body
   questions.findbyID( id, attributes )
   .then( question => response.json( question ) )
-  .catch( err => console.log('err', err) )
-})
-
-router.delete('/:id', (request, response) => {
-  const { id } = request.params
-  questions.deleteByID( id )
-  .then( () => response.json( { 'message': 'deleted' } ) )
   .catch( err => console.log('err', err) )
 })
 
