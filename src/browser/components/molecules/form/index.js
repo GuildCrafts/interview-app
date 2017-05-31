@@ -83,11 +83,12 @@ export default class Form extends Component{
   }
 
   initRadio(inputModule, index) {
-    let checked = this.state.input[inputModule.tag] || ""
+    let checked = this.state.input[inputModule.tag]
+    console.log('init radio radioChecked', checked)
     let domElement = (
       <FormRadio
-        key={`form-element-${index}`}
-        checked={checked}
+        key={`form-element-${this.props.parentKey}-${index}`}
+        radioChecked={checked}
         {...inputModule}
         onChange={this.updateInput.bind(this)}
       />
@@ -113,6 +114,7 @@ export default class Form extends Component{
   }
 
   render(){
+    console.log('form input',this.state.input)
     const jsx = this.props.inputModules.map( (inputModule, index) => {
       return {'Input': this.initTextInput.bind(this, inputModule, index),
               'TextArea': this.initTextArea.bind(this, inputModule, index),
@@ -122,6 +124,7 @@ export default class Form extends Component{
               'Hint': this.initHints.bind(this, inputModule, index)
              }[inputModule.type]()
     })
+    console.log('form refs',this.refs)
 
     return(
       <div>

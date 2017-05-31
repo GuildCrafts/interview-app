@@ -53,7 +53,14 @@ const inputModules = [
     "label"          : "Hints",
     "tag"             : "hints",
     "placeholder"     : "Write a helpfull hint"
-  }
+  },
+  {
+    "type"   : "Radio",
+    "options": [true,false],
+    "label" : "Approved",
+    "tag"    : "approval",
+    "checked": []
+  },
 ]
 
 
@@ -69,7 +76,7 @@ export default class ApprovalPage extends Component {
     Request.get('/api/questions/approval').then(questions => {
       this.setState(Object.assign(this.state, {questions: questions}))
     })
-    
+
   }
 
   onClickDelete(index){

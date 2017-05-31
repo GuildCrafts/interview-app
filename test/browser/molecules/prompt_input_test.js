@@ -20,6 +20,4 @@ describe('<AddInput />', () => {
       expect(wrapper.find('div.add-input button').length).to.equal(1)
     })
   })
-
-
 })

@@ -22,7 +22,7 @@ export default class EditQuestion extends Component {
           <Form inputModules={this.props.inputModules}
                 initialValue={this.props.initialValue}
                 onSubmit={this.submitQuestionEdits.bind(this)}
-                key='NewQuestionForm' />
+                key='EditQuestionForm'/>
         </div>
       </div>
     )
