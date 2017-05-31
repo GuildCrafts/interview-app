@@ -26,14 +26,14 @@ const inputModules = [
     "tag"        : "answer",
     "value"      : ""
   },
-  {
-    "type"            : "Select",
-    "label"          : "Game Mode",
-    "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
-    "tag"             : "game_mode",
-    "isOptionRequired": true,
-    "chooseSelect"    : ""
-  },
+  // {
+  //   "type"            : "Select",
+  //   "label"          : "Game Mode",
+  //   "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
+  //   "tag"             : "game_mode",
+  //   "isOptionRequired": true,
+  //   "chooseSelect"    : ""
+  // },
   {
     "type"   : "Checkbox",
     "options": [],
@@ -43,7 +43,7 @@ const inputModules = [
   },
   {
     "type"   : "Radio",
-    "options": ["Beginner", "Intermediate", "Advanced", "Jedi"],
+    "options": ["beginner", "intermediate", "advanced", "jedi"],
     "label" : "Difficulty Level",
     "tag"    : "level",
     "checked": ""

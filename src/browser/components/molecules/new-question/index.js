@@ -38,7 +38,7 @@ const inputModules = [
   },
   {
     "type"   : "Radio",
-    "options": ["Beginner", "Intermediate", "Advanced", "Jedi"],
+    "options": ["beginner", "intermediate", "advanced", "jedi"],
     "label" : "Difficulty Level",
     "tag"    : "level"
   },

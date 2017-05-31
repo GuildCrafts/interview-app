@@ -24,7 +24,6 @@ export default class Routes extends Component {
     .then(([user, topics, topicsWithQuestions]) => {
       this.setState(Object.assign(this.state, {user: user, topics: topics, topicsWithQuestions: topicsWithQuestions}))
     })
-    .then(()=>console.log('router state',this.state))
   }
 
   render() {
