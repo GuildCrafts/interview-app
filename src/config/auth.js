@@ -2,7 +2,7 @@ import { addUserToRequestFromJWT } from '@learnersguild/idm-jwt-auth/lib/middlew
 import { parseConfig, getEnv } from '../config/config'
 
 const initialize = app => {
-  if(getEnv() !== 'test') {
+  if(getEnv() !== 'test' && !process.env.DISABLE_IDM) {
     if ( !process.env.JWT_PUBLIC_KEY ) {
       throw new Error(`You do not have a JWT_PUBLIC_KEY in your .env. Please add it.`)
     }
@@ -14,10 +14,7 @@ const initialize = app => {
 }
 
 const fakeAuthForTesting = (req, res, next) => {
-  console.log('entered fakeAuthForTesting', getEnv());
-  if(getEnv() === 'test'){
-    req.user = {handle: 'fake-user'}
-  }
+  req.user = {handle: 'fake-user', name: 'Ghost',}
   next()
 }
 

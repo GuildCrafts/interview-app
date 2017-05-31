@@ -40,7 +40,7 @@ export default class GameOptions extends Component {
   }
 
   componentDidMount() {
-      Request.get('/api/questions/').then(questions => {
+      Request.get('/api/questions/approved').then(questions => {
         return questions
       })
       .then(questions => {
