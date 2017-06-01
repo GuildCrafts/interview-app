@@ -13,13 +13,13 @@ router.get('/', (request, response) => {
 
 router.get('/approved', (request, response) => {
   const {difficulty, topics} = request.query
-  questions.findApprovedQuestions()
+  questions.findByApproval( true )
     .then( questions => { response.json(questions) })
     .catch( err => console.log('err', err) )
 })
 
 router.get('/approval', (request, response) => {
-  questions.findAllQuestions()
+  questions.findByApproval( false )
   .then( questions => {
     response.send(questions)
   })
