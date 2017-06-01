@@ -10,7 +10,7 @@ export default class EditQuestion extends Component {
 
   // NEEDS WORK!
   submitQuestionEdits(formData) {
-    Request.put('/api/questions/approval' + "/" + formData.id, formData)
+    Request.put(`/api/questions/approval/${formData.id}`, formData)
   }
 
   render(){

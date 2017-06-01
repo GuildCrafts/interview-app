@@ -32,7 +32,7 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   return Promise.all([
     knex.schema.dropTable('hints'),
+    knex.schema.dropTable('questionTopics'),
     knex.schema.dropTable('topics'),
-    knex.schema.dropTable('questionTopics')
   ])
 };

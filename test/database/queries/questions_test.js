@@ -1,4 +1,5 @@
 import chai, { expect } from 'chai'
+import chaiAsPromised from 'chai-as-promised'
 import * as question from '../../../src/database/queries/questions'
 
 describe('Question Tests', () => {
@@ -40,20 +41,18 @@ describe('Question Tests', () => {
   describe.only('create a new question', () => {
     it('should create a new question', () => {
       return question.create( newQuestion[0] )
-        .then(createdQuestion => {
-          console.log("createdQuestion", createdQuestion)
-          return question.findbyID(createdQuestion.id)
-          .then (foundQuestion => {
-            console.log("foundQuestion", foundQuestion)
-            expect(foundQuestion.question).to.equal('What is the number that represents the meaning of life')
-            expect(foundQuestion.topics).to.eql(["core-javascript", "functional-programming"])
-            expect(foundQuestion.points).to.eql(1)
-        })
+      .then(createdQuestion => {
+        console.log("createdQuestion", createdQuestion)
+        // console.log("foundQuestion", foundQuestion)
+        // console.log("Game Mode:::",foundQuestion.game_mode)
+        expect(createdQuestion.question).to.equal('What is the number that represents the meaning of life')
+        expect(createdQuestion.points).to.eql(1)
+        expect(createdQuestion.game_mode).to.eql("Questions and Answers")
       })
     })
   })
 
-  describe.only('update by ID', () => {
+  describe('update by ID', () => {
     it('should update a question by the ID', () => {
       return question.create( newQuestion[2] )
       .then( () => {
