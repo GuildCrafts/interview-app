@@ -27,7 +27,6 @@ export default class Routes extends Component {
   }
 
   render() {
-    console.log('router state',this.state)
     const realProfileName = this.state.user.name
     const fakeProfile = {
       name: realProfileName,
