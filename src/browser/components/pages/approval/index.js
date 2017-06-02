@@ -77,7 +77,6 @@ export default class ApprovalPage extends Component {
     Request.get('/api/questions/approval').then(questions => {
       this.setState(Object.assign(this.state, {questions: questions}))
     })
-
   }
 
   onClickDelete(index){

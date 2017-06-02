@@ -22,8 +22,12 @@ export default class Menu extends Component {
                   <NewQuestion {...this.props} />
                 </li>
                 <li className="uk-nav-divider"></li>
-                <li><Link to="/profile">Profile</Link></li>
-                <li><Link to="/approval">Approve Questions</Link></li>
+                <li>
+                  <a href="/profile">Profile</a>
+                </li>
+                <li>
+                  <a href="/approval">Approve Questions</a>
+                </li>
               </ul>
             </li>
           </ul>
