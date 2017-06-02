@@ -12,7 +12,7 @@ exports.seed = function(knex, Promise) {
         id:1,
         question:'What is a closure',
         answer:'magic',
-        approval:false,
+        is_approved:false,
         level:'intermediate',
         points:4
       },
@@ -20,7 +20,7 @@ exports.seed = function(knex, Promise) {
         id:2,
         question:'What is state',
         answer:'holds data',
-        approval:true,
+        is_approved:true,
         level:'beginner',
         points:2
       }

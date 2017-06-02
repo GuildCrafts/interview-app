@@ -58,7 +58,7 @@ const inputModules = [
     "type"   : "Radio",
     "options": [true,false],
     "label" : "Approved",
-    "tag"    : "approval",
+    "tag"    : "is_approved",
     "checked": []
   },
 ]
@@ -68,7 +68,8 @@ export default class ApprovalPage extends Component {
   constructor(props) {
     super(props)
     this.inputModules = inputModules
-    this.inputModules[3].options = this.props.topics
+    Request.get('/api/topics/')
+    .then(topics => this.inputModules[2].options = topics)
     this.state = {questions: [], id: 0, filter: "All", triggerState: true, currentQuestion: null, inputModules: this.inputModules}
   }
 
@@ -76,12 +77,12 @@ export default class ApprovalPage extends Component {
     Request.get('/api/questions/approval').then(questions => {
       this.setState(Object.assign(this.state, {questions: questions}))
     })
-
   }
 
   onClickDelete(index){
     const deleteConfirm = confirm("Are you sure you want to delete this question?")
     if (deleteConfirm) {
+      console.log('delete question', question)
       let question = this.state.questions[index]
       let questArr = this.state.questions
       questArr.splice(this.refs[index], 1)
@@ -96,13 +97,6 @@ export default class ApprovalPage extends Component {
     this.setState({currentQuestion: this.state.questions[index]})
   }
 
-// NEEDS WORK!
-  submitQuestionEdits(formData) {
-    Request.put(`/api/questions/approval/${formData.id}`, formData).then(question => {
-      return question
-      })
-  }
-
   handleChange(property, event) {
     let targetValue = event.target.value
     if(targetValue === '') {
@@ -114,31 +108,24 @@ export default class ApprovalPage extends Component {
   renderQuestions(){
     return (
       this.state.questions.map((question, index) => {
-        let approvalState = this.state.filter
-        if(approvalState === question.approval || approvalState === 'All') {
-          return (
-            <div key={`question-${index}`}>
-              <div>
-                <button className="uk-button-small uk-button-danger" onClick={this.onClickDelete.bind(this, index)} ref={index} type="button" >Delete this question</button>
-                <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.setCurrentQuestion.bind(this, index)} data-uk-toggle="target: #edit-question-modal" >{question.question}</button>
-              </div>
+        return (
+          <div key={`question-${index}`}>
+            <div>
+              <button className="uk-button-small uk-button-danger" onClick={this.onClickDelete.bind(this, index)} ref={index} type="button" >Delete this question</button>
+              <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.setCurrentQuestion.bind(this, index)} data-uk-toggle="target: #edit-question-modal" >{question.question}</button>
             </div>
-          )
-        }
+          </div>
+        )
       })
     )
   }
 
   render() {
-    const filterArray = ['All', 'Approved', 'Pending']
     let content = this.renderQuestions()
     return (
       <div className="uk-container" >
         <Layout profile={this.props.profile} stats={this.props.stats}>
           Click to edit the following questions:
-          <br></br>
-          <FormSelect options={filterArray} label='Filter' onChange={this.handleChange.bind(this, 'filter')}/>
-          <br></br>
           {content}
           <EditQuestion inputModules={this.state.inputModules} initialValue={this.state.currentQuestion} />
         </Layout>

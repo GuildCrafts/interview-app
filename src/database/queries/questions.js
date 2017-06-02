@@ -5,18 +5,17 @@ const create = ( question ) => {
   return knex.transaction(function (trx){
     return knex('questions')
     .transacting(trx)
-    .insert({question  : question.question,
-              approval : false,
-              level    : question.level,
-              answer   : question.answer,
-              game_mode: question.game_mode,
-              points   : question.points}, 'id')
-    .returning('*')
-    .then( createdQuestion => {
+    .insert({ question    : question.question,
+              is_approved : false,
+              level       : question.level,
+              answer      : question.answer,
+              game_mode   : question.game_mode,
+              points      : question.points}, 'id')
+    .then( newQuestionID => {
       return knex('hints')
       .transacting(trx)
       .insert( (question.hints || []).map( hint => {
-        return { 'text': hint, 'question_id': createdQuestion.id}
+        return { 'text': hint, 'question_id': newQuestionID[0]}
       }))
       .then(() => {
         return knex.select('id')
@@ -29,20 +28,20 @@ const create = ( question ) => {
           return knex('questionTopics')
           .transacting(trx)
           .insert( topicIDs.map( topicID => {
-            return { 'topic_id': topicID.id,'question_id':createdQuestion.id}
+            return { 'topic_id': topicID.id,'question_id':newQuestionID[0]}
           }))
         })
         .then( () => {
-          return createdQuestion
+          return newQuestionID
         })
       })
     })
     .then(trx.commit)
     .catch(trx.rollback)
   })
-  .then(questions => {
-    console.log("Query Question", questions)
-    return questions[0]
+  .then(newQuestionID => {
+    return newQuestionID[0]
+    //returns only the new questions ID
   })
 }
 
@@ -77,7 +76,8 @@ const updatebyID = ( question ) => {
             level    : question.level,
             answer   : question.answer,
             game_mode: question.game_mode,
-            points   : question.points},
+            points   : question.points,
+            is_approved : question.is_approved},
         'id')
       })
       .then(() => {
@@ -108,7 +108,7 @@ const findbyID = ( data ) => {
   return knex
   .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics')
   .from('questions')
-  .whereIn( 'questions.id', data)
+  .where( 'questions.id', data)
   .innerJoin('questionTopics','questions.id','questionTopics.question_id')
   .innerJoin('topics','questionTopics.topic_id','topics.id')
   .innerJoin('hints','questions.id','hints.question_id').then( results => {
@@ -118,7 +118,7 @@ const findbyID = ( data ) => {
 
 const findAllQuestions = () => {
   return knex
-  .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics','approval')
+  .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics','is_approved')
   .from('questions')
   .leftJoin('questionTopics','questions.id','questionTopics.question_id')
   .leftJoin('topics','questionTopics.topic_id','topics.id')
@@ -128,11 +128,11 @@ const findAllQuestions = () => {
   })
 }
 
-const findApprovedQuestions = () => {
+const findByApproval = ( data ) => {
   return knex
-    .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics','approval')
+    .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics','is_approved')
     .from('questions')
-    .where('approval', true)
+    .where('is_approved', data)
     .leftJoin('questionTopics','questions.id','questionTopics.question_id')
     .leftJoin('topics','questionTopics.topic_id','topics.id')
     .leftJoin('hints','questions.id','hints.question_id')
@@ -143,7 +143,7 @@ const findApprovedQuestions = () => {
 
 const findbyTopic = ( topics ) => {
   return knex
-  .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','approval')
+  .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','is_approved','topics.name as topics')
   .from('topics')
   .whereIn( 'name', topics )
   .innerJoin('questionTopics','topics.id','questionTopics.topic_id')
@@ -152,7 +152,6 @@ const findbyTopic = ( topics ) => {
     return hintTopicMiddleWare(results)
   })
 }
-
 
 const findbyLevel = ( data ) => {
   return knex
@@ -166,15 +165,11 @@ const findbyLevel = ( data ) => {
   })
 }
 
-const getAllTopics = () => {
-  return knex
-  .select('topics.name as topics')
-  .from('topics')
-  .then( results => results.map(result => result.topics))
+const deletebyID = ( data ) => {
+  return knex('questions')
+  .where('id',data)
+  .del()
 }
-
-
-
 
 function hintTopicMiddleWare(array){
   var newObj = array.reduce(function(obj,question){
@@ -201,7 +196,7 @@ export {
   findbyID,
   findbyLevel,
   findAllQuestions,
-  getAllTopics,
   updatebyID,
-  findApprovedQuestions
+  findByApproval,
+  deletebyID
 }

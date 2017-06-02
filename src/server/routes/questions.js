@@ -13,13 +13,13 @@ router.get('/', (request, response) => {
 
 router.get('/approved', (request, response) => {
   const {difficulty, topics} = request.query
-  questions.findApprovedQuestions()
+  questions.findByApproval( true )
     .then( questions => { response.json(questions) })
     .catch( err => console.log('err', err) )
 })
 
 router.get('/approval', (request, response) => {
-  questions.findAllQuestions()
+  questions.findByApproval( false )
   .then( questions => {
     response.send(questions)
   })
@@ -27,7 +27,7 @@ router.get('/approval', (request, response) => {
 
 router.delete('/approval/:id', (request, response) => {
   const { id } = request.params
-  questions.deleteByID( id )
+  questions.deletebyID( id )
   .then( () => response.json( { 'message': 'deleted' } ) )
   .catch( err => console.log('err', err) )
 })

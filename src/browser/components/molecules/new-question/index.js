@@ -22,14 +22,14 @@ const inputModules = [
     "label"     : "Answer",
     "tag"        : "answer"
   },
-  {
-    "type"            : "Select",
-    "showPrompt"      : true,
-    "label"          : "Game Mode",
-    "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
-    "tag"             : "game_mode",
-    "isOptionRequired": true
-  },
+  // {
+  //   "type"            : "Select",
+  //   "showPrompt"      : true,
+  //   "label"          : "Game Mode",
+  //   "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
+  //   "tag"             : "game_mode",
+  //   "isOptionRequired": true
+  // },
   {
     "type"   : "Checkbox",
     "options": [],
@@ -63,7 +63,7 @@ export default class NewQuestion extends Component {
     Requests.get('/api/topics/')
     .then(response => {
       let currentState = this.state
-      currentState.form[3].options = response
+      currentState.form[2].options = response
       this.setState(currentState)
     })
   }
