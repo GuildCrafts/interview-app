@@ -44,7 +44,7 @@ describe('Question Tests', () => {
     expect(question).to.be.a('object')
   })
 
-  describe.only('create a new question', () => {
+  describe('create a new question', () => {
     it('should create a new question', () => {
       return question.create( sampleQuestions[0] )
       .then(createdQuestionID => {
@@ -58,7 +58,7 @@ describe('Question Tests', () => {
     })
   })
 
-  describe.only('update by ID', () => {
+  describe('update by ID', () => {
     it('should update a question by the ID', () => {
       return question.create( sampleQuestions[1] )
       .then(createdQuestionID => {
@@ -78,7 +78,7 @@ describe('Question Tests', () => {
     })
   })
 
-  describe.only('find by topic', () => {
+  describe('find by topic', () => {
     it('should find a question by the topic', () => {
       return Promise.all([question.create( sampleQuestions[1] ), question.create( sampleQuestions[0])])
       .then( () => {
@@ -97,7 +97,7 @@ describe('Question Tests', () => {
     })
   })
 
-  describe.only('find by Level', () => {
+  describe('find by Level', () => {
     it('should find a question by the level', () => {
       return Promise.all(sampleQuestions.map( sampleQuestion => {
         return question.create(sampleQuestion)
@@ -111,7 +111,7 @@ describe('Question Tests', () => {
     })
   })
 
-  describe.only('find by ID', () => {
+  describe('find by ID', () => {
     it('should find a question by the ID', () => {
       return question.create( sampleQuestions[1] )
       .then( (id) => {
@@ -123,36 +123,11 @@ describe('Question Tests', () => {
     })
   })
 
-  describe('update by Level', () => {
-    it('should update a question by the level', () => {
-      return question.create( newQuestion[2] )
-        .then( () => {
-          return question.updatebyLevel( '0', {level: '1000'} )
-          .then( question => {
-            expect(question[0].level).to.equal('1000')
-          })
-        })
-    })
-  })
-
-  describe('delete by Question', () => {
-    it('should delete a question', () => {
-      return question.create( newQuestion[0] )
-        .then( () => {
-          return question.deleteByQuestion( "What is the number that represents the meaning of life" )
-          .then( question => {
-            expect(question[0]).to.equal( undefined )
-          })
-        })
-    })
-  })
-
-
   describe('delete by ID', () => {
     it('should delete by ID', () => {
       return question.create( newQuestion[0] )
-        .then( () => {
-          return question.deleteByID( '1', "yes" )
+        .then( ( id ) => {
+          return question.deleteByID( id )
           .then( question => {
             expect(question[0]).to.equal( undefined )
           })

@@ -10,7 +10,7 @@ const all = () => {
 }
 
 const withQuestions = () => {
-  let approvedQuestionIds = knex('questions').where('approval', true).select('id')
+  let approvedQuestionIds = knex('questions').where('is_approved', true).select('id')
 
   return knex('topics')
   .distinct('name')

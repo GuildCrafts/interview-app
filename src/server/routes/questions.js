@@ -27,7 +27,7 @@ router.get('/approval', (request, response) => {
 
 router.delete('/approval/:id', (request, response) => {
   const { id } = request.params
-  questions.deleteByID( id )
+  questions.deletebyID( id )
   .then( () => response.json( { 'message': 'deleted' } ) )
   .catch( err => console.log('err', err) )
 })

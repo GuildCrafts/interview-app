@@ -153,7 +153,6 @@ const findbyTopic = ( topics ) => {
   })
 }
 
-
 const findbyLevel = ( data ) => {
   return knex
   .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics','is_approved')
@@ -166,15 +165,11 @@ const findbyLevel = ( data ) => {
   })
 }
 
-const getAllTopics = () => {
-  return knex
-  .select('topics.name as topics')
-  .from('topics')
-  .then( results => results.map(result => result.topics))
+const deletebyID = ( data ) => {
+  return knex('questions')
+  .where('id',data)
+  .del()
 }
-
-
-
 
 function hintTopicMiddleWare(array){
   var newObj = array.reduce(function(obj,question){
@@ -201,7 +196,7 @@ export {
   findbyID,
   findbyLevel,
   findAllQuestions,
-  getAllTopics,
   updatebyID,
-  findByApproval
+  findByApproval,
+  deletebyID
 }

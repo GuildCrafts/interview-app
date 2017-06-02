@@ -26,14 +26,14 @@ const inputModules = [
     "tag"        : "answer",
     "value"      : ""
   },
-  {
-    "type"            : "Select",
-    "label"          : "Game Mode",
-    "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
-    "tag"             : "game_mode",
-    "isOptionRequired": true,
-    "chooseSelect"    : ""
-  },
+  // {
+  //   "type"            : "Select",
+  //   "label"          : "Game Mode",
+  //   "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
+  //   "tag"             : "game_mode",
+  //   "isOptionRequired": true,
+  //   "chooseSelect"    : ""
+  // },
   {
     "type"   : "Checkbox",
     "options": [],
@@ -68,7 +68,8 @@ export default class ApprovalPage extends Component {
   constructor(props) {
     super(props)
     this.inputModules = inputModules
-    this.inputModules[2].options = this.props.topics
+    Request.get('/api/topics/')
+    .then(topics => this.inputModules[2].options = topics)
     this.state = {questions: [], id: 0, filter: "All", triggerState: true, currentQuestion: null, inputModules: this.inputModules}
   }
 
@@ -82,6 +83,7 @@ export default class ApprovalPage extends Component {
   onClickDelete(index){
     const deleteConfirm = confirm("Are you sure you want to delete this question?")
     if (deleteConfirm) {
+      console.log('delete question', question)
       let question = this.state.questions[index]
       let questArr = this.state.questions
       questArr.splice(this.refs[index], 1)
