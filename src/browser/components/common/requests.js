@@ -13,7 +13,6 @@ const post = (url, body) => {
  const get = (url) => {
    return fetch(url, {
      method:'GET',
-     headers: {'Content-Type': 'application/json'},
      mode: 'cors',
      credentials: 'same-origin'
    }).then(result => {
@@ -22,9 +21,12 @@ const post = (url, body) => {
  }
 
 const put = (url, body) => {
+  let headers = new Headers()
+  headers.append('Content-Type', 'application/JSON')
   return fetch(url, {
     method: 'PUT',
     mode: 'cors',
+    headers: headers,
     body: JSON.stringify(body),
     credentials: 'same-origin'
   })

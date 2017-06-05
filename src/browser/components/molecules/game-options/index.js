@@ -20,14 +20,14 @@ const inputModules = [
     "tag"     : "topic",
     "isOptionRequired": true
   }
-  // ,
-  // {
-  //   "type"    : "Select",
-  //   "label"  : "Game Mode",
-  //   "options" : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
-  //   "tag"     : "game_mode",
-  //   "isOptionRequired": true
-  // }
+  ,
+  {
+    "type"    : "Select",
+    "label"  : "Game Mode",
+    "options" : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
+    "tag"     : "game_mode",
+    "isOptionRequired": true
+  }
 ]
 
 export default class GameOptions extends Component {

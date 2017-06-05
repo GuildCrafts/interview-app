@@ -18,12 +18,16 @@ export default class Menu extends Component {
               <a href="/">Start New Interview</a>
               <ul className="uk-nav-sub">
                 <li>
-                  <button className="uk-button uk-button-default uk-margin-small-right" type="button" data-uk-toggle="target: #modal-example">Create Question</button>
+                  <button className="uk-button uk-button-default uk-margin-small-right" type="button" data-uk-toggle="target: #new-question-modal">Create Question</button>
                   <NewQuestion {...this.props} />
                 </li>
                 <li className="uk-nav-divider"></li>
-                <li><Link to="/profile">Profile</Link></li>
-                <li><Link to="/approval">Approve Questions</Link></li>
+                <li>
+                  <a href="/profile">Profile</a>
+                </li>
+                <li>
+                  <a href="/approval">Approve Questions</a>
+                </li>
               </ul>
             </li>
           </ul>

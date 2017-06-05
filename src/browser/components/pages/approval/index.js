@@ -5,6 +5,7 @@ import flex from 'react-uikit-flex'
 import FormSelect from '../../atoms/form-select/index'
 import Request from '../../common/requests'
 import Form from '../../molecules/form/index'
+import EditQuestion from '../../molecules/edit-question/index'
 import Layout from '../layout/index'
 
 require('../../../../../public/stylesheets/uikit.min.css')
@@ -25,14 +26,14 @@ const inputModules = [
     "tag"        : "answer",
     "value"      : ""
   },
-  {
-    "type"            : "Select",
-    "label"          : "Game Mode",
-    "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
-    "tag"             : "game_mode",
-    "isOptionRequired": true,
-    "chooseSelect"    : ""
-  },
+  // {
+  //   "type"            : "Select",
+  //   "label"          : "Game Mode",
+  //   "options"         : ['Questions & Answers', 'White Boarding', 'Debugging', 'Coding Challenge'],
+  //   "tag"             : "game_mode",
+  //   "isOptionRequired": true,
+  //   "chooseSelect"    : ""
+  // },
   {
     "type"   : "Checkbox",
     "options": [],
@@ -42,7 +43,7 @@ const inputModules = [
   },
   {
     "type"   : "Radio",
-    "options": ["Beginner", "Intermediate", "Advanced", "Jedi"],
+    "options": ["beginner", "intermediate", "advanced", "jedi"],
     "label" : "Difficulty Level",
     "tag"    : "level",
     "checked": ""
@@ -52,16 +53,28 @@ const inputModules = [
     "label"          : "Hints",
     "tag"             : "hints",
     "placeholder"     : "Write a helpfull hint"
-  }
+  },
+  {
+    "type"   : "Radio",
+    "options": [true,false],
+    "label" : "Approved",
+    "tag"    : "is_approved",
+    "checked": []
+  },
 ]
 
 
 export default class ApprovalPage extends Component {
   constructor(props) {
     super(props)
+<<<<<<< HEAD
     this.state = {questions: [], id: 0, triggerState: true, currentQuestion: null}
+=======
+>>>>>>> master
     this.inputModules = inputModules
-    this.inputModules[3].options = this.props.topics
+    Request.get('/api/topics/')
+    .then(topics => this.inputModules[2].options = topics)
+    this.state = {questions: [], id: 0, filter: "All", triggerState: true, currentQuestion: null, inputModules: this.inputModules}
   }
 
   componentDidMount(){
@@ -73,10 +86,12 @@ export default class ApprovalPage extends Component {
   onClickDelete(index){
     const deleteConfirm = confirm("Are you sure you want to delete this question?")
     if (deleteConfirm) {
+      console.log('delete question', question)
+      let question = this.state.questions[index]
       let questArr = this.state.questions
       questArr.splice(this.refs[index], 1)
       this.setState({questions: questArr})
-      Request.deleteQuestion('/api/questions/approval/:id').then(question => {
+      Request.deleteQuestion(`/api/questions/approval/${question.id}`).then(question => {
         return question
       })
     }
@@ -86,9 +101,18 @@ export default class ApprovalPage extends Component {
     this.setState({currentQuestion: this.state.questions[index]})
   }
 
+<<<<<<< HEAD
 // NEEDS WORK!
   submitQuestionEdits(formData) {
     Request.put('/api/questions/approval' + "/" + formData.id, formData)
+=======
+  handleChange(property, event) {
+    let targetValue = event.target.value
+    if(targetValue === '') {
+      targetValue = 'All'
+    }
+    this.setState({[property]: targetValue});
+>>>>>>> master
   }
 
   renderQuestions(){
@@ -98,7 +122,7 @@ export default class ApprovalPage extends Component {
           <div key={`question-${index}`}>
             <div>
               <button className="uk-button-small uk-button-danger" onClick={this.onClickDelete.bind(this, index)} ref={index} type="button" >Delete this question</button>
-              <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.setCurrentQuestion.bind(this, index)} >{question.question}</button>
+              <button ref={index} className="uk-button uk-button-default uk-margin-small-right" type="button" onClick={this.setCurrentQuestion.bind(this, index)} data-uk-toggle="target: #edit-question-modal" >{question.question}</button>
             </div>
           </div>
         )
@@ -111,16 +135,9 @@ export default class ApprovalPage extends Component {
     return (
       <div className="uk-container" >
         <Layout profile={this.props.profile} stats={this.props.stats}>
-            <div className="uk-grid-match uk-child-width-1-2 uk-padding" data-uk-grid>
-              <div className="uk-card uk-card-default uk-card-body">
-                Click to edit the following questions:
-                {content}
-              </div>
-              <br></br>
-              <div className="uk-card uk-card-default uk-card-body">
-                <Form inputModules={this.inputModules} onSubmit={this.submitQuestionEdits} initialValue={this.state.currentQuestion} />
-              </div>
-            </div>
+          Click to edit the following questions:
+          {content}
+          <EditQuestion inputModules={this.state.inputModules} initialValue={this.state.currentQuestion} />
         </Layout>
       </div>
     )

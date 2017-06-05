@@ -21,9 +21,4 @@ describe('<Landing />', () => {
     const wrapper = shallow(<Landing profile={{}} stats={{}} location={{}} />)
     expect(wrapper.contains(<Landing />)).to.equal.true
   })
-  // it('should parse a query string if it exists', () => {
-  //   const wrapper = shallow(<Landing profile={{}} stats={{}} location={kwery} />)
-  //   console.log('location prop ::', wrapper.props('location'))
-  //   // expect(wrapper.prop('location')).
-  // })
 })
