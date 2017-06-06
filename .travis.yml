@@ -4,6 +4,7 @@ env:
   - DATABASE_URL=postgres://localhost:5432/interviewdb-test
   - PGHOST=localhost
   - PGPORT=5432
+dist: trusty
 services:
   - postgresql
 node_js:
