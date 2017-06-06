@@ -1,4 +1,5 @@
 # Interview App
+[![Build Status](https://travis-ci.org/GuildCrafts/interview-app.svg?branch=master)](https://travis-ci.org/GuildCrafts/interview-app)
 
 ### Context
 Practicing mock interviews helps the Candidate develop skills for answering technical question during the interview process while lowering testing anxiety. It also helps the Interviewer gain perspective on desired qualities in candidates.
