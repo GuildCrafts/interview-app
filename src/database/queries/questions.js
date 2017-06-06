@@ -128,19 +128,12 @@ const findAllQuestions = () => {
   })
 }
 
-<<<<<<< HEAD
+
 const findbyApproval = (is_approved) => {
-=======
-const findByApproval = ( data ) => {
->>>>>>> master
   return knex
     .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics','is_approved')
     .from('questions')
-<<<<<<< HEAD
     .where('is_approved', is_approved)
-=======
-    .where('is_approved', data)
->>>>>>> master
     .leftJoin('questionTopics','questions.id','questionTopics.question_id')
     .leftJoin('topics','questionTopics.topic_id','topics.id')
     .leftJoin('hints','questions.id','hints.question_id')
@@ -204,12 +197,7 @@ export {
   findbyID,
   findbyLevel,
   findAllQuestions,
-<<<<<<< HEAD
-  findbyApproval,
-  getAllTopics
-=======
   updatebyID,
-  findByApproval,
+  findbyApproval,
   deletebyID
->>>>>>> master
 }

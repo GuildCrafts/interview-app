@@ -67,10 +67,6 @@ const inputModules = [
 export default class ApprovalPage extends Component {
   constructor(props) {
     super(props)
-<<<<<<< HEAD
-    this.state = {questions: [], id: 0, triggerState: true, currentQuestion: null}
-=======
->>>>>>> master
     this.inputModules = inputModules
     Request.get('/api/topics/')
     .then(topics => this.inputModules[2].options = topics)
@@ -101,18 +97,13 @@ export default class ApprovalPage extends Component {
     this.setState({currentQuestion: this.state.questions[index]})
   }
 
-<<<<<<< HEAD
-// NEEDS WORK!
-  submitQuestionEdits(formData) {
-    Request.put('/api/questions/approval' + "/" + formData.id, formData)
-=======
   handleChange(property, event) {
     let targetValue = event.target.value
     if(targetValue === '') {
       targetValue = 'All'
     }
     this.setState({[property]: targetValue});
->>>>>>> master
+
   }
 
   renderQuestions(){
