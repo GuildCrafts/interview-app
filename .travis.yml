@@ -5,6 +5,8 @@ node_js:
   - "7"
 services:
   - postgresql
-script: ./go test
 addons:
   postgresql: "9.6"
+script: ./go test
+before_script:
+  - psql -U postgres
