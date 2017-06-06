@@ -13,5 +13,5 @@ addons:
   postgresql: "9.6"
 before_script:
   - sudo /etc/init.d/postgresql restart
-  - psql -U postgres -c 'create database interviewdb-test'
+  - psql -U postgres -c 'create database interviewdb_test'
 script: ./go test
