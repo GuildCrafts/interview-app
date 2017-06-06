@@ -1,7 +1,7 @@
 # https://docs.travis-ci.com/user/languages/javascript-with-nodejs/
 language: node_js
 env:
-  - DATABASE_URL=postgres://localhost:5432/interviewdb-test
+  - DATABASE_URL=postgres://localhost:5432/interviewdb_test
   - PGHOST=localhost
   - PGPORT=5432
 dist: trusty
@@ -13,7 +13,6 @@ node_js:
 addons:
   postgresql: "9.6"
 before_script:
-  - psql --version
   - sudo /etc/init.d/postgresql restart
-  - psql -U postgres -c 'create database "interviewdb-test"'
+  - psql -U postgres -c 'create database "interviewdb_test"'
 script: ./go test
