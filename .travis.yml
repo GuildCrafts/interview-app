@@ -7,6 +7,6 @@ services:
   - postgresql
 addons:
   postgresql: "9.6"
-script: ./go test
 before_script:
   - psql -U postgres
+script: ./go test
