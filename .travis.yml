@@ -13,6 +13,7 @@ node_js:
 addons:
   postgresql: "9.6"
 before_script:
+  - psql --version
   - sudo /etc/init.d/postgresql restart
   - psql -U postgres -c 'create database "interviewdb-test"'
 script: ./go test
