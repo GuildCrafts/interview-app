@@ -1,10 +1,17 @@
 # https://docs.travis-ci.com/user/languages/javascript-with-nodejs/
 language: node_js
+env:
+  - DATABASE_URL=postgres://localhost:5432/interviewdb-test
+  - PGHOST=localhost
+  - PGPORT=5432
+services:
+  - postgresql
 node_js:
   - "iojs"
   - "7"
 addons:
   postgresql: "9.6"
 before_script:
-  - psql -U postgres
+  - sudo /etc/init.d/postgresql restart
+  - psql -U postgres -c 'create database interviewdb-test'
 script: ./go test
