@@ -9,7 +9,7 @@ const create = ( question ) => {
               is_approved : false,
               level       : question.level,
               answer      : question.answer,
-              game_mode   : question.game_mode,
+              // game_mode   : question.game_mode,
               points      : question.points}, 'id')
     .then( newQuestionID => {
       return knex('hints')
@@ -22,7 +22,7 @@ const create = ( question ) => {
         .from('topics')
         .whereIn('name',question.topics)
         .then( topicIDs => {
-          if(topicIDs.length != question.topics.length){
+          if(topicIDs.length === 0 ){
             return Promise.reject(new Error('topic not found'))
           }
           return knex('questionTopics')
@@ -46,6 +46,7 @@ const create = ( question ) => {
 }
 
 const updatebyID = ( question ) => {
+  console.log( 'question:', question )
   return knex.transaction(function(trx) {
       return knex.select('id')
       .from('questionTopics')
@@ -75,7 +76,7 @@ const updatebyID = ( question ) => {
             question : question.question,
             level    : question.level,
             answer   : question.answer,
-            game_mode: question.game_mode,
+            // game_mode: question.game_mode,
             points   : question.points,
             is_approved : question.is_approved},
         'id')
@@ -105,13 +106,16 @@ const updatebyID = ( question ) => {
 }
 
 const findbyID = ( data ) => {
+  console.log('hello i am data', data);
   return knex
   .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics')
   .from('questions')
   .where( 'questions.id', data)
   .innerJoin('questionTopics','questions.id','questionTopics.question_id')
   .innerJoin('topics','questionTopics.topic_id','topics.id')
-  .innerJoin('hints','questions.id','hints.question_id').then( results => {
+  .leftJoin('hints','questions.id','hints.question_id')
+   .then( results => {
+    console.log('findbyID results::', results);
     return hintTopicMiddleWare(results)[0]
   })
 }
@@ -183,7 +187,11 @@ function hintTopicMiddleWare(array){
     }else{
       obj[question.id] = question
       question.topics = [question.topics]
-      question.hints = [question.hints]
+      if(question.hints === null) {
+        question.hints = []
+      } else {
+        question.hints = [question.hints]
+      }
     }
     return obj
   },{})

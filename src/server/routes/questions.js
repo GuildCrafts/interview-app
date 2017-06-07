@@ -41,7 +41,9 @@ router.post('/', (request, response) => {
   }
   //TODO need to findOrCreate Topics if they don't exist;
   questions.create( attributes )
-  .then( (question) => response.json( question ) )
+  .then( (questionId) => {
+    response.json( questionId )
+  })
   .catch( err => response.status(400).json({error: 'Could not create the question.', errorMsg: err.message, params: attributes}) )
 })
 
@@ -54,9 +56,9 @@ router.put('/approval/:id', (request, response) => {
 
 router.get('/:id', (request, response) => {
   const { id } = request.params
-  const attributes = request.body
-  questions.findbyID( id, attributes )
-  .then( question => response.json( question ) )
+  questions.findbyID( parseInt(id) )
+  .then( question => {
+    return response.json( question )} )
   .catch( err => console.log('err', err) )
 })
 

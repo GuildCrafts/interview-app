@@ -7,7 +7,7 @@ import fs from 'fs'
 let should = chai.should()
 chai.use(chaiHttp)
 
-describe('api/users', () => {
+describe.skip('api/users', () => {
   it('Should return JSON when visiting the route /current_user', (done) => {
     chai.request(app)
       .get('/api/users/current_user')
