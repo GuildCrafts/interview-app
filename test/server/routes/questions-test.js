@@ -51,7 +51,6 @@ describe.only('api/questions', () => {
     })
     //update the question
     .then(newQuestion => {
-      console.log( 'newQuestion:', newQuestion.body )
       return chai.request(app)
       .put('/api/questions/approval/' + newQuestion.body.id)
       .send({ id: newQuestion.body.id,
@@ -63,62 +62,41 @@ describe.only('api/questions', () => {
         points: 1,
         topics: [ 'core-javascript' ]
       })
-      return result
-    //   .then((editedQuestion) => {
-    //     // .get('/api/questions/' + newQuestion.body.id )
-    //     console.log( 'newQuestionID:::', newQuestionID )
-    //
-    //     // response.body.should.eql({ id: newQuestion.body.id,
-    //     //   question: 'Who is Murphy?',
-    //     //   answer: 'your mom',
-    //     //   level: 'jedi',
-    //     //   hints: [],
-    //     //   game_mode: null,
-    //     //   points: 1,
-    //     //   topics: [ 'core-javascript' ]
-    //     // })
-    //   done()
-    // })
-    // read the question
-    // .then((updatedQuestionRes) => {
-    //   console.log( 'updatedQuestionRes:', updatedQuestionRes.body )
-    //   let updatedQuestionId = updatedQuestionRes.body.id
-    //   return chai.request(app)
-    //   .get('/api/questions/' + updatedQuestionId )
-    //   .then((response) => {
-    //     response.body.should.eql({ id: updatedQuestionId,
-    //       question: 'Who is Murphy?',
-    //       answer: 'your mom',
-    //       level: 'jedi',
-    //       hints: [],
-    //       game_mode: null,
-    //       points: 1,
-    //       topics: [ 'core-javascript' ]
-    //     })
-    //   done()
-    //   })
+    })
+    .then((editedQuestion) => {
+      return chai.request(app)
+      .get('/api/questions/' + editedQuestion.body.id )
+      .then((response) => {
+        response.body.should.eql({ id: editedQuestion.body.id,
+          question: 'Who is Murphy?',
+          answer: 'your mom',
+          level: 'jedi',
+          hints: [],
+          game_mode: null,
+          points: 1,
+          topics: [ 'core-javascript' ]
+        })
+        return response
+      })
+    })
+
+    // delete the question
+    .then(updatedQuestion => {
+      return chai.request(app)
+      .delete('/api/questions/approval/' + updatedQuestion.body.id)
+    })
+    .then(deletedQuestionRes => {
+      deletedQuestionRes.body.should.eql({ 'message': 'deleted', 'id': deletedQuestionRes.body.id })
+      return chai.request(app)
+      .get('/api/questions/' + deletedQuestionRes.body.id)
+    })
+    .then (findDeletedQuestionRes => {
+      findDeletedQuestionRes.body.should.eql('')
+      done()
     })
     .catch(err => {
       console.log( 'err:', err )
       done(err)
     })
-    // .get('/api/questions/' + newQuestion.body.id )
-    .then((result) => {console.log("results>>>", result.body)})
-    // //delete the question
-    // .then(updatedQuestion => {
-    //   return chai.request(app)
-    //   .delete('/api/questions/' + updatedQuestion.id)
-    //   //read the question
-    //   .then(deletedQuestionRes => {
-    //     deletedQuestionRes.body.should.eql({ 'message': 'deleted' })
-    //     return chai.request(app)
-    //     .get('/api/questions/' + updatedQuestion.id)
-    //   })
-    //   .then (findDeletedQuestionRes => {
-    //     findDeletedQuestionRes.body.should.eql('')
-    //     done()
-    //   })
-    // })
-    // .catch( err => console.log('err', err))
   })
 })

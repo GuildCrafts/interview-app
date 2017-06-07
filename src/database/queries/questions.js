@@ -46,7 +46,6 @@ const create = ( question ) => {
 }
 
 const updatebyID = ( question ) => {
-  console.log( 'question:', question )
   return knex.transaction(function(trx) {
       return knex.select('id')
       .from('questionTopics')
@@ -103,10 +102,13 @@ const updatebyID = ( question ) => {
       .then(trx.commit)
       .catch(trx.rollback)
   })
+  .then(function(resp) {
+    return question
+  })
+  .catch(err => {err})
 }
 
 const findbyID = ( data ) => {
-  console.log('hello i am data', data);
   return knex
   .select('questions.id','question','answer','level','hints.text as hints','game_mode','points','topics.name as topics')
   .from('questions')
@@ -115,7 +117,6 @@ const findbyID = ( data ) => {
   .innerJoin('topics','questionTopics.topic_id','topics.id')
   .leftJoin('hints','questions.id','hints.question_id')
    .then( results => {
-    console.log('findbyID results::', results);
     return hintTopicMiddleWare(results)[0]
   })
 }
