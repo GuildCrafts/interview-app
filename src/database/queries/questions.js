@@ -177,6 +177,7 @@ const deletebyID = ( data ) => {
 }
 
 function hintTopicMiddleWare(array){
+  console.log( 'array:', array )
   var newObj = array.reduce(function(obj,question){
     if(obj[question.id]){
       if(!obj[question.id].topics.includes(question.topics)){

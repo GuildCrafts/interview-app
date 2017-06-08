@@ -9,7 +9,6 @@ describe('Question Tests', () => {
     return knex.raw('truncate table ' + 'questions' + ' cascade')
   })
 
-
   const sampleQuestions = [
     {
       question: "What is the number that represents the meaning of life",
