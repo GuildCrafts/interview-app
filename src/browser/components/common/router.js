@@ -16,13 +16,20 @@ export default class Routes extends Component {
     super(props)
     this.state = {user: {},
                   topics: [],
-                  topicsWithQuestions: []}
+                  topicsWithQuestions: [],
+                  message: ''
+                }
   }
 
   componentDidMount() {
     Promise.all([Requests.get('/api/users/current_user'), Requests.get('/api/topics/'), Requests.get('/api/topics/with-questions')])
-    .then(([user, topics, topicsWithQuestions]) => {
-      this.setState(Object.assign(this.state, {user: user, topics: topics, topicsWithQuestions: topicsWithQuestions}))
+    .then(([user, topicsResponse, topicsWithQuestionsResponse]) => {
+      let currentState = this.state
+      console.log('topicsResponse :::',topicsResponse)
+      // console.log('topicsWithQuestionsResponse :::',topicsWithQuestionsResponse )
+      console.log('topicsResponse :::',topicsResponse)
+      this.setState(Object.assign(currentState, {user: user, topics: topicsResponse.topics, topicsWithQuestions: topicsWithQuestionsResponse, message: topicsResponse.message}))
+      console.log('this.state',currentState)
     })
   }
 
