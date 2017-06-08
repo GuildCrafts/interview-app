@@ -2,11 +2,17 @@ import chai, { expect } from 'chai'
 import * as topic from '../../../src/server/routes/topics'
 import app from '../../../app.js'
 import chaiHttp from 'chai-http'
+import knex from '../../../src/database/db.js'
 
 let should = chai.should()
 chai.use(chaiHttp)
 
-describe.only('api/topics', () => {
+describe('api/topics', () => {
+
+  beforeEach(() => {
+    return knex.raw('truncate table ' + 'questions' + ' cascade')
+  })
+
   it('Should respond with a status code of 200 and get all the topics', (done) => {
     chai.request(app)
     .get('/api/topics/')
@@ -42,7 +48,7 @@ describe.only('api/topics', () => {
       .send({ id: newQuestion.body.id,
         question: 'Who is Murphy?',
         answer: 'your mom',
-        level: 'jedi',
+        level: 'beginner',
         hints: [],
         game_mode: null,
         points: 1,
