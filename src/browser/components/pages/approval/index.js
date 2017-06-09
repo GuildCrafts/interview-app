@@ -103,6 +103,7 @@ export default class ApprovalPage extends Component {
       targetValue = 'All'
     }
     this.setState({[property]: targetValue});
+
   }
 
   renderQuestions(){
