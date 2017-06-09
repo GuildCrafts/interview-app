@@ -16,7 +16,9 @@ export default class Routes extends Component {
     super(props)
     this.state = {user: {},
                   topics: [],
-                  topicsWithQuestions: []}
+                  topicsWithQuestions: [],
+                  message: ''
+                }
   }
 
   componentDidMount() {

@@ -5,11 +5,12 @@ import app from '../../../app.js'
 import chaiHttp from 'chai-http'
 import knex from '../../../src/database/db.js'
 
+
 let should = chai.should()
 chai.use(chaiHttp)
 
 describe('api/questions', () => {
-
+  
   beforeEach(() => {
     return knex.raw('truncate table ' + 'questions' + '  cascade')
   })
@@ -177,5 +178,4 @@ describe('api/questions', () => {
       })
     })
   })
-
 })

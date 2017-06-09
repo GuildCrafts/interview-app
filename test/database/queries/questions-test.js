@@ -63,6 +63,7 @@ describe('Question Tests', () => {
     }
   ]
 
+
   it('Should be type object', () => {
     expect(question).to.be.a('object')
   })
@@ -76,6 +77,7 @@ describe('Question Tests', () => {
           expect(newQuestion.question).to.equal('What is the number that represents the meaning of life')
           expect(newQuestion.points).to.eql(1)
           //expect(newQuestion.game_mode).to.eql("Questions and Answers")
+
         })
       })
     })
@@ -157,7 +159,7 @@ describe('Question Tests', () => {
         })
     })
   })
-
+  
   describe('hintTopicMiddleWare', () => {
     it('should convert hints and topics into arrays', () => {
       const hintsAndTopics = question.hintTopicMiddleWare(sampleArray)
@@ -166,5 +168,4 @@ describe('Question Tests', () => {
       expect(hintsAndTopics).to.have.length(2)
     })
   })
-
 })

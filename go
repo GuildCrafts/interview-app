@@ -11,7 +11,7 @@
 
   function reset_db {
     env=${1:-test}
-    dbname=interviewdb-${env}
+    dbname=interviewdb_${env}
     dropdb ${dbname}
     createdb ${dbname}
     migrate_db $env
