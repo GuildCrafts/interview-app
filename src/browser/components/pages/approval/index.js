@@ -69,7 +69,7 @@ export default class ApprovalPage extends Component {
     super(props)
     this.inputModules = inputModules
     Request.get('/api/topics/')
-    .then(topics => this.inputModules[2].options = topics)
+    .then(topics => this.inputModules[2].options = topics.topics)
     this.state = {questions: [], id: 0, filter: "All", triggerState: true, currentQuestion: null, inputModules: this.inputModules}
   }
 

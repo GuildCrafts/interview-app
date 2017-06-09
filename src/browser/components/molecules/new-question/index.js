@@ -63,7 +63,7 @@ export default class NewQuestion extends Component {
     Requests.get('/api/topics/')
     .then(response => {
       let currentState = this.state
-      currentState.form[2].options = response
+      currentState.form[2].options = response.topics
       this.setState(currentState)
     })
   }

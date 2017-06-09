@@ -14,7 +14,7 @@ router.get('/', (request, response) => {
 
 router.get('/with-questions', (request, response) => {
   topics.withQuestions()
-    .then(results => response.json({ message: 'Successfully got back topics', topics: results }))
+    .then(results => response.json({ message: 'Successfully got back topics with questions', topics: results }))
     .catch( err => {
       console.log('err', err)
       response.json( { error: err.message } )
