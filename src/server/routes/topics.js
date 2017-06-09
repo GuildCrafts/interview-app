@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get('/', (request, response) => {
   topics.all()
-  .then(results => response.json(results))
+  .then(results => response.json({message: "Retrieved all topics", topics: results}))
   .catch( err => console.log('err', err) )
 })
 
