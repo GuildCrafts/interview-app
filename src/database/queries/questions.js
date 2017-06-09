@@ -176,8 +176,8 @@ const deletebyID = ( data ) => {
   .del()
 }
 
-function hintTopicMiddleWare(array){
-  console.log( 'array:', array )
+// function hintTopicMiddleWare(array){
+const hintTopicMiddleWare = (array) => {
   var newObj = array.reduce(function(obj,question){
     if(obj[question.id]){
       if(!obj[question.id].topics.includes(question.topics)){
@@ -208,5 +208,6 @@ export {
   findAllQuestions,
   updatebyID,
   findByApproval,
-  deletebyID
+  deletebyID,
+  hintTopicMiddleWare
 }

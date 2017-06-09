@@ -1,7 +1,9 @@
 import chai, { expect } from 'chai'
 import * as user from '../../../src/database/queries/users'
+import knex from '../../../src/database/db.js'
 
 describe('User Tests', () => {
+
   const newUser = [
     {
       name: "Dongle McDongleface",
@@ -27,9 +29,10 @@ describe('User Tests', () => {
 describe('create', () => {
 
   it('Should create data in the users table', () => {
-    return user.create(newUser[0]).then( user => {
-      expect(user[0].name).to.equal('Dongle McDongleface')
-      expect(user[0].approver).to.equal(true)
+    return user.create(newUser[0])
+    .then( user => {
+      expect(user.name).to.equal('Dongle McDongleface')
+      expect(user.approver).to.equal(true)
     })
   })
 })
@@ -41,7 +44,7 @@ describe('FindbyGithub', () => {
     .then ( () => {
       return user.findbyGithub('@bakes4soda')
       .then( user => {
-          expect(user[0].name).to.equal('Armand Hammer')
+          expect(user.name).to.equal('Armand Hammer')
         })
       })
     })
@@ -87,17 +90,16 @@ describe('FindbyGithub', () => {
     })
 
     describe('DeletebyGithub', () => {
-
-        it('Should delete the table by github handle after a new user is created', () => {
+      it('Should delete the table by github handle after a new user is created', () => {
           return user.create(newUser[2])
           .then ( () => {
             return user.deletebyGithub('@ihop4pancakes')
             .then( user => {
                 expect(user[0]).to.equal( undefined )
-              })
             })
           })
         })
+    })
 
     describe('DeletebyName', () => {
 

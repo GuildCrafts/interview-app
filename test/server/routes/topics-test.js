@@ -14,14 +14,14 @@ describe('api/topics', () => {
   })
 
   it('Should respond with a status code of 200 and get all the topics', (done) => {
-    chai.request(app)
+   chai.request(app)
     .get('/api/topics/')
-      .then((res) => {
-        res.should.have.status(200)
-        res.body.should.be.a('array')
-        res.body.should.eql(['core-javascript', 'functional-programming'])
-        done();
-      })
+    .then((res) => {
+      expect(res.status).to.eql(200)
+      expect(res.body.topics).to.be.an('array')
+      expect(res.body.topics).to.eql(['core-javascript', 'functional-programming'])
+      done()
+    })
   })
 
   it('Should get all topics with an approved question associated', (done) => {
@@ -60,9 +60,9 @@ describe('api/topics', () => {
       return chai.request(app)
       .get('/api/topics/with-questions')
       .then((res) => {
-        res.should.have.status(200)
-        res.body.should.be.a('array')
-        res.body.should.eql(['core-javascript'])
+        expect(res.status).to.eql(200)
+        expect(res.body.topics).to.be.an('array')
+        expect(res.body.topics).to.eql(['core-javascript'])
         done()
       })
     })

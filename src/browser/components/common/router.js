@@ -11,8 +11,8 @@ import ApprovalPage from '../pages/approval/index'
 import Profile from '../pages/profile/index'
 import Requests from './requests'
 
+constructor(props) {
 export default class Routes extends Component {
-  constructor(props) {
     super(props)
     this.state = {user: {},
                   topics: [],
@@ -23,12 +23,6 @@ export default class Routes extends Component {
     Promise.all([Requests.get('/api/users/current_user'), Requests.get('/api/topics/'), Requests.get('/api/topics/with-questions')])
     .then(([user, topicsResponse, topicsWithQuestionsResponse]) => {
       this.setState(Object.assign(this.state, { user: user, topics: topicsResponse.topics, topicsWithQuestions: topicsWithQuestionsResponse.topics }))
-      console.log( 'this.state.topics:', this.state.topics )
-      console.log( 'this.state.topicsWithQuestions:', this.state.topicsWithQuestions )
-      console.log( 'this.state:', this.state )
-    })
-    .then(result => {
-      console.log( 'result:', result )
     })
   }
 

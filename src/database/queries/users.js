@@ -14,7 +14,7 @@ const findbyName = ( data ) =>
   .then(user => user)
 
 const updatebyGithub = ( data, attributes ) =>
-  utilities.update('users', 'github_handle', data.github_handle, attributes)
+  utilities.update('users', 'github_handle', data, attributes)
   .then(users => users)
 
 const updatebyName = ( data, attributes ) =>

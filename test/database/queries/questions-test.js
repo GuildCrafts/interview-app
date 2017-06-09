@@ -1,5 +1,4 @@
 import chai, { expect } from 'chai'
-import chaiAsPromised from 'chai-as-promised'
 import * as question from '../../../src/database/queries/questions'
 import knex from '../../../src/database/db.js'
 
@@ -36,6 +35,31 @@ describe('Question Tests', () => {
       game_mode: "Questions and Answers",
       hints: ["Sort"],
       points: 5
+    }
+  ]
+
+  const sampleArray = [
+    {
+      id: 2,
+      question: 'What is state',
+      answer: 'holds data',
+      level: 'beginner',
+      hints: 'var',
+      game_mode: null,
+      points: 2,
+      topics: 'functional-programming',
+      is_approved: false
+    },
+    {
+      id: 5,
+      question: 'What is a function',
+      answer: 'stuff',
+      level: 'beginner',
+      hints: null,
+      game_mode: null,
+      points: null,
+      topics: 'core-javascript',
+      is_approved: true
     }
   ]
 
@@ -124,13 +148,22 @@ describe('Question Tests', () => {
 
   describe('delete by ID', () => {
     it('should delete by ID', () => {
-      return question.create( newQuestion[0] )
+      return question.create( sampleQuestions[2] )
         .then( ( id ) => {
-          return question.deleteByID( id )
+          return question.deletebyID( id )
           .then( question => {
             expect(question[0]).to.equal( undefined )
           })
         })
+    })
+  })
+
+  describe('hintTopicMiddleWare', () => {
+    it('should convert hints and topics into arrays', () => {
+      const hintsAndTopics = question.hintTopicMiddleWare(sampleArray)
+      expect(hintsAndTopics[0].hints).to.be.an('array')
+      expect(hintsAndTopics[0].topics).to.be.an('array')
+      expect(hintsAndTopics).to.have.length(2)
     })
   })
 
